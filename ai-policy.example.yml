@@ -1,0 +1,122 @@
+# ai-policy.yml: a project's machine-readable stance on generative-AI
+# contributions. Place at the repository root (or .well-known/ai-policy.yml);
+# point AGENTS.md / CONTRIBUTING.md at it, and (if you publish publiccode.yml)
+# reference it there via externalMetadata: [{type: ai-policy, url: ...}].
+#
+# Guiding principle: this is a SIGNAL that boundaries exist and their broad
+# shape, not an exhaustive rule engine. The authoritative detail lives in the
+# human-readable policy `statement` points at; `exceptions: true` flags where
+# the structured stance is a simplification. Every field is optional except a
+# minimal declaration of `summary` + a default stance.
+
+version: 1
+
+# Quick contribution-stance filter, for catalogs / badges.
+# permissive | mixed | restrictive | disallowed
+summary: mixed
+
+# The human-readable policy contributors actually read, and the actionable
+# guard-rail checklist (repo-relative paths or absolute URLs).
+statement: AI_POLICY.md
+guardrailsRef: CONTRIBUTING.md#ai-checklist
+
+# Maturity of the policy itself. adopted | draft | under-discussion
+status: adopted
+
+# `true` = the structured stance below is a summary; material carve-outs live
+# in `statement`. Read the prose rather than treating the structure as complete.
+exceptions: true
+
+# Why the project holds this stance: a motivation signal for aggregation (the
+# prose rationale stays in `statement`).
+# code-quality | security | ip-provenance | licensing-ethics | data-consent |
+#   labor-ethics | skill-preservation | environmental | oss-sustainability
+concerns: [licensing-ethics, environmental, oss-sustainability]
+
+# Defaults apply to any content-type scope not overridden in assertions[].
+defaults:
+  stance: assisted              # disallowed | assisted | generated
+  disclosure: required          # none | encouraged | required | structured
+  humanReview: required         # none | required
+  # Machine-checkable gates a contribution must clear.
+  # tests-pass | new-tests-required | ci-green | type-check |
+  #   no-generated-in-security-paths | provenance-attested |
+  #   prompt-logs-retained | no-sensitive-data-to-3p
+  requirements: [tests-pass, new-tests-required, no-sensitive-data-to-3p]
+
+# Per-scope overrides. A scope present here overrides `defaults` for that scope
+# only; omitted fields inherit; omitted scopes fall back to `defaults`.
+# scope vocabulary: code | docs | tests | comments | issue-descriptions |
+#   pull-request-descriptions | commit-messages | translations | media |
+#   security-reports
+assertions:
+  - scope: docs
+    stance: generated
+  - scope: comments             # human-authored communication
+    stance: disallowed
+    notes: Write in your own words; don't paste raw model output.
+  - scope: media
+    stance: disallowed
+  - scope: security-reports
+    humanReview: required
+    requirements: [no-generated-in-security-paths, tests-pass]
+    notes: Vulnerability reports must be independently verified by a human.
+
+# Explicitly permitted AI uses whose output is NOT submitted as a contribution
+# (or where the tool is assistive), so a restrictive stance doesn't read as
+# blanket hostility.
+# research | bug-triage | debugging | code-review-assist | accessibility |
+#   spelling-grammar | translation
+allowedUses: [research, debugging, accessibility]
+
+# Reserve newcomer / "good first issue" tickets for human authorship, to
+# preserve the learning opportunity. The project's issue labels stay the
+# human-facing marker; this is the machine-readable signal.
+newcomerIssuesHumanOnly: true
+
+# Autonomous agents are a separate axis from `stance`.
+autonomousAgents:
+  allowed: false
+  # How agent contributions must identify themselves (relevant wherever agents
+  # may act, including via actorExceptions below).
+  attestation:
+    # bot-account | signed-commits | integration-manifest
+    identity: [bot-account, signed-commits]
+    account: "app/example-ai-bot"
+
+# Actors governed differently: a declared signal, not a resolution layer;
+# detail lives in notes/statement. The concrete, machine-actionable carve-out
+# is agent autonomy.
+actorExceptions:
+  - actor: maintainers
+    autonomousAgentsAllowed: true
+    notes: Maintainers may use AI/agents at their own discretion; see statement.
+
+# How disclosure is formatted, when required.
+disclosureFormat:
+  method: commit-trailer        # free-text | commit-trailer | pr-template | quote-block
+  # One trailer, or several keyed by degree of AI involvement.
+  trailers:
+    assisted: "Assisted-by:"
+    generated: "Generated-by:"
+
+# How the policy is enforced (declared intent only).
+enforcement:
+  mechanism: [maintainer-review]   # maintainer-review | ci-check | denylist | none
+
+# Human accountability sign-off the project requires; an LLM/agent may never
+# provide it. none | dco | cla
+signoff: dco
+
+# The AI used to BUILD the project (contribution provenance), NOT AI the
+# shipped product runs at runtime, which is an ordinary runtime dependency.
+models:
+  policy:
+    # Minimum acceptable model openness, by OSAID / Model Openness Framework
+    # component. Omit a component, or use `any`, for no floor.
+    openness:
+      weights: available          # available | any
+      trainingData: disclosed     # permissive | disclosed | any  (IP-cleanliness)
+    notes: >
+      Any AI coding tool is permitted, but avoid models known to reproduce
+      non-permissively-licensed code verbatim.

@@ -1,0 +1,175 @@
+# JSON Schema (draft 2020-12) for ai-policy.yml, authored in YAML for
+# readability. Validates the machine-readable AI-contribution policy format;
+# convert to JSON for tooling that requires it. Field semantics: see README.md
+# and the commented ai-policy.example.yml.
+#
+# The stance field-set (`stance`/`disclosure`/`humanReview`/`requirements`) is
+# defined once, in $defs.stanceOverride, and shared by `defaults` and each
+# `assertions[]` entry, the "same fields" structural guarantee. `assertions[]`
+# extends it with `scope`/`notes` and uses `unevaluatedProperties: false` so the
+# shared fields plus the local extensions all validate strictly.
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://example.org/ai-policy.schema.json"   # placeholder until a home is chosen
+title: ai-policy
+description: A project's machine-readable stance on generative-AI contributions.
+type: object
+unevaluatedProperties: false
+required: [summary]
+
+properties:
+  version:
+    description: The ai-policy format version.
+    type: integer
+    minimum: 1
+  summary:
+    description: Quick contribution-stance filter.
+    enum: [permissive, mixed, restrictive, disallowed]
+  statement:
+    description: Pointer to the human-readable policy (repo-relative path or URL).
+    type: string
+  guardrailsRef:
+    description: Pointer to the actionable guard-rail checklist (path or URL).
+    type: string
+  status:
+    enum: [adopted, draft, under-discussion]
+  exceptions:
+    description: The structured stance is a summary; carve-outs live in `statement`.
+    type: boolean
+  concerns:
+    description: Why the project holds this stance (motivation signal).
+    type: array
+    uniqueItems: true
+    items:
+      enum: [code-quality, security, ip-provenance, licensing-ethics,
+             data-consent, labor-ethics, skill-preservation, environmental,
+             oss-sustainability]
+
+  defaults:
+    description: Base stance for any scope not overridden in assertions[].
+    allOf: [{ $ref: "#/$defs/stanceOverride" }]
+    unevaluatedProperties: false
+
+  assertions:
+    description: Per-scope overrides of `defaults`.
+    type: array
+    items:
+      allOf: [{ $ref: "#/$defs/stanceOverride" }]
+      required: [scope]
+      properties:
+        scope: { $ref: "#/$defs/scope" }
+        notes: { type: string }
+      unevaluatedProperties: false
+
+  allowedUses:
+    description: AI uses explicitly permitted (output not submitted as a contribution).
+    type: array
+    uniqueItems: true
+    items:
+      enum: [research, bug-triage, debugging, code-review-assist, accessibility,
+             spelling-grammar, translation]
+
+  newcomerIssuesHumanOnly:
+    description: Reserve newcomer / "good first issue" tickets for human authorship.
+    type: boolean
+
+  autonomousAgents:
+    type: object
+    unevaluatedProperties: false
+    properties:
+      allowed: { type: boolean }
+      attestation:
+        type: object
+        unevaluatedProperties: false
+        properties:
+          identity:
+            type: array
+            uniqueItems: true
+            items:
+              enum: [bot-account, signed-commits, integration-manifest]
+          account: { type: string }
+
+  actorExceptions:
+    description: Actors governed differently (a declared signal, not a resolution layer).
+    type: array
+    items:
+      type: object
+      unevaluatedProperties: false
+      required: [actor]
+      properties:
+        actor: { type: string }
+        autonomousAgentsAllowed: { type: boolean }
+        notes: { type: string }
+
+  disclosureFormat:
+    type: object
+    unevaluatedProperties: false
+    properties:
+      method:
+        enum: [free-text, commit-trailer, pr-template, quote-block]
+      trailer:
+        description: A single trailer string (alternative to `trailers`).
+        type: string
+      trailers:
+        description: Trailers keyed by degree of AI involvement (e.g. assisted, generated).
+        type: object
+        additionalProperties: { type: string }
+
+  enforcement:
+    type: object
+    unevaluatedProperties: false
+    properties:
+      mechanism:
+        type: array
+        uniqueItems: true
+        items:
+          enum: [maintainer-review, ci-check, denylist, none]
+      consequence: { type: string }
+
+  signoff:
+    description: Human accountability sign-off; an LLM/agent may never provide it.
+    enum: [none, dco, cla]
+
+  models:
+    description: The AI used in DEVELOPMENT (contribution provenance), not runtime deps.
+    type: object
+    unevaluatedProperties: false
+    properties:
+      policy:
+        type: object
+        unevaluatedProperties: false
+        properties:
+          openness:
+            description: Minimum acceptable openness, by Model Openness Framework component.
+            type: object
+            unevaluatedProperties: false
+            properties:
+              weights: { enum: [available, any] }
+              trainingCode: { enum: [available, any] }
+              trainingData: { enum: [permissive, disclosed, any] }
+          notes: { type: string }
+
+$defs:
+  # The stance field-set shared by `defaults` and each `assertions[]` entry.
+  stanceOverride:
+    type: object
+    properties:
+      stance:
+        enum: [disallowed, assisted, generated]
+      disclosure:
+        enum: [none, encouraged, required, structured]
+      humanReview:
+        enum: [none, required]
+      requirements:
+        type: array
+        uniqueItems: true
+        items: { $ref: "#/$defs/requirement" }
+
+  scope:
+    enum: [code, docs, tests, comments, issue-descriptions,
+           pull-request-descriptions, commit-messages, translations, media,
+           security-reports]
+
+  requirement:
+    enum: [tests-pass, new-tests-required, ci-green, type-check,
+           no-generated-in-security-paths, provenance-attested,
+           prompt-logs-retained, no-sensitive-data-to-3p]
