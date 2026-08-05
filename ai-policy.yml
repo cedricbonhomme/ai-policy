@@ -1,0 +1,22 @@
+# This repository's own AI-contribution policy.
+# The format it uses is the proposal alongside this file (README + example + schema).
+version: 1
+
+summary: permissive
+
+# The authoritative human-readable policy. It carries the non-coercion and
+# non-discrimination clause, which has no dedicated field yet (the open
+# "Contributor opt-out / non-discrimination" question), so `exceptions: true`
+# flags that the prose says more than the structured fields below.
+statement: AI_POLICY.md
+exceptions: true
+
+status: adopted
+
+defaults:
+  stance: generated       # AI-generated contributions are allowed
+  disclosure: encouraged  # note AI involvement, but it is not gated on
+  humanReview: required   # a human reviews and owns every change
+
+# No sign-off ceremony (no DCO or CLA).
+signoff: none
