@@ -111,7 +111,9 @@ Field-level:
 - **`requirements` altitude:** should it list only genuinely AI-specific gates and leave universal ones (tests, CI) to the general contribution process?
 - **Structuring the guard-rail prose:** should the `guardrailsRef` checklist be structured, not just pointed at?
 - **Attestation placement:** should `attestation` be expressible per-scope (stricter identity in security paths)?
-- **Autonomous-agent middle state:** should `autonomousAgents.allowed` gain an `allowed-with-prior-discussion` state?
+- **Autonomous-agent middle state:** should `autonomousAgents.allowed` gain an `allowed-with-prior-discussion` state? Now required by adopted policy rather than hypothetical — Debian's carried General Resolution gates bulk changes on prior discussion, and Rust gates LLM-created pull requests on a reviewer agreeing in advance. Rust's gate is on the *human* contribution path, so the state may belong outside `autonomousAgents` and cover both.
+- **Disclosure by forge label:** should `disclosureFormat.method` gain a `label` value? Rust marks merged LLM-created pull requests `llm-assisted`. Unlike a trailer or a PR template it is applied by the reviewer at merge, which makes it a measurement instrument as much as a disclosure.
+- **Volume thresholds:** should an operative, countable rate limit be expressible? Significance thresholds are deliberately left to prose because no two projects draw them alike, but Rust's circuit-breaker (halt LLM-created merges above half of merged pull requests over six weeks) is mechanical rather than a judgement call.
 - **Contributor opt-out / non-discrimination:** should the format declare that contributors may not be *coerced* into using AI, and won't be shamed for opting in or out?
 - **`allowedUses` conditions:** should each permitted use carry a condition (e.g. research/debugging only where output isn't contributed)?
 - **`newcomerIssuesHumanOnly`:** worth a dedicated field, or too narrow (better left to `statement`)?
