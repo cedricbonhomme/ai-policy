@@ -1,6 +1,6 @@
 # `ai-policy`: coverage against real policies
 
-How well does the [`ai-policy` format](./README.md) capture real open-source AI-contribution policies? This tests it against the policies curated by the [CHAOSS AI-alignment working group](https://github.com/chaoss/wg-ai-alignment/tree/main/moderation) (the primary source list), plus a few beyond it (Debian's GR). It is the **evidence base for the proposal**: if the format can express the real spread of policies, its shape is validated.
+How well does the [`ai-policy` format](./README.md) capture real open-source AI-contribution policies? This tests it against the policies curated by the [CHAOSS AI-alignment working group](https://github.com/chaoss/wg-ai-alignment/tree/main/moderation) (the primary source list), plus a few beyond it. It is the **evidence base for the proposal**: if the format can express the real spread of policies, its shape is validated. A second question — whether those policies cover the ground they should — is scored separately in [Specificity](#specificity-against-the-chaoss-domain-taxonomy) against the working group's own domain taxonomy.
 
 ## Add a policy (PRs welcome)
 
@@ -12,6 +12,8 @@ This survey is open: **contribute a policy by pull request.** Point at a real, p
 4. Add its URL to the **Sources** table.
 
 The most valuable contribution is a policy the format **can't** capture: that points at a missing dimension or an open question; record it in the cross-cutting findings so it can feed the design.
+
+**Where to find candidates.** Two curated lists are far broader than what is scored here and are the pool to draw from. The [CHAOSS AI-alignment moderation list](https://github.com/chaoss/wg-ai-alignment/tree/main/moderation) is this survey's primary source and tracks live discussions alongside adopted policies. [`melissawm/open-source-ai-contribution-policies`](https://github.com/melissawm/open-source-ai-contribution-policies) is larger by an order of magnitude — several hundred projects — and classifies each along four axes (AI allowed, disclosure required, copyright statement present, human-in-the-loop required) that are a useful independent check on this format's field set: a policy that list can classify but this format cannot express is precisely the contribution worth making.
 
 ## What "captures" means here
 
@@ -70,6 +72,9 @@ Every mapping below assumes `statement` points at the human policy and (where no
 | OpenInfra Foundation | accept-with-conditions | Good/Full | stance=generated, `humanReview`, `signoff: dco`, `disclosureFormat: commit-trailer` (**two-tier: `Assisted-By:` / `Generated-By:`**), `models.policy` (recommend open-source + licence-compatible), `actorExceptions` (release/i18n bots) | two disclosure tiers by degree (`disclosureFormat.trailers`); `Generated-By:` from ASF (convergence) |
 | W3C Advisory Board | position statement (not operative) | n/a | n/a | opportunities/risks + guardrails; not an operative contribution policy → `statement`-only |
 | Haiku OS | reject (all) | Good | summary=disallowed, stance=disallowed, `guardrailsRef: AGENTS.md` | policy lives in **`AGENTS.md`**, validates the agent-facing pointer |
+| Debian | neutral ("responsible use") | Good | summary=mixed, `disclosure: encouraged`, `humanReview`, `signoff: dco`, `requirements: [no-sensitive-data-to-3p]`; existing licence process applies unchanged | bulk/automated changes gated on *prior discussion* → the **Autonomous-agent middle state** question, still no field |
+| Rust (`rust-lang/rust`) | accept-with-conditions (time-boxed experiment) | Partial | stance=generated, `humanReview`, `disclosure: required`, `assertions[docs, comments, issue-descriptions, pull-request-descriptions]=disallowed`, `allowedUses[research, debugging, code-review-assist, translation, spelling-grammar]`, `autonomousAgents.allowed=false`, `requirements[new-tests-required, no-generated-in-security-paths]`, `enforcement: [maintainer-review]` | **reviewer must agree *before* the PR is opened** — no field; **forge label** (`llm-assisted`) as the disclosure method — not a `disclosureFormat` value; **volume circuit-breaker** — not expressible; per-team applicability → prose |
+| Codeberg | reject (platform hosting) | Partial | summary=disallowed, `concerns[ip-provenance, security, environmental, oss-sustainability]`, `enforcement: [maintainer-review]` | **platform-level, not contribution-level**: governs what may be *hosted* and binds the forge itself not to train on hosted code. Neither is a contributor rule `ai-policy` models — see [Specificity](#specificity-against-the-chaoss-domain-taxonomy) |
 
 ## Per-policy notes
 
@@ -199,6 +204,51 @@ A **position statement** on LLMs in standards work (opportunities like brainstor
 ### Haiku OS: Good (settled via AGENTS.md)
 Listed in CHAOSS as a Gerrit review, but it **merged**: `AGENTS.md` now states "AI-generated contributions are forbidden." A terse, absolute ban → `summary/stance: disallowed`. Notable: the policy lives in **`AGENTS.md`**, validating `ai-policy`'s `guardrailsRef` / agent-facing pointer.
 
+### Debian: Good (GR carried; the corpus's widest single deliberation)
+
+The richest stress-test in the corpus: one project weighing the full spectrum at once on a Condorcet ballot, settled 30 Aug 2026. Every drafted option maps onto the schema; the value is in what they collectively surface, and the losing options are as informative as the winner because each is a real, drafted policy text the format has to be able to carry.
+
+**[Choice 5, "Responsible Use of Generative AI", carried](https://www.debian.org/vote/2026/vote_002)** — it was alone in the Schwartz set. Debian neither endorses nor prohibits generative AI: the same quality and licensing standards apply regardless of tooling, contributors are fully responsible for and must understand what they submit, disclosure is encouraged but not required, confidential or sensitive project data must not go to third-party services, and large-scale automated changes need prior discussion. Maps to `summary: mixed`, `disclosure: encouraged`, `humanReview`, `signoff: dco`, `requirements: [no-sensitive-data-to-3p]`, with licence compliance staying in the general contribution process.
+
+| Ballot choice | Stance | Maps via |
+|---|---|---|
+| 1: No LLM contributions, via the Social Contract | disallowed | `summary/stance: disallowed`, `autonomousAgents.allowed: false`, `concerns` (licensing, quality, labor, environmental); upstream / AI-software excluded → applicability prose |
+| 2: Allow AI-assisted contributions with conditions | generated | `disclosure: encouraged` ("strongly recommended"), `disclosureFormat.trailers` (`Generated-By:`/`Assisted-By:`), DFSG tool-terms + third-party-copyright check → `models.policy` + AI-specific `requirements`, `humanReview` + `signoff`; bulk changes need prior discussion (→ middle-state question); `requirements: [no-sensitive-data-to-3p]` |
+| 3: Reject LLMs as far as practical, update the CoC | restrictive | **messages to humans must be human-drafted** → `assertions[comments, issue-descriptions, …]=disallowed`; `disclosure: required`; maintainer bans → `actorExceptions`; violations = CoC → `enforcement` |
+| 4: Accept AI contributions for Debian-specific work | generated | `disclosure: required` in commit/changelog, but tab-completion may go unmarked → `assisted` vs `generated`; DFSG → `models.policy`; personal sign/upload → `signoff`; `no-sensitive-data-to-3p`; Debian-scope-only → applicability |
+| **5: Responsible use of generative AI — carried** | assisted/generated | `summary: mixed` + `statement`; `disclosure: encouraged`; `no-sensitive-data-to-3p`; mass actions need discussion; existing standards apply |
+| 6: A cautious approach to generative AI | ~restrictive | "prefer human authorship" (soft discouragement) → `summary` + `statement`; `disclosure: encouraged`; maintainer rejection → `actorExceptions` |
+| 7: Debian is created by humans | assisted | output may not be contributed *directly*, but assistive use (explore, research, analyze, critique) is fine → `stance: assisted` + `allowedUses`; broad surface (packaging, BTS, Salsa, lists, infrastructure, web, docs, official communications), upstream excluded → applicability prose; rationale is reviewer-burden transfer, the "extractive contribution" concern |
+| 8: Avoid LLMs — climate destruction is a deal breaker | *no operative rule* | Explicitly non-binding: a stated position that contributors should avoid LLMs where practical, conceding detection and enforcement are impractical. `concerns: [environmental]` carries it and nothing else does — the purest instance in the corpus of a concern that shapes a decision without becoming a rule |
+
+**Three dimensions it brings out:**
+
+1. **"No sensitive data to third-party / untrusted AI services"**; an operative data-handling rule in Choices 2, 4, 5 and 6 (and Oxide): don't leak embargoed / credential / private project data to hosted models, distinct from the stance. Maps to `requirements: [no-sensitive-data-to-3p]`, and it is now *adopted* rather than proposed.
+2. **Autonomous / bulk changes gated on *prior discussion*** (Choices 2 and 5, modeled on Debian's mass-bug-filing): not banned, but process-gated. `autonomousAgents.allowed` is a boolean with no such middle state → the open **Autonomous-agent middle state** question, which the carried option now makes a requirement rather than a hypothetical.
+3. **Environmental concern reached the ballot as its own option and lost.** Choice 8 put climate impact forward as the deciding consideration and was itself drafted as a non-binding preference; the neutral option carried. That is the rationale-versus-rule gap at its sharpest, in the largest deliberation available — see [Specificity](#specificity-against-the-chaoss-domain-taxonomy).
+
+Validations: the disclosure gradient (voluntary → recommended → required) collapses cleanly onto `none | encouraged | required`; degree-keyed trailers (Choice 2); human-only communication → `assertions` (Choice 3); DCO-style personal sign-off (Choice 4) → `signoff`; the AI-specific licence check (DFSG tool-terms, verify third-party copyright) → the output-licence-in-scope reading. The nuance the `stance` enum cannot express is "prefer human authorship" (Choices 3, 6, 8), a *preference* short of a rule, which falls to `summary` + `statement`.
+
+### Rust: Partial (three dimensions the format cannot reach)
+
+Adopted 6 Aug 2026 for [`rust-lang/rust`](https://forge.rust-lang.org/policies/llm-usage.html), and deliberately narrow: it binds only the teams that ratified it (compiler, libs, types, rustdoc, bootstrap and their subteams), not other repositories, submodules, or the wider project. The organising line is "fine to use LLMs to answer questions, analyze, distill, refine, check, suggest, review — but not to **create**", which is `stance: assisted` as a default with a carved-out, disclosed exception for generated code. Private use is unrestricted; generating a solution privately and then writing it from scratch is explicitly fine. LLM-created code is admitted as a *time-boxed experiment*: non-critical, high-quality, well-tested, well-reviewed changes, with disclosure. Public documentation, doc-comments, safety comments, compiler diagnostics and user-facing text are prohibited outright, as are LLM-written issue bodies and PR descriptions from a personal account; machine translation, trivial changes and bug discovery are conditionally allowed with disclosure. LLM review bots must run under separate, blockable accounts and their comments are advisory only — never sufficient to merge.
+
+Most of that maps cleanly. Three things do not, and they are the most valuable findings in the corpus since Debian:
+
+- **Reviewer pre-agreement.** A reviewer must agree to review the change *before the pull request is opened*; new contributors must discuss it with their assigned reviewer first. This is a consent gate on the *human* contribution path, adjacent to but distinct from the autonomous-agent middle state (which gates *agent* actions on prior discussion). One generalised `prior-arrangement` state would serve both.
+- **A forge label as the disclosure method.** Merged LLM-created PRs carry an `llm-assisted` label. `disclosureFormat.method` knows commit trailers and PR templates; a label is a third, forge-native mechanism, and unlike the other two it is applied by the *reviewer at merge* rather than by the contributor at submission — so it doubles as the project's own measurement instrument.
+- **A volume circuit-breaker.** If LLM-created changes exceed half of merged PRs over a six-week window, further LLM-created merges halt until the rate falls back. This is a *proportionality threshold relative to project throughput* — an operative rule keyed to volume rather than to content, which the format has no way to express and which the survey has not seen before.
+
+Also notable: enforcement is explicitly **not** detection. Contributors are asked to be honest, deliberate misrepresentation is a Code of Conduct matter, and members are told *not* to investigate whether others used an LLM — the clearest statement in the corpus of the design assumption behind `attestation` (declared identity is the tractable lever, detection is not).
+
+### Codeberg: Partial (a platform policy, not a contribution policy)
+
+The one **forge** in the corpus, and it sits at a different layer from everything else here. Two motions carried by member vote on 22 Jul 2026. The first binds the platform: "The Codeberg forge and its associated services are not and will not use the code or data of projects and users to train 'Artificial Intelligence' tools such as Large Language Models." The second added [Terms of Use §2(1)7](https://codeberg.org/Codeberg/org/src/branch/main/TermsOfUse.md): "You must not share projects that mostly consist of code written by 'generative AI'-tools (including services such as *Claude*, *OpenAI Codex*)", reaching projects created by autonomous agents, projects maintained with heavy LLM use, and projects consuming resources disproportionate to their human users. Established communities with significant pre-LLM history, small low-resource experiments, and individual AI-assisted contributions inside a human-maintained codebase are all exempt. Enforcement is case-by-case moderation with no automated content analysis and no mass deletion.
+
+`ai-policy` reaches the stance and the concerns, and nothing more — because **the operative rules are not addressed to contributors.** One governs what the platform may be used to *host*; the other is a commitment the platform makes about *itself*. `ai-policy` models a project's rules for people contributing to it, so a hosting restriction lands the way Flathub's app-content policy did (recorded, not scored), and a self-binding data commitment has nowhere to go at all.
+
+That layer mismatch is the finding, not a defect in either document, and it generalises well beyond Codeberg — see [Specificity](#specificity-against-the-chaoss-domain-taxonomy). Codeberg's stated rationale is also the most concrete infrastructure argument on record: SSD prices rising from €700 to €3,700 amid hardware scarcity, with LLM-generated "ghost projects" consuming storage and database capacity out of all proportion to their human users, against donation funding.
+
 ## Cross-cutting findings
 
 Across every settled policy analyzed, the schema captures the **tier and major boundaries** at the signal level; none was un-representable. What recurs:
@@ -222,7 +272,10 @@ Across every settled policy analyzed, the schema captures the **tier and major b
 - **Named tool allow/deny lists**: QEMU bans specific products by name; ASF and the Linux Foundation *deliberately refuse* to keep approved lists. The schema has only openness-based `models.policy`, no tool-name list; an open candidate, though the ASF/LF refusal suggests *not* standardizing it may be correct.
 - **Output-licence: only the AI-specific part is in scope**: generic licence compatibility (a contribution must match the project's licence) applies to *all* contributions and stays in the general contribution process, out of `ai-policy`. What is AI-specific is the risk that a model reproduces incompatibly-licensed *training data*, or that a tool's terms restrict its output; captured by `models.policy` (require permissive/disclosed training data) and by checks some policies mandate: ASF and OpenInfra ask contributors to enable tool features that flag or block output matching public code (a candidate `requirements` gate). Godot's "AI-generated code may carry copyright: check the licence" is that AI-specific check; a blanket "must be MIT-compatible" is generic and belongs elsewhere.
 - **Contributor autonomy is real and bidirectional**: Oxide bans both AI *mandates* and AI *shaming*; SFC bans coercion. The **Contributor opt-out / non-discrimination** question weighs a `contributorAutonomy` declaration.
-- **Autonomous / bulk changes gated on prior discussion**: Debian (B, E), modeled on mass-bug-filing, treats automated/bulk changes as *allowed-with-coordination*, not banned; `autonomousAgents.allowed` (a boolean) lacks this middle state → the **Autonomous-agent middle state** question.
+- **Prior arrangement is a recurring gate, and it is not only about agents**: Debian's carried option treats bulk/automated changes as *allowed-with-coordination* rather than banned (modeled on mass-bug-filing), and Rust requires a reviewer to agree *before* an LLM-created pull request is opened. `autonomousAgents.allowed` is a boolean with no middle state, and nothing at all covers the human path → the **Autonomous-agent middle state** question, which both policies now make a live requirement rather than a hypothetical, and which should probably generalise to a `prior-arrangement` state covering both.
+- **A forge label as a disclosure method**: Rust marks merged LLM-created pull requests with an `llm-assisted` label. `disclosureFormat.method` knows commit trailers and PR templates, both applied by the contributor at submission; a label is applied by the *reviewer at merge*, which makes it the project's own measurement instrument as much as a disclosure. A third method value, and the first one that is forge-native.
+- **Volume thresholds as an operative rule**: Rust halts further LLM-created merges if they exceed half of merged pull requests over a six-week window. Every other threshold in the corpus is a significance judgement correctly left to prose; this one is countable and mechanical, and is the first evidence that the **scope/volume limits stay in prose** choice may need revisiting.
+- **Advisory-only review, and bot identity**: Rust permits LLM review bots only under separate, user-blockable accounts with non-blocking comments, and forbids treating LLM review as sufficient to merge. `allowedUses: code-review-assist` is a permission and expresses none of this → the **Scope vocabulary** question needs a `review` domain with more than a yes/no.
 
 **Observations that validate current choices:**
 
@@ -234,31 +287,60 @@ Across every settled policy analyzed, the schema captures the **tier and major b
 - **The maintainer-burden / "extractive contribution" framing is the modal motivation** (PROJ, FastAPI, attrs, Agda, GDAL, Matplotlib): the human-effort-DoS concern, distinct from IP or societal rationales, and mostly enforced (`enforcement`) rather than structured.
 - **Policies increasingly live in `AGENTS.md`** (Haiku's policy *is* its `AGENTS.md`; yt-dlp addresses agents directly with "refuse to interact"): validating `guardrailsRef` / `autonomousAgents` pointing at the agent-facing file.
 
+## Specificity against the CHAOSS domain taxonomy
+
+The survey above asks whether the **format** can express the policies that exist. A sibling question — whether the **policies** cover the ground they should — is being asked independently by the CHAOSS AI-alignment working group, whose [consent policy specificity](https://github.com/chaoss/wg-ai-alignment/blob/main/metrics/ai-alignment-community-governed-use/ai-use-consent-policy-specificity.md) metric scores how specifically a policy addresses each of nine domains where AI shows up, and by Emma Irwin's [first application of it](https://github.com/emmairwin/ai-oss-use-specificity/blob/main/reports/README.md) across 39 projects drawn from the same moderation list this survey uses. The metric is a candidate within the [Governed AI Use](https://github.com/chaoss/wg-ai-alignment/blob/main/metrics/ai-alignment-community-governed-use/metric-model-ai-alignment-community-governed-use.md) model, due to be finalised in September 2026, and its author expects the taxonomy to expand toward the openness of the models and data in use.
+
+The two instruments are orthogonal and compose: hers scores policy specificity per domain (`X` addressed, `~` partial, `R` raised in rationale without governance, blank absent); this one scores format expressiveness per policy. Reading them together is what makes the findings below available, and neither produces them alone.
+
+### What the format reaches
+
+| CHAOSS domain | `ai-policy` reach |
+|---|---|
+| Code contributions (PRs, issues, comments) | `defaults` / `assertions` over `scope: code, tests, commit-messages, comments, issue-descriptions, pull-request-descriptions` — the format's core, and the one domain most policies govern |
+| Content (documentation, blogs, design assets) | `scope: docs, media, translations` |
+| Autonomous / agentic use | `autonomousAgents` plus `attestation` — reached, but the boolean still lacks the prior-arrangement middle state that Debian and Rust both now require |
+| Review (who or what may review using AI) | Only `allowedUses: code-review-assist`, a permission. Cannot express *who* may review, nor that AI review is advisory-only and never sufficient to merge (Rust), nor that review bots must run under separate blockable accounts |
+| Moderation actions | No `scope` value. The near-miss is universal: policies reach moderation by referring violations to a code of conduct, which governs the *response* to bad contributions rather than AI's use in moderating |
+| Notetaker / meeting bots | No `scope` value, and no policy in either survey governs it |
+| Environmental impact | `concerns: environmental` — motivation, deliberately not a rule surface |
+| Infrastructure strain | Nothing, in `concerns` or elsewhere |
+| Data use for training (platform user data) | `models.policy.trainingData` covers the training data of models a project *consumes*; nothing covers a platform binding itself over data it *holds* |
+
+### The `concerns` field is the format's answer to the rationale-versus-rule gap
+
+The headline finding of the specificity work is a gap between what motivates a policy and what it governs: environmental impact shaped the reasoning of several projects and became a rule in none, and infrastructure strain did the same. Establishing that took a second manual pass over preambles and blog posts after the policy texts themselves had been scored, and it earned a distinct code (`R`) in the results.
+
+That distinction is already structural here. [`concerns`](./ai-policy.schema.yaml) is defined as a *motivation signal* — `environmental`, `labor-ethics`, `data-consent`, `oss-sustainability`, `skill-preservation` — carried separately from `defaults`, `assertions` and `requirements`, which carry rules. A project that publishes `ai-policy.yml` states in one machine-readable place both what it governs and what moved it, and the gap between them is then a query rather than a research project. Two entries in this survey make the point on their own: Debian put climate impact on the ballot as its own option, drafted from the outset as a non-binding preference, and the neutral option carried; Servo and postmarketOS both rest bans on societal rationale that only `concerns` carries.
+
+This is the strongest external validation the format has received for a design choice made on other grounds, and it is the most useful thing this survey can offer the working group in return: the metric's stated implementation is manual audit plus text analysis of prose, and the `R`/rule distinction it has to reconstruct by hand is a field.
+
+### Three domains are forge-level, not project-level
+
+Notetaker bots, infrastructure strain and data use for training score zero across 39 projects, and environmental impact scores zero as a rule. The natural reading is that projects have not got to them yet. The Codeberg entry above suggests a different one: for three of them a project policy is the wrong instrument, because the thing to be governed is not the project's to govern.
+
+Codeberg is the one forge in the corpus, and it is where those domains suddenly have rules. It bound itself never to train on hosted code or user data, and it restricted what may be hosted on explicitly infrastructure-and-environment grounds. In the specificity scoring all of that lands as `R` — raised in rationale, not governed — which is correct against an instrument that scores rules addressed to contributors, and which is exactly why the finding is interesting: the strongest instance of data-use-for-training governance in the corpus reads as rationale because it is a rule the platform binds *itself* to, and the taxonomy has no slot for that. Meeting bots belong to whoever runs the meeting infrastructure; server load belongs to whoever pays for the servers; training on hosted code belongs to whoever holds it.
+
+Fedora's draft is independent support: it structures itself around contributions, users, *Fedora-as-platform*, and *Fedora-data-for-AI* — a project that hosts infrastructure recognising the layer split unprompted, and separating the two platform-facing areas from the contribution-facing ones.
+
+So the finding to feed back is not that projects are silent on these domains but that the **domains have the wrong subject**: they need a declaring party axis (project / forge / foundation) before an absence can be read as a gap. This is also where a declaration format has something to offer that a survey cannot — a forge-level record, discoverable at `.well-known`, is a natural carrier for commitments of exactly this shape, and none exists today.
+
+### Divergences kept on purpose
+
+The metric scores four consent attributes per domain. Two map, two are deliberately unstructured here:
+
+- **Supervision level** (banned → fully unsupervised) is one axis where the format keeps two: `stance` for what may be contributed, `autonomousAgents` for what may act unattended. The corpus supports the split — the Linux Kernel accepts generated code while barring agents from signing off — and collapsing them would lose that.
+- **Accountability holder** maps partially: `humanReview` and `signoff` establish *that* a human is answerable, never *which* role. No policy surveyed names a role rather than "the contributor", so the gap is untested rather than known-harmful.
+- **Scope and volume limits** stay in prose by design: three projects drew significance thresholds three different ways and none mechanically, so `exceptions: true` plus `statement` carries them. Rust's volume circuit-breaker is the first counter-example — an operative, countable threshold — and if a second appears the choice deserves revisiting.
+- **Proportionality relative to community size** likewise stays in prose, and is the attribute the format is least likely to adopt: it is a judgement a maintainer makes, not a value a file declares.
+
+### Corpus overlap
+
+The two surveys overlap heavily and neither contains the other. Beyond what is scored here, the specificity corpus adds **Polars**, and scores **QGIS** (still under discussion below) and a second GDAL surface. **Codeberg** and **Rust** came from it and are now scored above — both earned their place, Codeberg for the layer mismatch and Rust for three dimensions nothing else in the corpus surfaced. Going the other way, this survey covers curl, FastAPI, OpenJDK, CPython, Redox OS, Haiku OS, Flathub, Ladybird and the W3C Advisory Board, which the specificity corpus does not.
+
 ## Under discussion / proposed (not settled)
 
 These appear in the CHAOSS list as open discussions or proposals rather than adopted policies, scored tentatively against whatever direction the thread indicates, and kept separate from the settled policies above.
-
-### Debian: GR "LLM usage in Debian" ([vote 2026/002](https://www.debian.org/vote/2026/vote_002)); six competing ballot options, in discussion
-
-The richest single stress-test in the corpus: one project weighing **six** stances at once, spanning the full spectrum, to be settled by Condorcet vote. All six map onto the schema; the value is in what they collectively surface.
-
-| Option | Stance | Maps via |
-|---|---|---|
-| A: complete ban | disallowed | `summary/stance: disallowed`, `autonomousAgents.allowed: false`, `concerns` (licensing, quality, labor, environmental); upstream / AI-software excluded → applicability prose |
-| B: allow w/ 6 conditions | generated | `disclosure: encouraged` ("strongly recommended"), `disclosureFormat.trailers` (`Generated-By:`/`Assisted-By:`), DFSG tool-terms + third-party-copyright check → `models.policy` + AI-specific `requirements`, `humanReview` + `signoff`; bulk changes need prior discussion (→ middle-state question); `requirements: [no-sensitive-data-to-3p]` |
-| C: reject/soft, human-only prose | restrictive | **messages to humans must be human-drafted** → `assertions[comments, issue-descriptions, …]=disallowed`; `disclosure: required`; maintainer bans → `actorExceptions`; violations = CoC → `enforcement` |
-| D: accept w/ responsibility | generated | `disclosure: required` in commit/changelog, but tab-completion may go unmarked → `assisted` vs `generated`; DFSG → `models.policy`; personal sign/upload → `signoff`; `no-sensitive-data-to-3p`; Debian-scope-only → applicability |
-| E: neutral ("responsible use") | assisted/generated | mostly `summary` + `statement`; `disclosure: encouraged`; `no-sensitive-data-to-3p`; mass actions need discussion; existing standards apply |
-| F: cautious (encourage avoidance) | ~restrictive | "prefer human authorship" (soft discouragement) → `summary` + `statement`; `disclosure: encouraged`; maintainer rejection → `actorExceptions` |
-
-**Two dimensions it brings out:**
-
-1. **"No sensitive data to third-party / untrusted AI services"**; an operative data-handling rule in B, D, E, *and* F (and Oxide): don't leak embargoed / credential / private project data to hosted models, distinct from the stance. Maps to `requirements: [no-sensitive-data-to-3p]`.
-2. **Autonomous / bulk changes gated on *prior discussion*** (B and E, modeled on Debian's mass-bug-filing): not banned, but process-gated; `autonomousAgents.allowed` (a boolean) has no such middle state → the open **Autonomous-agent middle state** question.
-
-Validations: the disclosure gradient (voluntary → recommended → required) collapses cleanly onto `none | encouraged | required`; degree-keyed trailers (B); human-only communication → `assertions` (C); DCO-style personal sign-off (D) → `signoff`; the AI-specific licence check (DFSG tool-terms, verify third-party copyright) → the output-licence-in-scope reading. The one nuance the `stance` enum can't express is "prefer human authorship" (C, F), a *preference* short of a rule, which falls to `summary` + `statement`.
-
-
 
 - **QGIS**: proposed [QEP-408](https://github.com/qgis/QGIS-Enhancement-Proposals/blob/master/qep-408-ai-tool-policy.md). Human-in-the-loop; review all LLM output before requesting review; label substantial tool-generated content (`Assisted-by:` trailer); "labeling facilitates review, not provenance tracking." **A near-verbatim adaptation of PROJ/LLVM** (same author). Tentative: accept-with-conditions, **Good**: same mapping as PROJ; explicitly leaves "is LLM code acceptable at all" unsettled.
 - **Agda**: proposed CONTRIBUTING.md, [PR #8456](https://github.com/agda/agda/pull/8456). Blanket ban on LLM-generated contributions incl. issues and issue-tracker discussion; copyright (US non-copyrightability), societal (EFF), and deskilling rationale. Tentative: reject, **Good** (`summary/stance: disallowed` across code + issues, `enforcement: [denylist]`, `concerns`).
@@ -268,7 +350,7 @@ Validations: the disclosure gradient (voluntary → recommended → required) co
 - **Fedora**: DRAFT, [thread](https://discussion.fedoraproject.org/t/ai-policy-in-fedora-wip/144297). Structured around four areas (contributions, users, Fedora-as-platform, Fedora-data-for-AI); "prefer your own voice over a bland averaged LLM." Tentative: accept-with-conditions, but scope is **broader than contributions** (most of it outside `ai-policy`). Draft.
 - **Ansible**, [thread](https://forum.ansible.com/t/ansible-ai-policy/42642). Open "should we have a policy?" citing Servo's ban as a model. No position yet → n/a.
 
-Still only partially captured (operative rules need a deeper fetch): **Godot** (beyond its licence gate) and **GDAL** (rules beyond the rationale).
+Still only partially captured (operative rules need a deeper fetch): **Godot** (beyond its licence gate), **GDAL** (rules beyond the rationale), and **Polars** (not yet scored; carried over from the specificity corpus).
 
 ## Sources
 
@@ -318,3 +400,6 @@ Settled policies analyzed above (URLs for the under-discussion items are inline 
 | OpenInfra Foundation | https://openinfra.org/legal/ai-policy |
 | W3C Advisory Board | https://www.w3.org/blog/2026/advisory-board-publishes-position-statement-on-ai-in-standards-work/ |
 | Haiku OS | https://review.haiku-os.org/c/haiku/+/11180 |
+| Debian | https://www.debian.org/vote/2026/vote_002 |
+| Rust | https://forge.rust-lang.org/policies/llm-usage.html |
+| Codeberg | https://codeberg.org/Codeberg/org/src/branch/main/TermsOfUse.md |
