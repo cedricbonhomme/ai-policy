@@ -6,8 +6,9 @@
 # The stance field-set (`stance`/`disclosure`/`humanReview`/`requirements`) is
 # defined once, in $defs.stanceOverride, and shared by `defaults` and each
 # `assertions[]` entry, the "same fields" structural guarantee. `assertions[]`
-# extends it with `scope`/`notes` and uses `unevaluatedProperties: false` so the
-# shared fields plus the local extensions all validate strictly.
+# extends it with `scope` and uses `unevaluatedProperties: false` so the shared
+# fields plus the local extension all validate strictly. `notes` lives in the
+# shared set, so `defaults` and every `assertions[]` entry both carry it.
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://example.org/ai-policy.schema.json"   # placeholder until a home is chosen
 title: ai-policy
@@ -57,16 +58,37 @@ properties:
       required: [scope]
       properties:
         scope: { $ref: "#/$defs/scope" }
-        notes: { type: string }
       unevaluatedProperties: false
 
   allowedUses:
-    description: AI uses explicitly permitted (output not submitted as a contribution).
+    description: >-
+      AI uses explicitly permitted because their output is NOT submitted as a
+      contribution. Assistance whose output IS contributed (code completion,
+      mechanical refactoring) is not listed here: that is `stance: assisted`.
     type: array
     uniqueItems: true
     items:
-      enum: [research, bug-triage, debugging, code-review-assist, accessibility,
+      enum: [research, comprehension, bug-triage, debugging, accessibility,
              spelling-grammar, translation]
+
+  review:
+    description: >-
+      AI in the project's REVIEW of contributions, which is done to a
+      contribution rather than being one. Superseded `allowedUses:
+      code-review-assist`, which could say only whether AI review was permitted
+      and not whether it could decide.
+    type: object
+    unevaluatedProperties: false
+    properties:
+      aiAssist:
+        description: Whether AI may assist a reviewer at all.
+        enum: [disallowed, permitted]
+      humanDecision:
+        description: >-
+          `required` means an AI review is never sufficient on its own; a human
+          makes the merge decision.
+        enum: [none, required]
+      notes: { type: string }
 
   newcomerIssuesHumanOnly:
     description: Reserve newcomer / "good first issue" tickets for human authorship.
@@ -87,6 +109,28 @@ properties:
             items:
               enum: [bot-account, signed-commits, integration-manifest]
           account: { type: string }
+          notes: { type: string }
+      notes: { type: string }
+
+  priorArrangement:
+    description: >-
+      Contributions of the listed kinds need agreement BEFORE submission, not
+      only compliance at review. Covers the human contribution path as well as
+      agents, since most projects that gate this way gate contributors rather
+      than bots.
+    type: object
+    unevaluatedProperties: false
+    properties:
+      appliesTo:
+        description: What triggers the gate.
+        type: array
+        uniqueItems: true
+        items:
+          enum: [agent-submissions, bulk-changes, ai-generated-prs]
+      basis:
+        description: What satisfies the gate before submission.
+        enum: [accepted-issue, reviewer-agreement, governance-body, discussion]
+      notes: { type: string }
 
   actorExceptions:
     description: Actors governed differently (a declared signal, not a resolution layer).
@@ -113,6 +157,7 @@ properties:
         description: Trailers keyed by degree of AI involvement (e.g. assisted, generated).
         type: object
         additionalProperties: { type: string }
+      notes: { type: string }
 
   enforcement:
     type: object
@@ -124,6 +169,7 @@ properties:
         items:
           enum: [maintainer-review, ci-check, denylist, none]
       consequence: { type: string }
+      notes: { type: string }
 
   signoff:
     description: Human accountability sign-off; an LLM/agent may never provide it.
@@ -163,6 +209,7 @@ $defs:
         type: array
         uniqueItems: true
         items: { $ref: "#/$defs/requirement" }
+      notes: { type: string }
 
   scope:
     enum: [code, docs, tests, comments, issue-descriptions,

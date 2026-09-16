@@ -62,12 +62,23 @@ assertions:
     requirements: [no-generated-in-security-paths, tests-pass]
     notes: Vulnerability reports must be independently verified by a human.
 
-# Explicitly permitted AI uses whose output is NOT submitted as a contribution
-# (or where the tool is assistive), so a restrictive stance doesn't read as
-# blanket hostility.
-# research | bug-triage | debugging | code-review-assist | accessibility |
+# Explicitly permitted AI uses whose output is NOT submitted as a contribution,
+# so a restrictive stance doesn't read as blanket hostility. Assistance whose
+# output IS contributed (code completion, mechanical refactoring) belongs in
+# `stance: assisted`, not here.
+# research | comprehension | bug-triage | debugging | accessibility |
 #   spelling-grammar | translation
 allowedUses: [research, debugging, accessibility]
+
+# AI in the project's REVIEW of contributions: done *to* a contribution rather
+# than being one, which is why it is not a `scope` value or an allowed use.
+# The two enums are what a consumer branches on; everything else is a sentence.
+review:
+  aiAssist: permitted            # disallowed | permitted
+  humanDecision: required        # none | required -- AI review never suffices alone
+  notes: >-
+    Review bots run under separate, blockable accounts and leave non-blocking
+    comments; contributors must not request an AI-agent review.
 
 # Reserve newcomer / "good first issue" tickets for human authorship, to
 # preserve the learning opportunity. The project's issue labels stay the
@@ -83,6 +94,19 @@ autonomousAgents:
     # bot-account | signed-commits | integration-manifest
     identity: [bot-account, signed-commits]
     account: "app/example-ai-bot"
+  notes: >-
+    Nuance that does not fit an enum goes in `notes`, on whichever object it
+    qualifies. Here: an agent may run read-only analysis and post findings to an
+    issue, but may not open a pull request.
+
+# Some contributions need agreement BEFORE they are submitted, rather than
+# merely meeting the rules at review time. This is the answer an agent needs on
+# pre-flight: not "may I", but "may I without asking first".
+priorArrangement:
+  # agent-submissions | bulk-changes | ai-generated-prs
+  appliesTo: [bulk-changes, ai-generated-prs]
+  # accepted-issue | reviewer-agreement | governance-body | discussion
+  basis: accepted-issue
 
 # Actors governed differently: a declared signal, not a resolution layer;
 # detail lives in notes/statement. The concrete, machine-actionable carve-out
@@ -99,6 +123,10 @@ disclosureFormat:
   trailers:
     assisted: "Assisted-by:"
     generated: "Generated-by:"
+  notes: >-
+    Name the tool and roughly how much of the change it produced. The format
+    does not structure what a disclosure must contain, because projects diverge
+    sharply on it.
 
 # How the policy is enforced (declared intent only).
 enforcement:
@@ -116,6 +144,7 @@ models:
     # component. Omit a component, or use `any`, for no floor.
     openness:
       weights: available          # available | any
+      trainingCode: any           # available | any
       trainingData: disclosed     # permissive | disclosed | any  (IP-cleanliness)
     notes: >
       Any AI coding tool is permitted, but avoid models known to reproduce
