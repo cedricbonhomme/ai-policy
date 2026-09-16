@@ -12,6 +12,12 @@ Using an AI tool is never required, and it is never prohibited by default. No co
 
 Responsibility is two-sided. The contributor who submits a change vouches for it as their own: AI may have helped write it, but submitting it means you have understood and verified it, not forwarded unchecked model output. The maintainer who reviews it then takes responsibility for merging it. AI can help write a change; it cannot own the decision to propose one or the decision to accept it.
 
+## Disclosure
+
+Note AI involvement where it is material — in the pull request description, the commit message, or wherever authorship is normally indicated. It is encouraged, not required, and nothing is gated on it: a change is not rejected for lacking a note, and a disclosed change gets no lesser review. The point is to help a reviewer calibrate, not to track provenance, and certainly not to sort contributors into categories, which the clause above rules out.
+
+This is `disclosure: encouraged` in [`ai-policy.yml`](./ai-policy.yml).
+
 ## No sign-off ceremony
 
 There is no DCO or CLA. The human review above is the accountability mechanism.

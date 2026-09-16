@@ -9,6 +9,7 @@ summary: permissive
 # "Contributor opt-out / non-discrimination" question), so `exceptions: true`
 # flags that the prose says more than the structured fields below.
 statement: AI_POLICY.md
+guardrailsRef: AGENTS.md
 exceptions: true
 
 status: adopted
@@ -17,6 +18,15 @@ defaults:
   stance: generated       # AI-generated contributions are allowed
   disclosure: encouraged  # note AI involvement, but it is not gated on
   humanReview: required   # a human reviews and owns every change
+
+# AI_POLICY.md: "AI can help write a change; it cannot own the decision to
+# propose one or the decision to accept it." Those are two separate fields.
+autonomousAgents:
+  allowed: false          # an agent may not propose a change on its own
+
+review:
+  aiAssist: permitted     # AI may help a reviewer
+  humanDecision: required # it can never be the acceptance decision
 
 # No sign-off ceremony (no DCO or CLA).
 signoff: none
