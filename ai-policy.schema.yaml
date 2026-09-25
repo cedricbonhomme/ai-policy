@@ -204,6 +204,10 @@ $defs:
       disclosure:
         enum: [none, encouraged, required, structured]
       humanReview:
+        description: >-
+          The CONTRIBUTOR's review: `required` means the submitter has
+          personally reviewed, understood and tested the change and answers
+          for it. The project's own review is `review.humanDecision`.
         enum: [none, required]
       requirements:
         type: array

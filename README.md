@@ -71,7 +71,7 @@ Top-level fields; everything is optional except a minimal `summary` + a default 
 | `statement` / `guardrailsRef` | Pointers to the human-readable policy and the actionable guard-rail checklist. |
 | `exceptions` | Flags that the structured stance is a summary with carve-outs in `statement`. |
 | `concerns` | The societal/ethical motivation (for aggregation). |
-| `defaults` + `assertions[]` | Per-content-type `stance` / `disclosure` / `humanReview` / `requirements`. |
+| `defaults` + `assertions[]` | Per-content-type `stance` / `disclosure` / `humanReview` (the contributor's own) / `requirements`. |
 | `allowedUses` | Explicitly permitted AI uses whose output isn't a contribution. |
 | `review` | AI in the project's *review* of contributions: whether it may assist, and whether a human must still decide. |
 | `newcomerIssuesHumanOnly` | Reserve "good first issue" tickets for human authorship. |

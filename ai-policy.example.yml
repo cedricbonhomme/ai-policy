@@ -37,6 +37,8 @@ concerns: [licensing-ethics, environmental, oss-sustainability]
 defaults:
   stance: assisted              # disallowed | assisted | generated
   disclosure: required          # none | encouraged | required | structured
+  # The contributor's own review: they have read, understood and tested the
+  # change and answer for it. The project's review is `review` below.
   humanReview: required         # none | required
   # Machine-checkable gates a contribution must clear.
   # tests-pass | new-tests-required | ci-green | type-check |
