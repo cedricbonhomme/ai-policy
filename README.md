@@ -147,4 +147,4 @@ Decided for now, kept here because new evidence would reopen them:
 Dual-licensed to fit how each part is used:
 
 - **Prose** (`README.md`, `coverage.md`, `machine-readability.md`, `AI_POLICY.md`): [CC BY 4.0](./LICENSE-CC-BY-4.0).
-- **Machine-readable artifacts** (`ai-policy.schema.yaml`, `ai-policy.example.yml`, `ai-policy.yml`) and any tooling: [MIT](./LICENSE-MIT), so a validator or agent can embed the schema and example without an attribution clause riding along.
+- **Machine-readable artifacts** (`ai-policy.schema.yaml`, `ai-policy.example.yml`, `ai-policy.yml`, `examples/`) and any tooling: [MIT](./LICENSE-MIT), so a validator or agent can embed the schema and example without an attribution clause riding along.

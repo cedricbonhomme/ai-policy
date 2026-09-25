@@ -1,0 +1,14 @@
+# The "AI Allowed" preset from ai-policy.dev, expressed in this format.
+# Ship it as ai-policy.yml beside the preset's AI_POLICY.md.
+version: 1
+
+summary: permissive
+statement: AI_POLICY.md
+status: adopted
+
+defaults:
+  stance: generated
+  disclosure: none        # "AI usage does not need to be declared"
+
+autonomousAgents:
+  allowed: true           # agents may open issues and pull requests

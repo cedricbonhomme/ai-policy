@@ -1,0 +1,34 @@
+# The "Human Responsible" preset from ai-policy.dev, expressed in this format.
+# Ship it as ai-policy.yml beside the preset's AI_POLICY.md.
+version: 1
+
+summary: restrictive
+statement: AI_POLICY.md
+status: adopted
+# The prose also promises that a contributor's own tooling is never asked
+# about, and that suspicion alone is enough to close a contribution.
+exceptions: true
+
+defaults:
+  stance: assisted        # private tooling is tolerated; the submission must be yours
+  disclosure: prohibited  # do not add notes about AI tools
+  humanReview: required   # explain every line, test it, answer review yourself
+  requirements: [reproduced]
+
+# Every word a maintainer reads must be the contributor's own.
+assertions:
+  - scope: comments
+    stance: disallowed
+  - scope: issue-descriptions
+    stance: disallowed
+  - scope: pull-request-descriptions
+    stance: disallowed
+  - scope: commit-messages
+    stance: disallowed
+
+autonomousAgents:
+  allowed: false          # no bots, agents or automated accounts
+
+enforcement:
+  mechanism: [maintainer-review, denylist]
+  consequence: Repeated or deliberate violations result in a ban.
