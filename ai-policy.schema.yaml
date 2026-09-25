@@ -202,7 +202,11 @@ $defs:
       stance:
         enum: [disallowed, assisted, generated]
       disclosure:
-        enum: [none, encouraged, required, structured]
+        description: >-
+          Whether a contribution should note AI involvement. `none` means not
+          asked for; `prohibited` means notes about AI tools must be left out,
+          so a consumer that adds a disclosure trailer by default must not.
+        enum: [prohibited, none, encouraged, required, structured]
       humanReview:
         description: >-
           The CONTRIBUTOR's review: `required` means the submitter has
@@ -223,4 +227,4 @@ $defs:
   requirement:
     enum: [tests-pass, new-tests-required, ci-green, type-check,
            no-generated-in-security-paths, provenance-attested,
-           prompt-logs-retained, no-sensitive-data-to-3p]
+           prompt-logs-retained, no-sensitive-data-to-3p, reproduced]
