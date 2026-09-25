@@ -406,6 +406,22 @@ Nothing is now carried as partially captured: Godot, GDAL and Polars have all be
 
 The site's own rule vocabulary is a flat list of permits / requires / forbids flags without scopes, and it stays on the website: the frontmatter carrying it is stripped when a policy is copied. That makes it a useful cross-check on this format's field set rather than a competing format. Every one of its rules maps onto a field here except `guidelines`, which is not AI-specific, and `private-use`, which is the non-inquiry promise above. Whether a declaration should name the template its prose came from is the open *Template provenance* question in the [README](./README.md#open-questions-named).
 
+### Early adopters
+
+Searched on 25 September 2026, in the week the site launched, for repositories whose `AI_POLICY.md` links to ai-policy.dev. Every file found is a verbatim copy of its preset.
+
+| Repository | Preset | Added |
+|---|---|---|
+| [TanStack/query](https://github.com/TanStack/query/blob/main/AI_POLICY.md) | Human Voice | 2026-09-25 |
+| [dubzzz/fast-check](https://github.com/dubzzz/fast-check/blob/main/AI_POLICY.md) | Human Responsible | 2026-09-24 |
+| [npmx-dev/npmx.dev](https://github.com/npmx-dev/npmx.dev/blob/main/AI_POLICY.md) | Human Voice | 2026-09-24 |
+| [MatteoGabriele/agentscan](https://github.com/MatteoGabriele/agentscan/blob/main/AI_POLICY.md) | Human Responsible | 2026-09-23 |
+| [MatteoGabriele/agentscan-action](https://github.com/MatteoGabriele/agentscan-action/blob/main/AI_POLICY.md) | Human Responsible | 2026-09-24 |
+
+This is a lower bound: it covers GitHub only, code search indexes recent changes late, and a copy whose closing link was removed is found only by its wording, which turned up nothing further. The npmx.dev, agentscan and agentscan-action adoptions were all made by a contributor to ai-policy.dev itself, so TanStack Query and fast-check are the independent signal.
+
+For this format the pattern says several things. Nobody has chosen either end of the range: every adopter wants a human answering for what is submitted, which is the `humanReview` and per-scope territory where the structure does most of its work. No adopter has edited its preset, so a preset name currently identifies a policy exactly, which is what *Template provenance* would rely on and which only versioned presets would keep true as copies age. And none publishes anything machine-readable, since the site strips its own metadata on copy — the gap the [`examples/`](./examples/) files are meant to fill. agentscan, whose repository describes it as "Automation pattern detection for open source maintainers", is also a candidate *consumer*: a tool that flags agent-like accounts is the natural reader of `autonomousAgents.allowed`.
+
 ## Sources
 
 Settled policies analyzed above (URLs for the under-discussion items are inline in that section):
