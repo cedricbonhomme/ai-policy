@@ -391,6 +391,21 @@ These appear in the CHAOSS list as open discussions or proposals rather than ado
 
 Nothing is now carried as partially captured: Godot, GDAL and Polars have all been fetched and scored above.
 
+## Template policies
+
+[ai-policy.dev](https://ai-policy.dev/) publishes ready-made `AI_POLICY.md` texts for projects to copy, rather than a policy of its own, so its presets are scored here, and expressed as files in [`examples/`](./examples/), rather than in the Summary table: an adoption of one shows up in that table under the adopting project's name. Read on 25 September 2026. Each preset closes on the project's ordinary contribution guidelines, which are not AI rules and are not scored.
+
+| Preset | Tier | Fit | Maps via | Needs prose / gap |
+|---|---|---|---|---|
+| AI Allowed | accept | Full | summary=permissive, stance=generated, `disclosure: none` ("AI usage does not need to be declared"), `autonomousAgents.allowed=true` | none |
+| Human Voice | accept-with-conditions | Good | stance=generated, `assertions[comments, issue-descriptions, pull-request-descriptions]=disallowed`, `humanReview: required` | "Never let an LLM think for you", and its bar on quoting a model in issues → `notes`/prose; silent on agents |
+| Human Responsible | restrict | Good | summary=restrictive, stance=assisted, `assertions[comments, issue-descriptions, pull-request-descriptions, commit-messages]=disallowed`, **`disclosure: prohibited`**, `humanReview: required`, **`requirements: [reproduced]`**, `autonomousAgents.allowed=false`, `enforcement: [maintainer-review, denylist]`, `exceptions` | the promise that a contributor's tooling "will not be asked about" → prose; closure on suspicion alone → prose |
+| AI Disallowed | reject | Full | summary=disallowed, stance=disallowed | the burden of proof sits with the contributor ("rejected unless the contributor can prove otherwise") → prose |
+
+*Human Responsible* supplied two values the format lacked. It forbids disclosure outright ("Do not add notes about AI tools to your submissions"), the opposite pole from `disclosure: required`, and one a consumer must act on: an agent that appends an `Assisted-by:` trailer by habit breaks this policy with every commit, and a `none` value that means only *not asked for* cannot warn it off. Oxide's scepticism of blanket disclosure points the same way without going as far. It also refuses "Reports or fixes for problems you have not reproduced yourself", a gate a submitter can check before submitting and so one that passes the test the format applies to any countable rule; curl's demand that AI-assisted security reports be independently verified answers the same concern in narrower form. Both are now schema values: `disclosure: prohibited` and the `reproduced` requirement.
+
+The site's own rule vocabulary is a flat list of permits / requires / forbids flags without scopes, and it stays on the website: the frontmatter carrying it is stripped when a policy is copied. That makes it a useful cross-check on this format's field set rather than a competing format. Every one of its rules maps onto a field here except `guidelines`, which is not AI-specific, and `private-use`, which is the non-inquiry promise above. Whether a declaration should name the template its prose came from is the open *Template provenance* question in the [README](./README.md#open-questions-named).
+
 ## Sources
 
 Settled policies analyzed above (URLs for the under-discussion items are inline in that section):
