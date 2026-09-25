@@ -61,7 +61,7 @@ The [specificity analysis](./coverage.md#specificity-against-the-chaoss-domain-t
 
 ## The format, in brief
 
-Top-level fields; everything is optional except a minimal `summary` + a default stance. Each field's meaning is in the [example](./ai-policy.example.yml); the shape is validated by [`ai-policy.schema.yaml`](./ai-policy.schema.yaml).
+Top-level fields; everything is optional except a minimal `summary` + a default stance. To write one, follow [`writing-a-policy.md`](./writing-a-policy.md), which walks through the fields as a sequence of decisions. Each field's meaning is in the [example](./ai-policy.example.yml); the shape is validated by [`ai-policy.schema.yaml`](./ai-policy.schema.yaml).
 
 | Field | Purpose |
 |---|---|
@@ -148,5 +148,5 @@ Decided for now, kept here because new evidence would reopen them:
 
 Dual-licensed to fit how each part is used:
 
-- **Prose** (`README.md`, `coverage.md`, `machine-readability.md`, `AI_POLICY.md`): [CC BY 4.0](./LICENSE-CC-BY-4.0).
+- **Prose** (`README.md`, `coverage.md`, `machine-readability.md`, `writing-a-policy.md`, `AI_POLICY.md`): [CC BY 4.0](./LICENSE-CC-BY-4.0).
 - **Machine-readable artifacts** (`ai-policy.schema.yaml`, `ai-policy.example.yml`, `ai-policy.yml`, `examples/`) and any tooling: [MIT](./LICENSE-MIT), so a validator or agent can embed the schema and example without an attribution clause riding along.
