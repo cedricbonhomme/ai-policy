@@ -33,6 +33,22 @@ properties:
     type: string
   status:
     enum: [adopted, draft, under-discussion]
+  undecided:
+    description: >-
+      Questions the project has considered and not yet settled, as distinct
+      from fields it has not addressed at all. A listed field that carries a
+      value states the rule in force meanwhile, permissive or restrictive, and
+      a consumer applies it. A listed field with no value has no interim rule:
+      a consumer never reads it as permission, and where it grants or withholds
+      something the restrictive reading applies until the project decides.
+    type: array
+    uniqueItems: true
+    items:
+      enum: [defaults.stance, defaults.disclosure, defaults.humanReview,
+             defaults.requirements, allowedUses, review,
+             newcomerIssuesHumanOnly, autonomousAgents, actorExceptions,
+             priorArrangement, disclosureFormat, enforcement, signoff, models,
+             concerns]
   exceptions:
     description: The structured stance is a summary; carve-outs live in `statement`.
     type: boolean

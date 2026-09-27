@@ -23,6 +23,15 @@ guardrailsRef: CONTRIBUTING.md#ai-checklist
 # Maturity of the policy itself. adopted | draft | under-discussion
 status: adopted
 
+# Questions not yet settled, as distinct from fields the file does not address.
+# A listed field that also carries a value states the rule in force meanwhile;
+# one without a value has no interim rule, and a consumer never reads it as
+# permission. This example has settled everything, so it is empty; a project
+# still debating would write, for example:
+#   undecided: [defaults.stance, models]
+# and, to accept AI contributions while it decides, keep `stance: generated`.
+undecided: []
+
 # `true` = the structured stance below is a summary; material carve-outs live
 # in `statement`. Read the prose rather than treating the structure as complete.
 exceptions: true
