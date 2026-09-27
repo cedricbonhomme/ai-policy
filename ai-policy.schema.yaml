@@ -15,7 +15,42 @@ title: ai-policy
 description: A project's machine-readable stance on generative-AI contributions.
 type: object
 unevaluatedProperties: false
-required: [summary]
+# The minimal declaration is a default stance, declared or listed in
+# `undecided`, or `summary: neutral`. `summary` is optional because it is
+# derived: when present it must match the stance field-set (see summary below),
+# and a neutral file carries no AI-specific field.
+allOf:
+  - anyOf:
+      - { required: [summary], properties: { summary: { const: neutral } } }
+      - { required: [defaults], properties: { defaults: { required: [stance] } } }
+      - { required: [undecided], properties: { undecided: { contains: { const: defaults.stance } } } }
+  - if: { required: [summary], properties: { summary: { const: neutral } } }
+    then:
+      not:
+        anyOf:
+          - required: [defaults]
+          - required: [assertions]
+          - required: [allowedUses]
+          - required: [review]
+          - required: [newcomerIssuesHumanOnly]
+          - required: [autonomousAgents]
+          - required: [priorArrangement]
+          - required: [actorExceptions]
+          - required: [disclosureFormat]
+          - required: [enforcement]
+          - required: [models]
+          - required: [undecided]
+  - if: { required: [summary], properties: { summary: { const: disallowed } } }
+    then: { $ref: "#/$defs/defaultStance/disallowed" }
+  - if: { required: [summary], properties: { summary: { const: restrictive } } }
+    then: { $ref: "#/$defs/defaultStance/assisted" }
+  - if: { required: [summary], properties: { summary: { const: permissive } } }
+    then:
+      allOf: [{ $ref: "#/$defs/defaultStance/generated" }]
+      not: { $ref: "#/$defs/aiSpecificCondition" }
+  - if: { required: [summary], properties: { summary: { const: mixed } } }
+    then:
+      allOf: [{ $ref: "#/$defs/defaultStance/generated" }, { $ref: "#/$defs/aiSpecificCondition" }]
 
 properties:
   version:
@@ -23,8 +58,18 @@ properties:
     type: integer
     minimum: 1
   summary:
-    description: Quick contribution-stance filter.
-    enum: [permissive, mixed, restrictive, disallowed]
+    description: >-
+      Quick contribution-stance filter, derived from the rest of the file.
+      `neutral`: no AI-specific rule; the project's ordinary contribution rules
+      govern every contribution however it was made, and the file carries no
+      other AI-specific field. `disallowed`: default stance `disallowed`.
+      `restrictive`: default stance `assisted`. `permissive`: default stance
+      `generated` with no AI-specific condition. `mixed`: default stance
+      `generated` with at least one AI-specific condition: a scope held below
+      `generated`, disclosure `required` or `prohibited`, a `requirements`
+      gate, or a non-empty `priorArrangement.appliesTo`. Agent autonomy is a separate axis and
+      does not affect it.
+    enum: [neutral, permissive, mixed, restrictive, disallowed]
   statement:
     description: Pointer to the human-readable policy (repo-relative path or URL).
     type: string
@@ -146,7 +191,7 @@ properties:
     unevaluatedProperties: false
     properties:
       appliesTo:
-        description: What triggers the gate.
+        description: What triggers the gate; an empty list declares that nothing needs agreement in advance.
         type: array
         uniqueItems: true
         items:
@@ -279,3 +324,27 @@ $defs:
     enum: [tests-pass, new-tests-required, ci-green, type-check,
            no-generated-in-security-paths, provenance-attested,
            prompt-logs-retained, no-sensitive-data-to-3p, reproduced]
+
+  # The default stance a derived `summary` requires.
+  defaultStance:
+    disallowed: { required: [defaults], properties: { defaults: { required: [stance], properties: { stance: { const: disallowed } } } } }
+    assisted: { required: [defaults], properties: { defaults: { required: [stance], properties: { stance: { const: assisted } } } } }
+    generated: { required: [defaults], properties: { defaults: { required: [stance], properties: { stance: { const: generated } } } } }
+
+  # An AI-specific condition on an otherwise `generated` stance: what separates
+  # a `mixed` summary from a `permissive` one.
+  aiSpecificCondition:
+    anyOf:
+      - { required: [priorArrangement], properties: { priorArrangement: { required: [appliesTo], properties: { appliesTo: { minItems: 1 } } } } }
+      - { required: [defaults], properties: { defaults: { $ref: "#/$defs/conditionInSet" } } }
+      - required: [assertions]
+        properties:
+          assertions:
+            contains:
+              anyOf:
+                - { required: [stance], properties: { stance: { enum: [disallowed, assisted] } } }
+                - $ref: "#/$defs/conditionInSet"
+  conditionInSet:
+    anyOf:
+      - { required: [disclosure], properties: { disclosure: { enum: [required, prohibited] } } }
+      - { required: [requirements], properties: { requirements: { minItems: 1 } } }

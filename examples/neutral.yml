@@ -1,0 +1,9 @@
+# "Neutral": the project has considered AI and decided it needs no rule of its
+# own. The ordinary contribution rules govern every contribution however it was
+# made, so the file carries no other AI-specific field. This is Kubernetes'
+# position, and distinct from having no file, which declares nothing.
+version: 1
+
+summary: neutral
+statement: CONTRIBUTING.md   # the ordinary contribution rules that apply
+status: adopted

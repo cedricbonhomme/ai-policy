@@ -7,13 +7,15 @@
 # shape, not an exhaustive rule engine. The authoritative detail lives in the
 # human-readable policy `statement` points at; `exceptions: true` flags where
 # the structured stance is a simplification. Every field is optional except a
-# minimal declaration of `summary` + a default stance.
+# default stance, which may instead be listed in `undecided`; a project with no
+# AI-specific rule at all declares `summary: neutral` and nothing else.
 
 version: 1
 
-# Quick contribution-stance filter, for catalogs / badges.
-# permissive | mixed | restrictive | disallowed
-summary: mixed
+# Quick contribution-stance filter, for catalogs / badges. Optional and derived:
+# if present it must match the stance below (default `assisted` is
+# `restrictive`). neutral | permissive | mixed | restrictive | disallowed
+summary: restrictive
 
 # The human-readable policy contributors actually read, and the actionable
 # guard-rail checklist (repo-relative paths or absolute URLs).
