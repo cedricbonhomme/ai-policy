@@ -1,0 +1,62 @@
+# The "Human Responsible" preset from ai-policy.dev, expressed in this format.
+# Ship it as ai-policy.yml beside the preset's AI_POLICY.md.
+version: 1
+
+summary: restrictive
+statement: AI_POLICY.md
+status: adopted
+# The prose also promises that a contributor's own tooling is never asked
+# about, and that suspicion alone is enough to close a contribution.
+exceptions: true
+
+concerns:
+  notes: >-
+    The project is built by people and wants to stay that way, so every part
+    of a contribution should come from the contributor.
+
+defaults:
+  stance: assisted        # private tooling is tolerated; the submission must be yours
+  disclosure: prohibited  # do not add notes about AI tools
+  humanReview: required   # explain every line, test it, answer review yourself
+  # reproduced: no reports or fixes for problems you have not reproduced
+  # provenance-attested: you affirm the right to submit it under the licence
+  requirements: [reproduced, provenance-attested]
+
+# Every word a maintainer reads must be the contributor's own.
+assertions:
+  - scope: comments
+    stance: disallowed
+  - scope: issue-descriptions
+    stance: disallowed
+  - scope: pull-request-descriptions
+    stance: disallowed
+  - scope: commit-messages
+    stance: disallowed
+
+autonomousAgents:
+  allowed: false          # no bots, agents or automated accounts
+
+enforcement:
+  mechanism: [maintainer-review, denylist]
+  consequence: Repeated or deliberate violations result in a ban.
+
+# ---------------------------------------------------------------------------
+# Not addressed by this preset
+#
+# The questions below are ones this preset leaves open. Work through them to
+# fit it to your project: uncomment a line and keep the value you choose to
+# decide it, list its name in `undecided: [...]` if you discussed it and could
+# not agree (keeping a value there sets the rule meanwhile), and delete this
+# section when you are done. Commented lines mean
+# nothing to a consumer; the preset stands without them. writing-a-policy.md
+# explains each question.
+#
+# allowedUses: [research, comprehension, bug-triage, debugging, accessibility, spelling-grammar, translation]
+# review: { aiAssist: disallowed | permitted, humanDecision: none | required }
+# priorArrangement: { appliesTo: [agent-submissions, bulk-changes, ai-generated-prs], basis: accepted-issue | reviewer-agreement | governance-body | discussion }
+# signoff: none | dco | cla
+#   values: [code-quality, security, ip-provenance, licensing-ethics, data-consent, labor-ethics, skill-preservation, environmental, oss-sustainability]   (add under concerns:)
+# guardrailsRef: CONTRIBUTING.md#ai-checklist
+#   - { scope: security-reports, requirements: [reproduced] }   (add to assertions:, creating it if absent)
+# actorExceptions:                            # actors governed differently
+#   - { actor: maintainers, autonomousAgentsAllowed: true }

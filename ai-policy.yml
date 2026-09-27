@@ -14,10 +14,28 @@ exceptions: true
 
 status: adopted
 
+# Questions this repository has not settled yet. `models` carries an interim
+# rule below (any model, for now). `allowedUses` is not listed: with a
+# `generated` stance there is nothing for it to exempt.
+undecided: [models]
+
+# The notes add two concerns the shared vocabulary does not have yet; it grows
+# from notes that recur across projects, so they are stated in words only.
+concerns:
+  values: [data-consent, labor-ethics, environmental]
+  notes: >-
+    The language inside a model is the language of a past we are trying to
+    move beyond, and a statistical model produces it faster than people can
+    write. So AI output carries stereotypes forward (retired terminology such
+    as master/slave, gendered defaults, agentic, sports and military
+    metaphors, words whose connotations prejudice has shaped), and people lose
+    the shaping of their own language to the volume of text a model has
+    mediated.
+
 defaults:
   stance: generated       # AI-generated contributions are allowed
   disclosure: encouraged  # note AI involvement, but it is not gated on
-  humanReview: required   # a human reviews and owns every change
+  humanReview: required   # the contributor has verified and owns every change
 
 # AI_POLICY.md: "AI can help write a change; it cannot own the decision to
 # propose one or the decision to accept it." Those are two separate fields.
@@ -28,5 +46,24 @@ review:
   aiAssist: permitted     # AI may help a reviewer
   humanDecision: required # it can never be the acceptance decision
 
+# Nothing needs agreement before it is submitted.
+priorArrangement:
+  appliesTo: []
+
+# No issues are reserved for human-only work.
+newcomerIssuesHumanOnly: false
+
+# No enforcement mechanism beyond the review every change gets anyway.
+enforcement:
+  mechanism: [none]
+
 # No sign-off ceremony (no DCO or CLA).
 signoff: none
+
+# Interim, while `models` is undecided: any model may be used.
+models:
+  policy:
+    openness:
+      weights: any
+      trainingCode: any
+      trainingData: any

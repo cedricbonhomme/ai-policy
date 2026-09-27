@@ -7,13 +7,15 @@
 # shape, not an exhaustive rule engine. The authoritative detail lives in the
 # human-readable policy `statement` points at; `exceptions: true` flags where
 # the structured stance is a simplification. Every field is optional except a
-# minimal declaration of `summary` + a default stance.
+# default stance, which may instead be listed in `undecided`; a project with no
+# AI-specific rule at all declares `summary: neutral` and nothing else.
 
 version: 1
 
-# Quick contribution-stance filter, for catalogs / badges.
-# permissive | mixed | restrictive | disallowed
-summary: mixed
+# Quick contribution-stance filter, for catalogs / badges. Optional and derived:
+# if present it must match the stance below (default `assisted` is
+# `restrictive`). neutral | permissive | mixed | restrictive | disallowed
+summary: restrictive
 
 # The human-readable policy contributors actually read, and the actionable
 # guard-rail checklist (repo-relative paths or absolute URLs).
@@ -23,6 +25,15 @@ guardrailsRef: CONTRIBUTING.md#ai-checklist
 # Maturity of the policy itself. adopted | draft | under-discussion
 status: adopted
 
+# Questions not yet settled, as distinct from fields the file does not address.
+# A listed field that also carries a value states the rule in force meanwhile;
+# one without a value has no interim rule, and a consumer never reads it as
+# permission. This example has settled everything, so it is empty; a project
+# still debating would write, for example:
+#   undecided: [defaults.stance, models]
+# and, to accept AI contributions while it decides, keep `stance: generated`.
+undecided: []
+
 # `true` = the structured stance below is a summary; material carve-outs live
 # in `statement`. Read the prose rather than treating the structure as complete.
 exceptions: true
@@ -31,17 +42,27 @@ exceptions: true
 # prose rationale stays in `statement`).
 # code-quality | security | ip-provenance | licensing-ethics | data-consent |
 #   labor-ethics | skill-preservation | environmental | oss-sustainability
-concerns: [licensing-ethics, environmental, oss-sustainability]
+concerns:
+  values: [licensing-ethics, environmental, oss-sustainability]
+  notes: >-
+    Models trained on code without regard to its licence, the energy cost of
+    training and running them, and the review time AI-driven volume takes
+    from maintainers. Say it in your own words, above all a concern the list
+    lacks.
 
 # Defaults apply to any content-type scope not overridden in assertions[].
 defaults:
   stance: assisted              # disallowed | assisted | generated
-  disclosure: required          # none | encouraged | required | structured
+  # prohibited | none | encouraged | required
+  # (`prohibited`: leave notes about AI tools out of the submission)
+  disclosure: required
+  # The contributor's own review: they have read, understood and tested the
+  # change and answer for it. The project's review is `review` below.
   humanReview: required         # none | required
   # Machine-checkable gates a contribution must clear.
   # tests-pass | new-tests-required | ci-green | type-check |
   #   no-generated-in-security-paths | provenance-attested |
-  #   prompt-logs-retained | no-sensitive-data-to-3p
+  #   prompt-logs-retained | no-sensitive-data-to-3p | reproduced
   requirements: [tests-pass, new-tests-required, no-sensitive-data-to-3p]
 
 # Per-scope overrides. A scope present here overrides `defaults` for that scope
@@ -59,8 +80,8 @@ assertions:
     stance: disallowed
   - scope: security-reports
     humanReview: required
-    requirements: [no-generated-in-security-paths, tests-pass]
-    notes: Vulnerability reports must be independently verified by a human.
+    requirements: [no-generated-in-security-paths, tests-pass, reproduced]
+    notes: The reporter must have reproduced the problem themselves.
 
 # Explicitly permitted AI uses whose output is NOT submitted as a contribution,
 # so a restrictive stance doesn't read as blanket hostility. Assistance whose

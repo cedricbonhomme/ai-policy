@@ -1,0 +1,39 @@
+# "Research Only": no AI-produced contributions, but AI may help you understand
+# the code and find the problem. A common pattern with no ai-policy.dev preset
+# yet; modelled on OpenJDK, with QEMU and Servo close variants.
+version: 1
+
+summary: disallowed
+status: adopted
+
+defaults:
+  stance: disallowed      # nothing generated is contributed, in any scope
+
+# Uses whose output is never submitted stay open.
+allowedUses: [research, comprehension, debugging]
+
+autonomousAgents:
+  allowed: false
+
+enforcement:
+  mechanism: [maintainer-review]
+
+# ---------------------------------------------------------------------------
+# Not addressed by this preset
+#
+# The questions below are ones this preset leaves open. Work through them to
+# fit it to your project: uncomment a line and keep the value you choose to
+# decide it, list its name in `undecided: [...]` if you discussed it and could
+# not agree (keeping a value there sets the rule meanwhile), and delete this
+# section when you are done. Commented lines mean
+# nothing to a consumer; the preset stands without them. writing-a-policy.md
+# explains each question.
+#
+# review: { aiAssist: disallowed | permitted, humanDecision: none | required }
+# signoff: none | dco | cla
+# concerns: { values: [code-quality, security, ip-provenance, licensing-ethics, data-consent, labor-ethics, skill-preservation, environmental, oss-sustainability], notes: "why, in your own words" }
+# statement: AI_POLICY.md                    # the human-readable policy
+# guardrailsRef: CONTRIBUTING.md#ai-checklist
+#   - { scope: security-reports, requirements: [reproduced] }   (add to assertions:, creating it if absent)
+# actorExceptions:                            # actors governed differently
+#   - { actor: maintainers, autonomousAgentsAllowed: true }

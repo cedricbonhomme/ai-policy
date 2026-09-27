@@ -1,0 +1,39 @@
+# The "AI Disallowed" preset from ai-policy.dev, expressed in this format.
+# Ship it as ai-policy.yml beside the preset's AI_POLICY.md.
+version: 1
+
+summary: disallowed
+statement: AI_POLICY.md
+status: adopted
+exceptions: true          # suspected AI use is rejected unless disproved
+
+defaults:
+  stance: disallowed
+
+# Not even translation, spelling, or finding bugs to fix in your own words.
+allowedUses: []
+
+autonomousAgents:
+  allowed: false
+
+enforcement:
+  mechanism: [maintainer-review]
+
+# ---------------------------------------------------------------------------
+# Not addressed by this preset
+#
+# The questions below are ones this preset leaves open. Work through them to
+# fit it to your project: uncomment a line and keep the value you choose to
+# decide it, list its name in `undecided: [...]` if you discussed it and could
+# not agree (keeping a value there sets the rule meanwhile), and delete this
+# section when you are done. Commented lines mean
+# nothing to a consumer; the preset stands without them. writing-a-policy.md
+# explains each question.
+#
+# review: { aiAssist: disallowed | permitted, humanDecision: none | required }
+# signoff: none | dco | cla
+# concerns: { values: [code-quality, security, ip-provenance, licensing-ethics, data-consent, labor-ethics, skill-preservation, environmental, oss-sustainability], notes: "why, in your own words" }
+# guardrailsRef: CONTRIBUTING.md#ai-checklist
+#   - { scope: security-reports, requirements: [reproduced] }   (add to assertions:, creating it if absent)
+# actorExceptions:                            # actors governed differently
+#   - { actor: maintainers, autonomousAgentsAllowed: true }

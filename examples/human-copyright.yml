@@ -1,0 +1,54 @@
+# The "Human Copyright" preset from ai-policy.dev, expressed in this format.
+# Ship it as ai-policy.yml beside the preset's AI_POLICY.md.
+version: 1
+
+summary: mixed
+statement: AI_POLICY.md
+status: adopted
+
+concerns:
+  values: [ip-provenance]
+  notes: >-
+    The copyright status of AI-generated work is uncertain and models can
+    reproduce their training data, so a contribution without a clear human
+    owner could put the project's licence at risk.
+
+defaults:
+  stance: generated       # tooling is not policed
+  humanReview: required   # "An AI wrote it" is not an answer to review
+  requirements: [provenance-attested]  # you can license every line
+  notes: >-
+    AI tools must not be credited as authors, in a Co-authored-by trailer or
+    anywhere else.
+
+autonomousAgents:
+  allowed: false
+
+enforcement:
+  mechanism: [maintainer-review, denylist]  # bot-like accounts may be banned
+
+# ---------------------------------------------------------------------------
+# Not addressed by this preset
+#
+# The questions below are ones this preset leaves open. Work through them to
+# fit it to your project: uncomment a line and keep the value you choose to
+# decide it, list its name in `undecided: [...]` if you discussed it and could
+# not agree (keeping a value there sets the rule meanwhile), and delete this
+# section when you are done. Commented lines mean
+# nothing to a consumer; the preset stands without them. writing-a-policy.md
+# explains each question.
+#
+#   disclosure: prohibited | none | encouraged | required   (add under defaults:)
+# assertions:                                 # communication in the contributor's own words
+#   - { scope: comments, stance: disallowed }
+#   - { scope: issue-descriptions, stance: disallowed }
+#   - { scope: pull-request-descriptions, stance: disallowed }
+# review: { aiAssist: disallowed | permitted, humanDecision: none | required }
+# priorArrangement: { appliesTo: [agent-submissions, bulk-changes, ai-generated-prs], basis: accepted-issue | reviewer-agreement | governance-body | discussion }
+# newcomerIssuesHumanOnly: true
+# signoff: none | dco | cla
+# models: { policy: { openness: { weights: available | any, trainingCode: available | any, trainingData: permissive | disclosed | any } } }
+# guardrailsRef: CONTRIBUTING.md#ai-checklist
+#   - { scope: security-reports, requirements: [reproduced] }   (add to assertions:, creating it if absent)
+# actorExceptions:                            # actors governed differently
+#   - { actor: maintainers, autonomousAgentsAllowed: true }
