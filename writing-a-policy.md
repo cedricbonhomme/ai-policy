@@ -90,7 +90,6 @@ Disclosure is contested in its own right, and the useful question is not whether
 - **`none`:** not asked for.
 - **`encouraged`:** welcome, nothing gated on it; enough for reviewer calibration.
 - **`required`:** a contribution without it may be refused; what provenance tracking needs.
-- **`structured`:** required, in the form `disclosureFormat` sets out. No surveyed policy uses it yet, and even a mandatory checklist like SunPy's is scored as `required`, so prefer `required` unless you have a reason.
 
 Disclosure can differ by scope like everything else; curl requires it for security reports and only encourages it for translations.
 

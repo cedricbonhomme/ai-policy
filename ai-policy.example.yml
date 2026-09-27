@@ -36,7 +36,7 @@ concerns: [licensing-ethics, environmental, oss-sustainability]
 # Defaults apply to any content-type scope not overridden in assertions[].
 defaults:
   stance: assisted              # disallowed | assisted | generated
-  # prohibited | none | encouraged | required | structured
+  # prohibited | none | encouraged | required
   # (`prohibited`: leave notes about AI tools out of the submission)
   disclosure: required
   # The contributor's own review: they have read, understood and tested the

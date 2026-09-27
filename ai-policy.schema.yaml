@@ -65,11 +65,19 @@ properties:
       AI uses explicitly permitted because their output is NOT submitted as a
       contribution. Assistance whose output IS contributed (code completion,
       mechanical refactoring) is not listed here: that is `stance: assisted`.
+      A use left out falls under the stance; an empty list says explicitly
+      that no use is exempt.
     type: array
     uniqueItems: true
     items:
       enum: [research, comprehension, bug-triage, debugging, accessibility,
              spelling-grammar, translation]
+      # research: finding and reading background material. comprehension:
+      # explaining existing code or documentation. bug-triage: sorting and
+      # deduplicating reports. debugging: locating the cause of a fault.
+      # accessibility: assistive use by a contributor who needs it.
+      # spelling-grammar: correcting the contributor's own text.
+      # translation: translating the contributor's own text.
 
   review:
     description: >-
@@ -200,13 +208,22 @@ $defs:
     type: object
     properties:
       stance:
+        description: >-
+          What a contribution may contain. `disallowed`: nothing produced by
+          AI. `assisted`: AI may help only menially (completion,
+          find-and-replace, mechanical refactoring); the substance is the
+          contributor's. `generated`: AI may produce the substance, subject to
+          the rest of the file.
         enum: [disallowed, assisted, generated]
       disclosure:
         description: >-
           Whether a contribution should note AI involvement. `none` means not
           asked for; `prohibited` means notes about AI tools must be left out,
-          so a consumer that adds a disclosure trailer by default must not.
-        enum: [prohibited, none, encouraged, required, structured]
+          so a consumer that adds a disclosure trailer by default must not;
+          `encouraged` means welcome but not gated on; `required` means a
+          contribution without it may be refused. Where and how is
+          `disclosureFormat`.
+        enum: [prohibited, none, encouraged, required]
       humanReview:
         description: >-
           The CONTRIBUTOR's review: `required` means the submitter has
@@ -220,11 +237,29 @@ $defs:
       notes: { type: string }
 
   scope:
+    description: >-
+      The content type a rule applies to. `comments` covers replies in issues
+      and reviews; `issue-descriptions` and `pull-request-descriptions` the
+      opening text of each; `media` images, audio and video.
     enum: [code, docs, tests, comments, issue-descriptions,
            pull-request-descriptions, commit-messages, translations, media,
            security-reports]
 
   requirement:
+    description: >-
+      A gate the contributor can check before submitting. `tests-pass`: the
+      existing tests pass with the change. `new-tests-required`: the change
+      adds tests for what it changes. `ci-green`: the project's CI passes.
+      `type-check`: type checking passes. `no-generated-in-security-paths`: no
+      AI-produced content in code the project designates security-sensitive,
+      named in `notes` or `statement`. `provenance-attested`: the contributor
+      affirms the right to submit every part under the project's licence.
+      `prompt-logs-retained`: the contributor keeps the prompts and outputs
+      behind AI-produced parts and can produce them on request.
+      `no-sensitive-data-to-3p`: no non-public project material (undisclosed
+      vulnerabilities, credentials, private code) was given to a third-party AI
+      service. `reproduced`: the contributor has personally reproduced the
+      problem the report or fix addresses.
     enum: [tests-pass, new-tests-required, ci-green, type-check,
            no-generated-in-security-paths, provenance-attested,
            prompt-logs-retained, no-sensitive-data-to-3p, reproduced]
