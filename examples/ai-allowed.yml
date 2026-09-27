@@ -13,3 +13,32 @@ defaults:
 autonomousAgents:
   allowed: true           # agents may open issues and pull requests
 
+# ---------------------------------------------------------------------------
+# Not addressed by this preset
+#
+# The questions below are ones this preset leaves open. Work through them to
+# fit it to your project: uncomment a line and keep the value you choose to
+# decide it, list its name in `undecided: [...]` if you discussed it and could
+# not agree (keeping a value there sets the rule meanwhile), and delete this
+# section when you are done. Commented lines mean
+# nothing to a consumer; the preset stands without them. writing-a-policy.md
+# explains each question.
+#
+#   humanReview: none | required            (add under defaults:)
+#   requirements: [tests-pass, new-tests-required, ci-green, type-check, no-generated-in-security-paths, provenance-attested, prompt-logs-retained, no-sensitive-data-to-3p, reproduced]   (add under defaults:)
+# assertions:                                 # communication in the contributor's own words
+#   - { scope: comments, stance: disallowed }
+#   - { scope: issue-descriptions, stance: disallowed }
+#   - { scope: pull-request-descriptions, stance: disallowed }
+# review: { aiAssist: disallowed | permitted, humanDecision: none | required }
+#   attestation: { identity: [bot-account, signed-commits, integration-manifest] }   (add under autonomousAgents:)
+# priorArrangement: { appliesTo: [agent-submissions, bulk-changes, ai-generated-prs], basis: accepted-issue | reviewer-agreement | governance-body | discussion }
+# newcomerIssuesHumanOnly: true
+# enforcement: { mechanism: [maintainer-review, ci-check, denylist, none] }
+# signoff: none | dco | cla
+# models: { policy: { openness: { weights: available | any, trainingCode: available | any, trainingData: permissive | disclosed | any } } }
+# concerns: { values: [code-quality, security, ip-provenance, licensing-ethics, data-consent, labor-ethics, skill-preservation, environmental, oss-sustainability], notes: "why, in your own words" }
+# guardrailsRef: CONTRIBUTING.md#ai-checklist
+#   - { scope: security-reports, requirements: [reproduced] }   (add to assertions:, creating it if absent)
+# actorExceptions:                            # actors governed differently
+#   - { actor: maintainers, autonomousAgentsAllowed: true }
