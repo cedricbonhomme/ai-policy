@@ -1,6 +1,25 @@
 # Writing an `ai-policy.yml`
 
-A walk through the format as a series of decisions. The [schema](./ai-policy.schema.yaml) has the exact values and the [example](./ai-policy.example.yml) shows every field in use; this guide is about the order in which to decide them.
+Most projects do not need to design a policy from scratch. If you already know where you stand, **take a preset and skip the rest of this guide**. The decision tree below is for projects that are still working it out.
+
+## If you already know where you stand
+
+Copy the matching file from [`examples/`](./examples/) as `ai-policy.yml` and, where [ai-policy.dev](https://ai-policy.dev/) has one, put the preset's `AI_POLICY.md` beside it:
+
+| Where you stand | Preset |
+|---|---|
+| No AI at all, not even for translation or finding bugs | [AI Disallowed](./examples/ai-disallowed.yml) |
+| Nothing AI-produced is contributed, but AI may help people understand and debug | [Research Only](./examples/research-only.yml) (structured file only; no prose preset yet) |
+| Tools are private, the submission must be entirely the contributor's, no AI notes | [Human Responsible](./examples/human-responsible.yml) |
+| Any tools, but every contribution needs a human who can license it | [Human Copyright](./examples/human-copyright.yml) |
+| AI may write code, but every comment, issue and description is the contributor's own | [Human Voice](./examples/human-voice.yml) |
+| AI welcome, as long as its use is disclosed | [AI Disclosed](./examples/ai-disclosed.yml) |
+| Any tools, including agents, nothing to declare | [AI Allowed](./examples/ai-allowed.yml) |
+| AI needs no rule of its own; the ordinary contribution rules cover it | [Neutral](./examples/neutral.yml) (point `statement` at your contribution guide) |
+
+Each file ends with a **Not addressed by this preset** section: the questions the preset leaves open, as commented-out lines with their possible values. It is the quickest way to see what else your project might want to settle. Uncomment a line to decide it, list its name in `undecided` if you discussed it and could not agree (keeping a value there sets the rule meanwhile), or delete the whole section; the preset is complete without it. For a hard no, the section is short, and you can usually delete it and be done.
+
+## Working it out
 
 "Should we allow AI?" is the question most projects start with, and the worst place to start: argued in the abstract it goes in circles, because it bundles a dozen smaller questions that people answer differently for different reasons. The order below unbundles it:
 
@@ -9,36 +28,27 @@ A walk through the format as a series of decisions. The [schema](./ai-policy.sch
 - **Give each concern its narrowest lever.** Most concerns have a targeted field that answers them without restricting anything else.
 - **Argue the stance last**, over whatever the levers could not reach. By then the question is smaller and more concrete than the one you started with.
 
+**No step has to block you.** Wherever your project cannot agree yet, list the field in `undecided` and move on. Then decide what applies meanwhile, which is usually far easier than the question itself: give the field a value and it is the interim rule (`stance: generated` for *go ahead while we decide*, `stance: disallowed` for *not until we have*), or leave it without one and consumers never read it as permission. The file stays honest: it publishes what you have settled without inventing the rest or letting silence pass for a decision, and the open questions stay visible for the next discussion. Even `defaults.stance` can be listed there, with `status: under-discussion`.
+
 ```mermaid
 flowchart TD
-    preset{"Does a ready-made<br/>preset fit?"} -- yes --> copy["Copy it from examples/<br/>and check it against<br/>the steps below"]
-    preset -- no --> common
-    copy --> common["Settle the common ground<br/>humanReview, review,<br/>autonomousAgents, own-voice scopes"]
-    common --> concerns["Name what worries you<br/>concerns"]
-    concerns --> levers["Give each concern its narrowest lever<br/>requirements, priorArrangement,<br/>newcomerIssuesHumanOnly, models, …"]
+    common["Settle the common ground<br/>humanReview, review,<br/>autonomousAgents, own-voice scopes"] --> concerns["Name what worries you<br/>concerns"]
+    concerns --> tools{"Only objections to<br/>the tools themselves?"}
+    tools -- "yes" --> left
+    tools -- "no" --> levers["Give each concern its narrowest lever<br/>requirements, priorArrangement,<br/>newcomerIssuesHumanOnly, models, …"]
     levers --> left{"Is anything left that<br/>only a stance can answer?"}
     left -- "no" --> open["stance: generated,<br/>the levers carry the load"]
     left -- "yes" --> narrow["stance: assisted or disallowed,<br/>plus allowedUses"]
-    open --> disclosure["Decide disclosure, and who it is for<br/>disclosure, disclosureFormat"]
-    narrow --> disclosure
-    disclosure --> mechanics["Fill in the mechanics<br/>attestation, enforcement, signoff"]
+    open --> disclosure["Decide disclosure, and who it is for<br/>disclosure"]
+    narrow -- "assisted" --> disclosure
+    narrow -- "disallowed" --> mechanics
+    disclosure --> mechanics["Fill in the mechanics<br/>disclosureFormat, attestation,<br/>enforcement"]
     mechanics --> finish["Point at the prose<br/>statement, exceptions, status, summary"]
 ```
 
-A valid file needs only a `summary` and a default `stance`; everything else is optional. Stop wherever the rest of your policy is better said in prose.
+Any step can end in `undecided`, with or without an interim value. A valid file needs only a default `stance`, declared or undecided, or `summary: neutral`; everything else is optional. Stop wherever the rest of your policy is better said in prose.
 
-## Start from a preset
-
-If one of the [ai-policy.dev](https://ai-policy.dev/) policies already says what you want, copy its file from [`examples/`](./examples/) as `ai-policy.yml` and put the matching `AI_POLICY.md` beside it:
-
-- **AI Allowed:** any tooling, including agents, no disclosure asked. [`ai-allowed.yml`](./examples/ai-allowed.yml)
-- **Human Voice:** AI may write code, but every comment, issue and description is the contributor's own. [`human-voice.yml`](./examples/human-voice.yml)
-- **Human Responsible:** tooling is private, the submission must be entirely the contributor's, no AI notes, no agents. [`human-responsible.yml`](./examples/human-responsible.yml)
-- **AI Disallowed:** no AI at all. [`ai-disallowed.yml`](./examples/ai-disallowed.yml)
-
-A preset is a starting point, not a finished answer. Walking through the steps below with one in hand is quick, and shows where your project differs from it.
-
-## Settle the common ground
+### Settle the common ground
 
 Where published policies address these, they mostly agree; the [coverage survey](./coverage.md) shows how widely. Confirm each and move on. If your project genuinely disagrees on one, that is worth knowing early: carry it forward as a concern rather than settling it here.
 
@@ -48,15 +58,15 @@ Where published policies address these, they mostly agree; the [coverage survey]
 - **Must communication be in the contributor's own words?** The most common per-scope rule in the corpus: `assertions[]` with `stance: disallowed` on `comments`, `issue-descriptions` and `pull-request-descriptions`, usually with `allowedUses: [translation, spelling-grammar]` so non-native speakers can still polish their text. Add `commit-messages` if they count as communication in your project.
 - **Is there already a sign-off?** If you use a DCO or CLA, `signoff` records it; an agent can never provide one.
 
-## Name what worries you
+### Name what worries you
 
-Before deciding any rule, list why your project wants a policy at all, as `concerns`: `code-quality`, `security`, `ip-provenance`, `licensing-ethics`, `data-consent`, `labor-ethics`, `skill-preservation`, `environmental`, `oss-sustainability`.
+Before deciding any rule, list why your project wants a policy at all, as `concerns.values`: `code-quality`, `security`, `ip-provenance`, `licensing-ethics`, `data-consent`, `labor-ethics`, `skill-preservation`, `environmental`, `oss-sustainability`. Say them in your own words in `concerns.notes` as well, and there above all when a concern of yours is not on the list: that is how the list grows.
 
 This is the step that makes the rest efficient. Two people arguing over whether to allow generated code are often arguing about different things, one about review load and the other about licensing, and no single answer on the stance satisfies both. Named concerns can be answered one at a time. They also go on the record: `concerns` changes nothing a consumer does, but it shows anyone aggregating policies what moves projects, which prose rationale does not.
 
-## Give each concern its narrowest lever
+### Give each concern its narrowest lever
 
-Most concerns have a field that answers them directly, without restricting anything else. Work through your concerns and set the lever for each:
+Most concerns have a field that answers them directly, without restricting anything else. Work through your concerns and set the lever for each. If every concern you named is an objection to the tools themselves (the last row), skip this step and go straight to the stance:
 
 | Concern | Narrowest levers |
 |---|---|
@@ -66,11 +76,12 @@ Most concerns have a field that answers them directly, without restricting anyth
 | `skill-preservation` | `newcomerIssuesHumanOnly: true`; the own-voice scopes above |
 | `ip-provenance` | `requirements: [provenance-attested]`; `disclosure: required`; `models.policy.openness.trainingData` |
 | `licensing-ethics`, `data-consent` | `models.policy.openness`, a floor on which models may be used at all |
+| a concern stated only in `notes`, such as models carrying retired terminology forward, or a community losing the shaping of its own language | often the own-voice scopes, a stricter `docs` scope, or a terminology guide at `guardrailsRef`; a check that applies to every contribution however it was written belongs in the ordinary contribution guide rather than in `requirements` |
 | `labor-ethics`, `environmental` | none: these are objections to the tools themselves, which only the stance can express |
 
 The last row is the honest limit. Some concerns are about the tools rather than about how they are used, and no gate or pre-arrangement answers them. That is not a weakness in them: it is exactly what the stance is for.
 
-## Is anything left that only a stance can answer?
+### Is anything left that only a stance can answer?
 
 Now decide `defaults.stance`, over what the levers did not reach:
 
@@ -80,9 +91,9 @@ Now decide `defaults.stance`, over what the levers did not reach:
 
 The stance is about permission, not preference: what a contribution may contain, not what the project would like. Different content types may need different answers; add an `assertions[]` entry for each `scope` that departs from the default, setting only the fields that change. Scopes are `code`, `docs`, `tests`, `comments`, `issue-descriptions`, `pull-request-descriptions`, `commit-messages`, `translations`, `media` and `security-reports`.
 
-If the stance is `assisted` or `disallowed`, say what stays permitted, or the policy reads as blanket hostility. `allowedUses` lists AI uses whose output is *not* contributed: `research`, `comprehension`, `bug-triage`, `debugging`, `accessibility`, `spelling-grammar`, `translation`. A use you leave out is not exempt; it falls under the stance like everything else. Assistance whose output does end up in the contribution is `stance: assisted`, not an allowed use.
+If the stance is `disallowed`, you can skip disclosure entirely: there is nothing AI-produced to disclose. If the stance is `assisted` or `disallowed`, say what stays permitted, or the policy reads as blanket hostility. `allowedUses` lists AI uses whose output is *not* contributed: `research`, `comprehension`, `bug-triage`, `debugging`, `accessibility`, `spelling-grammar`, `translation`. A use you leave out is not exempt; it falls under the stance like everything else. Assistance whose output does end up in the contribution is `stance: assisted`, not an allowed use.
 
-## Decide disclosure, and who it is for
+### Decide disclosure, and who it is for
 
 Disclosure is contested in its own right, and the useful question is not whether but *for whom*. A note can help a reviewer calibrate, track provenance for licensing, serve downstream citation, or simply sort contributors into categories, and the answer decides the value:
 
@@ -93,21 +104,22 @@ Disclosure is contested in its own right, and the useful question is not whether
 
 Disclosure can differ by scope like everything else; curl requires it for security reports and only encourages it for translations.
 
-## Fill in the mechanics
+### Fill in the mechanics
 
-These follow from decisions already made:
+These follow from decisions already made, and each can be skipped when the decision it depends on makes it moot:
 
-- **`disclosureFormat`:** if you encourage or require disclosure, where it goes (`method`: `free-text`, `commit-trailer`, `pr-template`, `quote-block`) and which trailer to use; `trailers` can distinguish degrees, such as `Assisted-by:` and `Generated-by:`. What a disclosure must *name*, the model or the extent, goes in `notes`.
-- **`autonomousAgents.attestation`:** if agents are allowed anywhere, how they identify themselves (`bot-account`, `signed-commits`, `integration-manifest`).
+- **`disclosureFormat`:** skip it unless you encourage or require disclosure; if you do, it says where it goes (`method`: `free-text`, `commit-trailer`, `pr-template`, `quote-block`) and which trailer to use; `trailers` can distinguish degrees, such as `Assisted-by:` and `Generated-by:`. What a disclosure must *name*, the model or the extent, goes in `notes`.
+- **`autonomousAgents.attestation`:** skip it unless agents are allowed somewhere; if they are, it says how they identify themselves (`bot-account`, `signed-commits`, `integration-manifest`).
 - **`enforcement`:** how the policy is applied (`maintainer-review`, `ci-check`, `denylist`, `none`), with any consequence in a sentence.
 - **`review.notes`:** rules about review bots, such as separate accounts or non-blocking comments.
 
-## Point at the prose and finish
+### Point at the prose and finish
 
 - **`statement`:** where your human-readable policy lives, usually `AI_POLICY.md` or a section of `CONTRIBUTING.md`. This is the authoritative text; the file summarises it.
 - **`guardrailsRef`:** where a contributor's practical checklist lives, if you have one separate from the policy.
 - **`exceptions: true`:** set it whenever the prose says something the fields do not. Any nuance you found no field for belongs here and in `notes`, not in a squeezed enum.
 - **`status`:** `adopted`, `draft` or `under-discussion`.
-- **`summary`:** your one-word reading of the whole, for catalogues and badges: `permissive`, `mixed`, `restrictive` or `disallowed`. Set it last, once the rest is settled.
+- **`undecided`:** every question you could not settle yet; keep a value on any that has a rule in force meanwhile.
+- **`summary`:** optional, and derived from the stance rather than chosen: `disallowed` for a `disallowed` stance, `restrictive` for `assisted`, and for `generated` either `permissive` or, once you add an AI-specific condition (a scope held below `generated`, disclosure `required` or `prohibited`, a `requirements` gate, or a prior-arrangement gate), `mixed`. A project with no AI-specific rule at all uses `neutral` instead of a stance. If you set it, the schema checks that it matches.
 
 Then validate the file against [`ai-policy.schema.yaml`](./ai-policy.schema.yaml), and point your `AGENTS.md` and `CONTRIBUTING.md` at it so agents and people find it where they already look.
