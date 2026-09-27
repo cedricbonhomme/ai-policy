@@ -1,0 +1,29 @@
+# The "Human Copyright" preset from ai-policy.dev, expressed in this format.
+# Ship it as ai-policy.yml beside the preset's AI_POLICY.md.
+version: 1
+
+summary: mixed
+statement: AI_POLICY.md
+status: adopted
+
+concerns:
+  values: [ip-provenance]
+  notes: >-
+    The copyright status of AI-generated work is uncertain and models can
+    reproduce their training data, so a contribution without a clear human
+    owner could put the project's licence at risk.
+
+defaults:
+  stance: generated       # tooling is not policed
+  humanReview: required   # "An AI wrote it" is not an answer to review
+  requirements: [provenance-attested]  # you can license every line
+  notes: >-
+    AI tools must not be credited as authors, in a Co-authored-by trailer or
+    anywhere else.
+
+autonomousAgents:
+  allowed: false
+
+enforcement:
+  mechanism: [maintainer-review, denylist]  # bot-like accounts may be banned
+

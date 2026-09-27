@@ -10,8 +10,12 @@ exceptions: true          # suspected AI use is rejected unless disproved
 defaults:
   stance: disallowed
 
+# Not even translation, spelling, or finding bugs to fix in your own words.
+allowedUses: []
+
 autonomousAgents:
   allowed: false
 
 enforcement:
   mechanism: [maintainer-review]
+

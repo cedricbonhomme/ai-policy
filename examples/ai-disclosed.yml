@@ -1,0 +1,35 @@
+# The "AI Disclosed" preset from ai-policy.dev, expressed in this format.
+# Ship it as ai-policy.yml beside the preset's AI_POLICY.md.
+version: 1
+
+summary: mixed
+statement: AI_POLICY.md
+status: adopted
+
+concerns:
+  notes: >-
+    Not an anti-AI policy: maintainers review every contribution by hand, and
+    knowing how it was made helps them decide how closely to look.
+
+defaults:
+  stance: generated       # AI may help with code and text
+  disclosure: required    # every AI-assisted issue, pull request and discussion
+  humanReview: required   # understand, run and test everything yourself
+
+assertions:
+  - scope: media
+    stance: disallowed    # no AI-generated images, audio or video
+
+autonomousAgents:
+  allowed: false          # a person reviews and posts every submission
+
+disclosureFormat:
+  method: free-text       # or the project's pull request template
+  notes: >-
+    Name the tools and how much of the work they did. Plain autocompletion
+    and spell-checking need no disclosure.
+
+enforcement:
+  mechanism: [maintainer-review]
+  consequence: Contributions suspected of undisclosed AI use may be closed.
+

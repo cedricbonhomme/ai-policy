@@ -9,11 +9,18 @@ status: adopted
 # about, and that suspicion alone is enough to close a contribution.
 exceptions: true
 
+concerns:
+  notes: >-
+    The project is built by people and wants to stay that way, so every part
+    of a contribution should come from the contributor.
+
 defaults:
   stance: assisted        # private tooling is tolerated; the submission must be yours
   disclosure: prohibited  # do not add notes about AI tools
   humanReview: required   # explain every line, test it, answer review yourself
-  requirements: [reproduced]
+  # reproduced: no reports or fixes for problems you have not reproduced
+  # provenance-attested: you affirm the right to submit it under the licence
+  requirements: [reproduced, provenance-attested]
 
 # Every word a maintainer reads must be the contributor's own.
 assertions:
@@ -32,3 +39,4 @@ autonomousAgents:
 enforcement:
   mechanism: [maintainer-review, denylist]
   consequence: Repeated or deliberate violations result in a ban.
+

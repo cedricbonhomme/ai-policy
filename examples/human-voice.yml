@@ -7,6 +7,12 @@ statement: AI_POLICY.md
 status: adopted
 exceptions: true          # "never let an LLM think for you" lives in the prose
 
+concerns:
+  values: [code-quality]
+  notes: >-
+    Quality, and the joy of collaborating and communicating with real people:
+    maintainers want to know they are hearing the contributor's own words.
+
 defaults:
   stance: generated       # AI may generate code and help explore ideas
   humanReview: required   # submit only what you fully understand and can explain
@@ -20,3 +26,4 @@ assertions:
   - scope: pull-request-descriptions
     stance: disallowed
     notes: Do not quote a model in issues or pull requests.
+

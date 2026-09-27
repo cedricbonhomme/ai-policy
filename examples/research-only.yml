@@ -1,0 +1,20 @@
+# "Research Only": no AI-produced contributions, but AI may help you understand
+# the code and find the problem. A common pattern with no ai-policy.dev preset
+# yet; modelled on OpenJDK, with QEMU and Servo close variants.
+version: 1
+
+summary: disallowed
+status: adopted
+
+defaults:
+  stance: disallowed      # nothing generated is contributed, in any scope
+
+# Uses whose output is never submitted stay open.
+allowedUses: [research, comprehension, debugging]
+
+autonomousAgents:
+  allowed: false
+
+enforcement:
+  mechanism: [maintainer-review]
+

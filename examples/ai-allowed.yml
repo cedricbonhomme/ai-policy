@@ -12,3 +12,4 @@ defaults:
 
 autonomousAgents:
   allowed: true           # agents may open issues and pull requests
+
