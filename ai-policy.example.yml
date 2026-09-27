@@ -42,7 +42,13 @@ exceptions: true
 # prose rationale stays in `statement`).
 # code-quality | security | ip-provenance | licensing-ethics | data-consent |
 #   labor-ethics | skill-preservation | environmental | oss-sustainability
-concerns: [licensing-ethics, environmental, oss-sustainability]
+concerns:
+  values: [licensing-ethics, environmental, oss-sustainability]
+  notes: >-
+    Models trained on code without regard to its licence, the energy cost of
+    training and running them, and the review time AI-driven volume takes
+    from maintainers. Say it in your own words, above all a concern the list
+    lacks.
 
 # Defaults apply to any content-type scope not overridden in assertions[].
 defaults:

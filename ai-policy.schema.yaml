@@ -98,13 +98,39 @@ properties:
     description: The structured stance is a summary; carve-outs live in `statement`.
     type: boolean
   concerns:
-    description: Why the project holds this stance (motivation signal).
-    type: array
-    uniqueItems: true
-    items:
-      enum: [code-quality, security, ip-provenance, licensing-ethics,
-             data-consent, labor-ethics, skill-preservation, environmental,
-             oss-sustainability]
+    description: >-
+      Why the project holds this stance: a motivation signal for aggregation,
+      which changes nothing a consumer does. `values` names concerns from the
+      shared vocabulary; `notes` states them in the project's own words,
+      including any the vocabulary lacks, which is how a new value is chosen.
+    type: object
+    unevaluatedProperties: false
+    properties:
+      values:
+        type: array
+        uniqueItems: true
+        items:
+          enum: [code-quality, security, ip-provenance, licensing-ethics,
+                 data-consent, labor-ethics, skill-preservation, environmental,
+                 oss-sustainability]
+        # code-quality: generated contributions lower quality or raise the
+        #   review cost of each change.
+        # security: generated content introduces vulnerabilities or exposes
+        #   sensitive material.
+        # ip-provenance: the origin, and so the licensability, of generated
+        #   content cannot be established.
+        # licensing-ethics: models are trained on works without regard to
+        #   their licences.
+        # data-consent: training or contributor data is used without consent.
+        # labor-ethics: the labour conditions behind training, such as data
+        #   labelling and content moderation.
+        # skill-preservation: contributors, newcomers above all, stop learning
+        #   the skills the project depends on.
+        # environmental: the energy and water cost of training and running
+        #   models.
+        # oss-sustainability: maintainer load and the viability of volunteer
+        #   maintenance, such as review burden from AI-driven volume.
+      notes: { type: string }
 
   defaults:
     description: Base stance for any scope not overridden in assertions[].
