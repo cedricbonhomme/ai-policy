@@ -9,6 +9,7 @@ status: adopted
 defaults:
   stance: generated
   disclosure: none        # "AI usage does not need to be declared"
+  accountability: contributor  # whoever submits, or runs the agent that does, is responsible
 
 autonomousAgents:
   allowed: true           # agents may open issues and pull requests
@@ -33,7 +34,7 @@ autonomousAgents:
 # review: { aiAssist: disallowed | permitted, humanDecision: none | required }
 #   attestation: { identity: [bot-account, signed-commits, integration-manifest] }   (add under autonomousAgents:)
 # priorArrangement: { appliesTo: [agent-submissions, bulk-changes, ai-generated-prs], basis: accepted-issue | reviewer-agreement | governance-body | discussion }
-# newcomerIssuesHumanOnly: true
+# newContributors: { stance: disallowed | assisted, issuesHumanOnly: true }
 # enforcement: { mechanism: [maintainer-review, ci-check, denylist, none] }
 # signoff: none | dco | cla
 # models: { policy: { openness: { weights: available | any, trainingCode: available | any, trainingData: permissive | disclosed | any } } }

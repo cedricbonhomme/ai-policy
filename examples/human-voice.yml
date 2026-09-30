@@ -16,6 +16,7 @@ concerns:
 defaults:
   stance: generated       # AI may generate code and help explore ideas
   humanReview: required   # submit only what you fully understand and can explain
+  accountability: contributor  # always take personal responsibility
 
 # Communication must be in the contributor's own voice.
 assertions:
@@ -43,7 +44,7 @@ assertions:
 # autonomousAgents: { allowed: true | false }
 # review: { aiAssist: disallowed | permitted, humanDecision: none | required }
 # priorArrangement: { appliesTo: [agent-submissions, bulk-changes, ai-generated-prs], basis: accepted-issue | reviewer-agreement | governance-body | discussion }
-# newcomerIssuesHumanOnly: true
+# newContributors: { stance: disallowed | assisted, issuesHumanOnly: true }
 # enforcement: { mechanism: [maintainer-review, ci-check, denylist, none] }
 # signoff: none | dco | cla
 # models: { policy: { openness: { weights: available | any, trainingCode: available | any, trainingData: permissive | disclosed | any } } }

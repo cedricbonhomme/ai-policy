@@ -15,15 +15,27 @@ title: ai-policy
 description: A project's machine-readable stance on generative-AI contributions.
 type: object
 unevaluatedProperties: false
-# The minimal declaration is a default stance, declared or listed in
-# `undecided`, or `summary: neutral`. `summary` is optional because it is
-# derived: when present it must match the stance field-set (see summary below),
-# and a neutral file carries no AI-specific field.
+# A file must declare something: `summary: neutral`, or at least one rule or
+# open question. A stance may sit in `defaults` or in a single scope, since
+# real policies govern, say, AI-written issues without a word about code.
+# `summary` is optional because it is derived: when present it must match the
+# stance field-set (see summary below), which needs a default stance, and a
+# neutral file carries no AI-specific field.
 allOf:
   - anyOf:
       - { required: [summary], properties: { summary: { const: neutral } } }
-      - { required: [defaults], properties: { defaults: { required: [stance] } } }
-      - { required: [undecided], properties: { undecided: { contains: { const: defaults.stance } } } }
+      - { required: [defaults], properties: { defaults: { minProperties: 1 } } }
+      - { required: [assertions], properties: { assertions: { minItems: 1 } } }
+      - { required: [undecided], properties: { undecided: { minItems: 1 } } }
+      - required: [allowedUses]
+      - required: [review]
+      - required: [newContributors]
+      - required: [autonomousAgents]
+      - required: [priorArrangement]
+      - required: [actorExceptions]
+      - required: [disclosureFormat]
+      - required: [enforcement]
+      - required: [models]
   - if: { required: [summary], properties: { summary: { const: neutral } } }
     then:
       not:
@@ -32,7 +44,7 @@ allOf:
           - required: [assertions]
           - required: [allowedUses]
           - required: [review]
-          - required: [newcomerIssuesHumanOnly]
+          - required: [newContributors]
           - required: [autonomousAgents]
           - required: [priorArrangement]
           - required: [actorExceptions]
@@ -67,7 +79,8 @@ properties:
       `generated` with no AI-specific condition. `mixed`: default stance
       `generated` with at least one AI-specific condition: a scope held below
       `generated`, disclosure `required` or `prohibited`, a `requirements`
-      gate, or a non-empty `priorArrangement.appliesTo`. Agent autonomy is a separate axis and
+      gate, a non-empty `priorArrangement.appliesTo`, or a `newContributors`
+      rule. Agent autonomy is a separate axis and
       does not affect it.
     enum: [neutral, permissive, mixed, restrictive, disallowed]
   statement:
@@ -90,8 +103,9 @@ properties:
     uniqueItems: true
     items:
       enum: [defaults.stance, defaults.disclosure, defaults.humanReview,
+             defaults.accountability,
              defaults.requirements, allowedUses, review,
-             newcomerIssuesHumanOnly, autonomousAgents, actorExceptions,
+             newContributors, autonomousAgents, actorExceptions,
              priorArrangement, disclosureFormat, enforcement, signoff, models,
              concerns]
   exceptions:
@@ -185,9 +199,19 @@ properties:
         enum: [none, required]
       notes: { type: string }
 
-  newcomerIssuesHumanOnly:
-    description: Reserve newcomer / "good first issue" tickets for human authorship.
-    type: boolean
+  newContributors:
+    description: >-
+      Rules for contributors with no merged contribution to the project yet;
+      a different threshold goes in `notes`. `stance` is the AI stance that
+      applies to them, and for a new contributor the stricter of it and the
+      scope's own stance wins. `issuesHumanOnly` reserves newcomer ("good
+      first issue") tickets for human authorship.
+    type: object
+    unevaluatedProperties: false
+    properties:
+      stance: { enum: [disallowed, assisted] }
+      issuesHumanOnly: { type: boolean }
+      notes: { type: string }
 
   autonomousAgents:
     type: object
@@ -244,7 +268,20 @@ properties:
     unevaluatedProperties: false
     properties:
       method:
-        enum: [free-text, commit-trailer, pr-template, quote-block]
+        description: Where a disclosure goes; several places may be required.
+        type: array
+        uniqueItems: true
+        items:
+          enum: [free-text, commit-trailer, pr-template, quote-block]
+      content:
+        description: >-
+          What a disclosure must state. `tool`: the AI tool or agent used.
+          `model`: the model and its version. `extent`: how much of the work
+          AI did. `usage`: what AI was used for.
+        type: array
+        uniqueItems: true
+        items:
+          enum: [tool, model, extent, usage]
       trailer:
         description: A single trailer string (alternative to `trailers`).
         type: string
@@ -313,10 +350,17 @@ $defs:
         enum: [prohibited, none, encouraged, required]
       humanReview:
         description: >-
-          The CONTRIBUTOR's review: `required` means the submitter has
-          personally reviewed, understood and tested the change and answers
-          for it. The project's own review is `review.humanDecision`.
+          The CONTRIBUTOR's involvement: `required` means the submitter has
+          personally reviewed, understood and tested the change. Whether they
+          answer for it is `accountability`; the project's own review is
+          `review.humanDecision`.
         enum: [none, required]
+      accountability:
+        description: >-
+          `contributor`: the person who submits a contribution answers for all
+          of it, including any AI-produced part. Absent means the policy does
+          not say; no surveyed policy disclaims accountability.
+        enum: [contributor]
       requirements:
         type: array
         uniqueItems: true
@@ -362,6 +406,7 @@ $defs:
   aiSpecificCondition:
     anyOf:
       - { required: [priorArrangement], properties: { priorArrangement: { required: [appliesTo], properties: { appliesTo: { minItems: 1 } } } } }
+      - { required: [newContributors], properties: { newContributors: { anyOf: [{ required: [stance] }, { required: [issuesHumanOnly], properties: { issuesHumanOnly: { const: true } } }] } } }
       - { required: [defaults], properties: { defaults: { $ref: "#/$defs/conditionInSet" } } }
       - required: [assertions]
         properties:

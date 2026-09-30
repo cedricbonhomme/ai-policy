@@ -6,9 +6,10 @@
 # Guiding principle: this is a SIGNAL that boundaries exist and their broad
 # shape, not an exhaustive rule engine. The authoritative detail lives in the
 # human-readable policy `statement` points at; `exceptions: true` flags where
-# the structured stance is a simplification. Every field is optional except a
-# default stance, which may instead be listed in `undecided`; a project with no
-# AI-specific rule at all declares `summary: neutral` and nothing else.
+# the structured stance is a simplification. Every field is optional, but a
+# file must declare something: a stance, by default or for one scope, any other
+# rule, or an open question in `undecided`; a project with no AI-specific rule
+# at all declares `summary: neutral` and nothing else.
 
 version: 1
 
@@ -56,9 +57,11 @@ defaults:
   # prohibited | none | encouraged | required
   # (`prohibited`: leave notes about AI tools out of the submission)
   disclosure: required
-  # The contributor's own review: they have read, understood and tested the
-  # change and answer for it. The project's review is `review` below.
+  # The contributor's own involvement: they have read, understood and tested
+  # the change. The project's review is `review` below.
   humanReview: required         # none | required
+  # The person who submits answers for all of it, AI-produced parts included.
+  accountability: contributor   # contributor
   # Machine-checkable gates a contribution must clear.
   # tests-pass | new-tests-required | ci-green | type-check |
   #   no-generated-in-security-paths | provenance-attested |
@@ -101,10 +104,14 @@ review:
     Review bots run under separate, blockable accounts and leave non-blocking
     comments; contributors must not request an AI-agent review.
 
-# Reserve newcomer / "good first issue" tickets for human authorship, to
-# preserve the learning opportunity. The project's issue labels stay the
-# human-facing marker; this is the machine-readable signal.
-newcomerIssuesHumanOnly: true
+# Rules for contributors with no merged contribution yet. `issuesHumanOnly`
+# reserves newcomer / "good first issue" tickets for human authorship, to
+# preserve the learning opportunity; the project's issue labels stay the
+# human-facing marker, and this is the machine-readable signal.
+newContributors:
+  stance: assisted              # disallowed | assisted: stricter of this and the scope's wins
+  issuesHumanOnly: true
+  notes: Until your first contribution is merged, keep AI to menial help.
 
 # Autonomous agents are a separate axis from `stance`.
 autonomousAgents:
@@ -139,15 +146,15 @@ actorExceptions:
 
 # How disclosure is formatted, when required.
 disclosureFormat:
-  method: commit-trailer        # free-text | commit-trailer | pr-template | quote-block
+  method: [commit-trailer]      # free-text | commit-trailer | pr-template | quote-block
   # One trailer, or several keyed by degree of AI involvement.
   trailers:
     assisted: "Assisted-by:"
     generated: "Generated-by:"
+  # What a disclosure must state. tool | model | extent | usage
+  content: [tool, extent]
   notes: >-
-    Name the tool and roughly how much of the change it produced. The format
-    does not structure what a disclosure must contain, because projects diverge
-    sharply on it.
+    Roughly how much is enough; nobody needs line counts.
 
 # How the policy is enforced (declared intent only).
 enforcement:

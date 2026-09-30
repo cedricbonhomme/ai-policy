@@ -35,7 +35,7 @@ flowchart TD
     common["Settle the common ground<br/>humanReview, review,<br/>autonomousAgents, own-voice scopes"] --> concerns["Name what worries you<br/>concerns"]
     concerns --> tools{"Only objections to<br/>the tools themselves?"}
     tools -- "yes" --> left
-    tools -- "no" --> levers["Give each concern its narrowest lever<br/>requirements, priorArrangement,<br/>newcomerIssuesHumanOnly, models, …"]
+    tools -- "no" --> levers["Give each concern its narrowest lever<br/>requirements, priorArrangement,<br/>newContributors.issuesHumanOnly, models, …"]
     levers --> left{"Is anything left that<br/>only a stance can answer?"}
     left -- "no" --> open["stance: generated,<br/>the levers carry the load"]
     left -- "yes" --> narrow["stance: assisted or disallowed,<br/>plus allowedUses"]
@@ -46,13 +46,14 @@ flowchart TD
     mechanics --> finish["Point at the prose<br/>statement, exceptions, status, summary"]
 ```
 
-Any step can end in `undecided`, with or without an interim value. A valid file needs only a default `stance`, declared or undecided, or `summary: neutral`; everything else is optional. Stop wherever the rest of your policy is better said in prose.
+Any step can end in `undecided`, with or without an interim value. A valid file needs only one thing declared: a stance, by default or for a single scope, any other rule, an open question in `undecided`, or `summary: neutral`; everything else is optional. Stop wherever the rest of your policy is better said in prose.
 
 ### Settle the common ground
 
 Where published policies address these, they mostly agree; the [coverage survey](./coverage.md) shows how widely. Confirm each and move on. If your project genuinely disagrees on one, that is worth knowing early: carry it forward as a concern rather than settling it here.
 
-- **Does the contributor answer for the change?** `humanReview: required` means the submitter has read, understood and tested it, whatever tools they used. Almost every policy sets this.
+- **Is the contributor involved in the change?** `humanReview: required` means the submitter has read, understood and tested it, whatever tools they used. Most policies that say anything about AI set this.
+- **Does the contributor answer for it?** `accountability: contributor` means the person who submits answers for all of it, AI-produced parts included. Many policies imply this without saying it; say it, because an agent reading your file cannot infer it.
 - **Does a person make the merge decision?** `review.humanDecision: required`. Few policies state it, because few imagine otherwise; write it down anyway, since it is the half of accountability an agent reading your file cannot infer. Whether AI may *help* a reviewer is a separate switch, `review.aiAssist`.
 - **May an agent submit on its own?** `autonomousAgents.allowed` says whether a non-human may open an issue or pull request without a person writing and posting each action. Where policies say, most say no, including many that accept generated code from people. If some actors may, such as maintainers or an approved bot, record them in `actorExceptions` instead of loosening the default.
 - **Must communication be in the contributor's own words?** The most common per-scope rule in the corpus: `assertions[]` with `stance: disallowed` on `comments`, `issue-descriptions` and `pull-request-descriptions`, usually with `allowedUses: [translation, spelling-grammar]` so non-native speakers can still polish their text. Add `commit-messages` if they count as communication in your project.
@@ -71,9 +72,9 @@ Most concerns have a field that answers them directly, without restricting anyth
 | Concern | Narrowest levers |
 |---|---|
 | `code-quality` | `requirements` gates (`tests-pass`, `new-tests-required`, `ci-green`, `type-check`); `humanReview` already set |
-| `oss-sustainability` (review load, slop volume) | `priorArrangement` (for example `ai-generated-prs` only against an `accepted-issue`); `requirements: [reproduced]`; `enforcement: [denylist]` |
+| `oss-sustainability` (review load, slop volume) | `priorArrangement` (for example `ai-generated-prs` only against an `accepted-issue`); `newContributors.stance`, as transformers and trl use for first-time contributors; `requirements: [reproduced]`; `enforcement: [denylist]` |
 | `security` | an `assertions[]` entry for `security-reports` with `requirements: [reproduced]`; `no-generated-in-security-paths`; `no-sensitive-data-to-3p` |
-| `skill-preservation` | `newcomerIssuesHumanOnly: true`; the own-voice scopes above |
+| `skill-preservation` | `newContributors` (a stricter stance until the first merged contribution, human-only newcomer tickets); the own-voice scopes above |
 | `ip-provenance` | `requirements: [provenance-attested]`; `disclosure: required`; `models.policy.openness.trainingData` |
 | `licensing-ethics`, `data-consent` | `models.policy.openness`, a floor on which models may be used at all |
 | a concern stated only in `notes`, such as models carrying retired terminology forward, or a community losing the shaping of its own language | often the own-voice scopes, a stricter `docs` scope, or a terminology guide at `guardrailsRef`; a check that applies to every contribution however it was written belongs in the ordinary contribution guide rather than in `requirements` |
@@ -108,7 +109,7 @@ Disclosure can differ by scope like everything else; curl requires it for securi
 
 These follow from decisions already made, and each can be skipped when the decision it depends on makes it moot:
 
-- **`disclosureFormat`:** skip it unless you encourage or require disclosure; if you do, it says where it goes (`method`: `free-text`, `commit-trailer`, `pr-template`, `quote-block`) and which trailer to use; `trailers` can distinguish degrees, such as `Assisted-by:` and `Generated-by:`. What a disclosure must *name*, the model or the extent, goes in `notes`.
+- **`disclosureFormat`:** skip it unless you encourage or require disclosure; if you do, it says where it goes (`method`, one or more of `free-text`, `commit-trailer`, `pr-template`, `quote-block`) and which trailer to use; `trailers` can distinguish degrees, such as `Assisted-by:` and `Generated-by:`. `content` says what a disclosure must state: the `tool`, the `model`, the `extent` of AI's part, or what it was used for (`usage`).
 - **`autonomousAgents.attestation`:** skip it unless agents are allowed somewhere; if they are, it says how they identify themselves (`bot-account`, `signed-commits`, `integration-manifest`).
 - **`enforcement`:** how the policy is applied (`maintainer-review`, `ci-check`, `denylist`, `none`), with any consequence in a sentence.
 - **`review.notes`:** rules about review bots, such as separate accounts or non-blocking comments.

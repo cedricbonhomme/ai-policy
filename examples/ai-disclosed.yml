@@ -24,10 +24,9 @@ autonomousAgents:
   allowed: false          # a person reviews and posts every submission
 
 disclosureFormat:
-  method: free-text       # or the project's pull request template
-  notes: >-
-    Name the tools and how much of the work they did. Plain autocompletion
-    and spell-checking need no disclosure.
+  method: [free-text]     # or the project's pull request template
+  content: [tool, extent] # the tools used, and how much of the work they did
+  notes: Plain autocompletion and spell-checking need no disclosure.
 
 enforcement:
   mechanism: [maintainer-review]
@@ -51,7 +50,7 @@ enforcement:
 #   - { scope: pull-request-descriptions, stance: disallowed }
 # review: { aiAssist: disallowed | permitted, humanDecision: none | required }
 # priorArrangement: { appliesTo: [agent-submissions, bulk-changes, ai-generated-prs], basis: accepted-issue | reviewer-agreement | governance-body | discussion }
-# newcomerIssuesHumanOnly: true
+# newContributors: { stance: disallowed | assisted, issuesHumanOnly: true }
 # signoff: none | dco | cla
 # models: { policy: { openness: { weights: available | any, trainingCode: available | any, trainingData: permissive | disclosed | any } } }
 #   values: [code-quality, security, ip-provenance, licensing-ethics, data-consent, labor-ethics, skill-preservation, environmental, oss-sustainability]   (add under concerns:)
@@ -59,3 +58,4 @@ enforcement:
 #   - { scope: security-reports, requirements: [reproduced] }   (add to assertions:, creating it if absent)
 # actorExceptions:                            # actors governed differently
 #   - { actor: maintainers, autonomousAgentsAllowed: true }
+#   accountability: contributor            (add under defaults:)
