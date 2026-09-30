@@ -46,7 +46,7 @@ flowchart TD
     mechanics --> finish["Point at the prose<br/>statement, exceptions, status, summary"]
 ```
 
-Any step can end in `undecided`, with or without an interim value. A valid file needs only a default `stance`, declared or undecided, or `summary: neutral`; everything else is optional. Stop wherever the rest of your policy is better said in prose.
+Any step can end in `undecided`, with or without an interim value. A valid file needs only one thing declared: a stance, by default or for a single scope, any other rule, an open question in `undecided`, or `summary: neutral`; everything else is optional. Stop wherever the rest of your policy is better said in prose.
 
 ### Settle the common ground
 

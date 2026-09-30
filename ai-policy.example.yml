@@ -6,9 +6,10 @@
 # Guiding principle: this is a SIGNAL that boundaries exist and their broad
 # shape, not an exhaustive rule engine. The authoritative detail lives in the
 # human-readable policy `statement` points at; `exceptions: true` flags where
-# the structured stance is a simplification. Every field is optional except a
-# default stance, which may instead be listed in `undecided`; a project with no
-# AI-specific rule at all declares `summary: neutral` and nothing else.
+# the structured stance is a simplification. Every field is optional, but a
+# file must declare something: a stance, by default or for one scope, any other
+# rule, or an open question in `undecided`; a project with no AI-specific rule
+# at all declares `summary: neutral` and nothing else.
 
 version: 1
 
