@@ -35,7 +35,8 @@ concerns:
 defaults:
   stance: generated       # AI-generated contributions are allowed
   disclosure: encouraged  # note AI involvement, but it is not gated on
-  humanReview: required   # the contributor has verified and owns every change
+  humanReview: required   # the contributor has verified every change
+  accountability: contributor  # and vouches for it as their own
 
 # AI_POLICY.md: "AI can help write a change; it cannot own the decision to
 # propose one or the decision to accept it." Those are two separate fields.

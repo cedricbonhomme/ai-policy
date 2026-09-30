@@ -16,6 +16,7 @@ concerns:
 defaults:
   stance: generated       # AI may generate code and help explore ideas
   humanReview: required   # submit only what you fully understand and can explain
+  accountability: contributor  # always take personal responsibility
 
 # Communication must be in the contributor's own voice.
 assertions:

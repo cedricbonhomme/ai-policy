@@ -16,6 +16,7 @@ concerns:
 defaults:
   stance: generated       # tooling is not policed
   humanReview: required   # "An AI wrote it" is not an answer to review
+  accountability: contributor  # take full responsibility for every part
   requirements: [provenance-attested]  # you can license every line
   notes: >-
     AI tools must not be credited as authors, in a Co-authored-by trailer or

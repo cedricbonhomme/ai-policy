@@ -9,6 +9,7 @@ status: adopted
 defaults:
   stance: generated
   disclosure: none        # "AI usage does not need to be declared"
+  accountability: contributor  # whoever submits, or runs the agent that does, is responsible
 
 autonomousAgents:
   allowed: true           # agents may open issues and pull requests

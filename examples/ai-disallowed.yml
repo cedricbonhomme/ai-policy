@@ -37,3 +37,4 @@ enforcement:
 #   - { scope: security-reports, requirements: [reproduced] }   (add to assertions:, creating it if absent)
 # actorExceptions:                            # actors governed differently
 #   - { actor: maintainers, autonomousAgentsAllowed: true }
+#   accountability: contributor            (add under defaults:)

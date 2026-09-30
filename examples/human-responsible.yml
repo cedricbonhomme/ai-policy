@@ -18,6 +18,7 @@ defaults:
   stance: assisted        # private tooling is tolerated; the submission must be yours
   disclosure: prohibited  # do not add notes about AI tools
   humanReview: required   # explain every line, test it, answer review yourself
+  accountability: contributor  # it must be yours, and you own it completely
   # reproduced: no reports or fixes for problems you have not reproduced
   # provenance-attested: you affirm the right to submit it under the licence
   requirements: [reproduced, provenance-attested]

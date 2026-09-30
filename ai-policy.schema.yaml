@@ -90,6 +90,7 @@ properties:
     uniqueItems: true
     items:
       enum: [defaults.stance, defaults.disclosure, defaults.humanReview,
+             defaults.accountability,
              defaults.requirements, allowedUses, review,
              newcomerIssuesHumanOnly, autonomousAgents, actorExceptions,
              priorArrangement, disclosureFormat, enforcement, signoff, models,
@@ -326,10 +327,17 @@ $defs:
         enum: [prohibited, none, encouraged, required]
       humanReview:
         description: >-
-          The CONTRIBUTOR's review: `required` means the submitter has
-          personally reviewed, understood and tested the change and answers
-          for it. The project's own review is `review.humanDecision`.
+          The CONTRIBUTOR's involvement: `required` means the submitter has
+          personally reviewed, understood and tested the change. Whether they
+          answer for it is `accountability`; the project's own review is
+          `review.humanDecision`.
         enum: [none, required]
+      accountability:
+        description: >-
+          `contributor`: the person who submits a contribution answers for all
+          of it, including any AI-produced part. Absent means the policy does
+          not say; no surveyed policy disclaims accountability.
+        enum: [contributor]
       requirements:
         type: array
         uniqueItems: true
