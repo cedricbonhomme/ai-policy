@@ -35,7 +35,7 @@ flowchart TD
     common["Settle the common ground<br/>humanReview, review,<br/>autonomousAgents, own-voice scopes"] --> concerns["Name what worries you<br/>concerns"]
     concerns --> tools{"Only objections to<br/>the tools themselves?"}
     tools -- "yes" --> left
-    tools -- "no" --> levers["Give each concern its narrowest lever<br/>requirements, priorArrangement,<br/>newcomerIssuesHumanOnly, models, …"]
+    tools -- "no" --> levers["Give each concern its narrowest lever<br/>requirements, priorArrangement,<br/>newContributors.issuesHumanOnly, models, …"]
     levers --> left{"Is anything left that<br/>only a stance can answer?"}
     left -- "no" --> open["stance: generated,<br/>the levers carry the load"]
     left -- "yes" --> narrow["stance: assisted or disallowed,<br/>plus allowedUses"]
@@ -72,9 +72,9 @@ Most concerns have a field that answers them directly, without restricting anyth
 | Concern | Narrowest levers |
 |---|---|
 | `code-quality` | `requirements` gates (`tests-pass`, `new-tests-required`, `ci-green`, `type-check`); `humanReview` already set |
-| `oss-sustainability` (review load, slop volume) | `priorArrangement` (for example `ai-generated-prs` only against an `accepted-issue`); `requirements: [reproduced]`; `enforcement: [denylist]` |
+| `oss-sustainability` (review load, slop volume) | `priorArrangement` (for example `ai-generated-prs` only against an `accepted-issue`); `newContributors.stance`, as transformers and trl use for first-time contributors; `requirements: [reproduced]`; `enforcement: [denylist]` |
 | `security` | an `assertions[]` entry for `security-reports` with `requirements: [reproduced]`; `no-generated-in-security-paths`; `no-sensitive-data-to-3p` |
-| `skill-preservation` | `newcomerIssuesHumanOnly: true`; the own-voice scopes above |
+| `skill-preservation` | `newContributors` (a stricter stance until the first merged contribution, human-only newcomer tickets); the own-voice scopes above |
 | `ip-provenance` | `requirements: [provenance-attested]`; `disclosure: required`; `models.policy.openness.trainingData` |
 | `licensing-ethics`, `data-consent` | `models.policy.openness`, a floor on which models may be used at all |
 | a concern stated only in `notes`, such as models carrying retired terminology forward, or a community losing the shaping of its own language | often the own-voice scopes, a stricter `docs` scope, or a terminology guide at `guardrailsRef`; a check that applies to every contribution however it was written belongs in the ordinary contribution guide rather than in `requirements` |

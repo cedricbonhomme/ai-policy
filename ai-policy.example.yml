@@ -103,10 +103,14 @@ review:
     Review bots run under separate, blockable accounts and leave non-blocking
     comments; contributors must not request an AI-agent review.
 
-# Reserve newcomer / "good first issue" tickets for human authorship, to
-# preserve the learning opportunity. The project's issue labels stay the
-# human-facing marker; this is the machine-readable signal.
-newcomerIssuesHumanOnly: true
+# Rules for contributors with no merged contribution yet. `issuesHumanOnly`
+# reserves newcomer / "good first issue" tickets for human authorship, to
+# preserve the learning opportunity; the project's issue labels stay the
+# human-facing marker, and this is the machine-readable signal.
+newContributors:
+  stance: assisted              # disallowed | assisted: stricter of this and the scope's wins
+  issuesHumanOnly: true
+  notes: Until your first contribution is merged, keep AI to menial help.
 
 # Autonomous agents are a separate axis from `stance`.
 autonomousAgents:

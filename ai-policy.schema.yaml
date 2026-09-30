@@ -32,7 +32,7 @@ allOf:
           - required: [assertions]
           - required: [allowedUses]
           - required: [review]
-          - required: [newcomerIssuesHumanOnly]
+          - required: [newContributors]
           - required: [autonomousAgents]
           - required: [priorArrangement]
           - required: [actorExceptions]
@@ -67,7 +67,8 @@ properties:
       `generated` with no AI-specific condition. `mixed`: default stance
       `generated` with at least one AI-specific condition: a scope held below
       `generated`, disclosure `required` or `prohibited`, a `requirements`
-      gate, or a non-empty `priorArrangement.appliesTo`. Agent autonomy is a separate axis and
+      gate, a non-empty `priorArrangement.appliesTo`, or a `newContributors`
+      rule. Agent autonomy is a separate axis and
       does not affect it.
     enum: [neutral, permissive, mixed, restrictive, disallowed]
   statement:
@@ -92,7 +93,7 @@ properties:
       enum: [defaults.stance, defaults.disclosure, defaults.humanReview,
              defaults.accountability,
              defaults.requirements, allowedUses, review,
-             newcomerIssuesHumanOnly, autonomousAgents, actorExceptions,
+             newContributors, autonomousAgents, actorExceptions,
              priorArrangement, disclosureFormat, enforcement, signoff, models,
              concerns]
   exceptions:
@@ -186,9 +187,19 @@ properties:
         enum: [none, required]
       notes: { type: string }
 
-  newcomerIssuesHumanOnly:
-    description: Reserve newcomer / "good first issue" tickets for human authorship.
-    type: boolean
+  newContributors:
+    description: >-
+      Rules for contributors with no merged contribution to the project yet;
+      a different threshold goes in `notes`. `stance` is the AI stance that
+      applies to them, and for a new contributor the stricter of it and the
+      scope's own stance wins. `issuesHumanOnly` reserves newcomer ("good
+      first issue") tickets for human authorship.
+    type: object
+    unevaluatedProperties: false
+    properties:
+      stance: { enum: [disallowed, assisted] }
+      issuesHumanOnly: { type: boolean }
+      notes: { type: string }
 
   autonomousAgents:
     type: object
@@ -383,6 +394,7 @@ $defs:
   aiSpecificCondition:
     anyOf:
       - { required: [priorArrangement], properties: { priorArrangement: { required: [appliesTo], properties: { appliesTo: { minItems: 1 } } } } }
+      - { required: [newContributors], properties: { newContributors: { anyOf: [{ required: [stance] }, { required: [issuesHumanOnly], properties: { issuesHumanOnly: { const: true } } }] } } }
       - { required: [defaults], properties: { defaults: { $ref: "#/$defs/conditionInSet" } } }
       - required: [assertions]
         properties:

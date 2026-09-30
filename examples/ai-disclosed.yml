@@ -50,7 +50,7 @@ enforcement:
 #   - { scope: pull-request-descriptions, stance: disallowed }
 # review: { aiAssist: disallowed | permitted, humanDecision: none | required }
 # priorArrangement: { appliesTo: [agent-submissions, bulk-changes, ai-generated-prs], basis: accepted-issue | reviewer-agreement | governance-body | discussion }
-# newcomerIssuesHumanOnly: true
+# newContributors: { stance: disallowed | assisted, issuesHumanOnly: true }
 # signoff: none | dco | cla
 # models: { policy: { openness: { weights: available | any, trainingCode: available | any, trainingData: permissive | disclosed | any } } }
 #   values: [code-quality, security, ip-provenance, licensing-ethics, data-consent, labor-ethics, skill-preservation, environmental, oss-sustainability]   (add under concerns:)
