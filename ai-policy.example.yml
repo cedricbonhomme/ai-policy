@@ -139,15 +139,15 @@ actorExceptions:
 
 # How disclosure is formatted, when required.
 disclosureFormat:
-  method: commit-trailer        # free-text | commit-trailer | pr-template | quote-block
+  method: [commit-trailer]      # free-text | commit-trailer | pr-template | quote-block
   # One trailer, or several keyed by degree of AI involvement.
   trailers:
     assisted: "Assisted-by:"
     generated: "Generated-by:"
+  # What a disclosure must state. tool | model | extent | usage
+  content: [tool, extent]
   notes: >-
-    Name the tool and roughly how much of the change it produced. The format
-    does not structure what a disclosure must contain, because projects diverge
-    sharply on it.
+    Roughly how much is enough; nobody needs line counts.
 
 # How the policy is enforced (declared intent only).
 enforcement:

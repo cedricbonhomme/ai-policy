@@ -244,7 +244,20 @@ properties:
     unevaluatedProperties: false
     properties:
       method:
-        enum: [free-text, commit-trailer, pr-template, quote-block]
+        description: Where a disclosure goes; several places may be required.
+        type: array
+        uniqueItems: true
+        items:
+          enum: [free-text, commit-trailer, pr-template, quote-block]
+      content:
+        description: >-
+          What a disclosure must state. `tool`: the AI tool or agent used.
+          `model`: the model and its version. `extent`: how much of the work
+          AI did. `usage`: what AI was used for.
+        type: array
+        uniqueItems: true
+        items:
+          enum: [tool, model, extent, usage]
       trailer:
         description: A single trailer string (alternative to `trailers`).
         type: string

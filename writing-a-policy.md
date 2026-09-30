@@ -108,7 +108,7 @@ Disclosure can differ by scope like everything else; curl requires it for securi
 
 These follow from decisions already made, and each can be skipped when the decision it depends on makes it moot:
 
-- **`disclosureFormat`:** skip it unless you encourage or require disclosure; if you do, it says where it goes (`method`: `free-text`, `commit-trailer`, `pr-template`, `quote-block`) and which trailer to use; `trailers` can distinguish degrees, such as `Assisted-by:` and `Generated-by:`. What a disclosure must *name*, the model or the extent, goes in `notes`.
+- **`disclosureFormat`:** skip it unless you encourage or require disclosure; if you do, it says where it goes (`method`, one or more of `free-text`, `commit-trailer`, `pr-template`, `quote-block`) and which trailer to use; `trailers` can distinguish degrees, such as `Assisted-by:` and `Generated-by:`. `content` says what a disclosure must state: the `tool`, the `model`, the `extent` of AI's part, or what it was used for (`usage`).
 - **`autonomousAgents.attestation`:** skip it unless agents are allowed somewhere; if they are, it says how they identify themselves (`bot-account`, `signed-commits`, `integration-manifest`).
 - **`enforcement`:** how the policy is applied (`maintainer-review`, `ci-check`, `denylist`, `none`), with any consequence in a sentence.
 - **`review.notes`:** rules about review bots, such as separate accounts or non-blocking comments.
