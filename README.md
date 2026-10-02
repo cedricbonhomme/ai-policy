@@ -73,7 +73,7 @@ Coverage, surfacing the questions and research all pull towards more structure, 
 
 ## The format, in brief
 
-Top-level fields; every one is optional, but a file must declare something: a stance, by default or for a single scope, any other rule, an open question in `undecided`, or `summary: neutral` for a project with no AI-specific rule. To write one, follow [`writing-a-policy.md`](./writing-a-policy.md), which walks through the fields as a sequence of decisions. Each field's meaning is in the [example](./ai-policy.example.yml); the shape is validated by [`ai-policy.schema.yaml`](./ai-policy.schema.yaml).
+Top-level fields; every one is optional, but a file must declare something: a stance, by default or for a single scope, any other AI-specific rule, an open question in `undecided`, or `summary: neutral` for a project with no AI-specific rule. `signoff` and `concerns` can accompany any of these but do not count on their own: a sign-off requirement predates AI, and a motivation changes nothing a consumer does. To write one, follow [`writing-a-policy.md`](./writing-a-policy.md), which walks through the fields as a sequence of decisions. Each field's meaning is in the [example](./ai-policy.example.yml); the shape is validated by [`ai-policy.schema.yaml`](./ai-policy.schema.yaml).
 
 | Field | Purpose |
 |---|---|
