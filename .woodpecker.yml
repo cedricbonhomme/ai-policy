@@ -1,0 +1,54 @@
+# Woodpecker CI pipeline: build every deck and publish them to Codeberg Pages,
+# under https://open-source-ecosystem.codeberg.page/ai-policy/.
+#
+# One Vite build emits the landing page, the maintained decks and the frozen
+# talk records into decks/dist/, mirroring their source paths:
+#
+#   /                             landing page
+#   /maintainers/                 maintained deck, for maintainers
+#   /ecosystem/                   maintained deck, the why and the design
+#   /talks/<conference-date>/     as presented, never changed again
+#
+# Adding a deck means adding a directory with a deck.json — nothing here lists
+# them by name.
+#
+# Only pushes that touch the decks (or this file) trigger a build, so commits to
+# the documents do not spend shared Codeberg CI capacity. The decks
+# link into those documents by URL rather than embedding them, so a docs-only
+# change never makes the published decks stale. A manual run forces a rebuild.
+
+when:
+  - event: push
+    branch: main
+    path:
+      include: ['decks/**', '.woodpecker.yml']
+  - event: manual
+
+steps:
+  build:
+    image: node:22-alpine
+    commands:
+      - apk add --no-cache git
+      - cd decks
+      - npm ci
+      - npm run build
+      # `appleboy/drone-git-push` expects its configured path to be a Git
+      # repository. Keep the deployment history separate from the source tree.
+      - cd dist
+      - git init -b pages
+      # The git-push plugin runs as a non-root user in its own container.
+      - chmod -R a+rwX .git
+
+  deploy-pages:
+    image: appleboy/drone-git-push
+    settings:
+      remote: git@codeberg.org:open-source-ecosystem/ai-policy.git
+      branch: pages
+      path: decks/dist
+      force: true
+      commit: true
+      commit_message: "Deploy slide decks to Codeberg Pages [skip ci]"
+      author_name: Woodpecker CI
+      author_email: ci@codeberg.org
+      ssh_key:
+        from_secret: codeberg_ssh_key
