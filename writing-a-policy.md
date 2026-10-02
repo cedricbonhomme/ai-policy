@@ -4,7 +4,7 @@ Most projects do not need to design a policy from scratch. If you already know w
 
 ## If you already know where you stand
 
-Copy the matching file from [`examples/`](./examples/) as `ai-policy.yml` and, where [ai-policy.dev](https://ai-policy.dev/) has one, put the preset's `AI_POLICY.md` beside it:
+Copy the matching file from [`examples/`](./examples/) as `ai-policy.yaml` (`ai-policy.yml` is accepted too; see [Placement](./README.md#placement)) and, where [ai-policy.dev](https://ai-policy.dev/) has one, put the preset's `AI_POLICY.md` beside it:
 
 | Where you stand | Preset |
 |---|---|

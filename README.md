@@ -34,9 +34,9 @@ The same structure earns its keep before any agent reads it:
 
 ## Placement
 
-`ai-policy.yml`, in the project's version control, normally at the repository root. Its primary subject is **code**, but the `scope` vocabulary spans docs, translations, media, and discussion, so it applies to any contribution type.
+`ai-policy.yaml` or `ai-policy.yml`, in the project's version control, normally at the repository root. Both extensions are accepted; the YAML project [recommends `.yaml`](https://web.archive.org/web/20241221084524/https://yaml.org/faq.html) where possible. If both files exist, `ai-policy.yaml` wins, and a consumer warns unless the two are byte-identical or one is a symbolic link to the other: two policy files that could disagree are exactly the ambiguity this format exists to remove. Its primary subject is **code**, but the `scope` vocabulary spans docs, translations, media, and discussion, so it applies to any contribution type.
 
-Discovery, in order of preference: `ai-policy.yml` at the repository root; a peer record that points at it (for example a `publiccode.yml` `externalMetadata` entry); `.well-known/ai-policy.yml`. Absence of the file is itself a signal: *no declared policy*, distinct from a declared permissive one and from `summary: neutral`, which declares that the project considered AI and decided it needs no rule of its own.
+Discovery, in order of preference: `ai-policy.yaml` or `ai-policy.yml` at the repository root; a peer record that points at it (for example a `publiccode.yml` `externalMetadata` entry); `.well-known/ai-policy.yaml` or `.well-known/ai-policy.yml`. Absence of the file is itself a signal: *no declared policy*, distinct from a declared permissive one and from `summary: neutral`, which declares that the project considered AI and decided it needs no rule of its own.
 
 ### What this format does not govern
 
@@ -133,7 +133,6 @@ Not "please ratify a standard." **Adoption first**, the [`FUNDING.yml`](#prior-a
 Format & tooling:
 
 - **Smallest consumer:** the reference reader/validator (a CLI, a CI action, or an MCP server) that would prove the format is worth adopting.
-- **File extension:** `.yml` vs `.yaml` (name and location are settled: `ai-policy.yml` in version control).
 - **Interpretability `@context`:** the JSON Schema ([`ai-policy.schema.yaml`](./ai-policy.schema.yaml)) makes the format parseable and the stance field-set a shared `$ref`; the open gap ([machine-readability.md](./machine-readability.md)) is binding each enum to a shared, dereferenceable vocabulary (a JSON-LD `@context`) for full *interpretability*.
 - **Template provenance:** should a declaration say which published template its prose was adopted from, and at which version (for example an [ai-policy.dev](https://ai-policy.dev/) preset)? Copied policy text drifts from its source silently, as copied licence texts did before SPDX identifiers; a `basedOn` reference would let a consumer compare like with like and an aggregator count adoption per template. It needs a template publisher that versions its presets, which none yet does.
 - **Peer-record discovery:** the registered `type` string and pointer shape for records (e.g. a `publiccode.yml` `externalMetadata` entry) that reference this file.
