@@ -1,0 +1,15 @@
+{
+  "slides": [
+    "00-title.md",
+    "10-gap.md",
+    "20-agents.md",
+    "30-humans.md",
+    "40-aims.md",
+    "50-signal.md",
+    "60-silence.md",
+    "70-corpus.md",
+    "80-not.md",
+    "90-ask.md",
+    "100-closing.md"
+  ]
+}
