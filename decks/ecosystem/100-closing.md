@@ -14,7 +14,7 @@ Note:
 
 - Start with the README: the gap, the aims, the design principles and the ask, in one page
 - Close on the ask: is this the right shape, would tooling read it, and what is the smallest consumer that would prove it. Issues and pull requests are open
-- The repository publishes its own `ai-policy.yml` and `AI_POLICY.md`, as a worked case
+- The repository publishes its own `ai-policy.yaml` and `AI_POLICY.md`, as a worked case
 
 **Q&A details:**
 
@@ -41,5 +41,5 @@ Note:
 
 Note:
 
-- The format itself, field by field, is in `ai-policy.example.yml` (fully commented) and the maintainers deck
+- The format itself, field by field, is in `ai-policy.example.yaml` (fully commented) and the maintainers deck
 - `ai-policy.schema.yaml` defines every value; the presets live in `examples/`

@@ -5,7 +5,7 @@
 """Map the labelled corpus of Hora, Robbes and Zacchiroli (2026) to ai-policy records.
 
 Fetches the CC BY 4.0 dataset from Zenodo, turns each of its 281 labelled
-policies into the partial `ai-policy.yml` its labels support, validates every
+policies into the partial `ai-policy.yaml` its labels support, validates every
 record against the schema, and reports what mapped and what did not.
 
     uv run research/hora-2026/map.py [--out DIR]

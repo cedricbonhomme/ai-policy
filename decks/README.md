@@ -1,6 +1,6 @@
 # Slide decks
 
-Reveal.js decks for the `ai-policy.yml` proposal. The engine — reveal.js setup, styles, deck assembly, speaker view, spotlight, clicker bindings, Mermaid and QR rendering — is the [deck-engine](https://codeberg.org/open-source-ecosystem/deck-engine) package, pinned by tag in `package.json`. Its README is the reference for deck structure, per-deck `<meta>` settings, freezing a talk, speaker notes and keyboard shortcuts; this file covers only what is specific to these decks.
+Reveal.js decks for the `ai-policy.yaml` proposal. The engine — reveal.js setup, styles, deck assembly, speaker view, spotlight, clicker bindings, Mermaid and QR rendering — is the [deck-engine](https://codeberg.org/open-source-ecosystem/deck-engine) package, pinned by tag in `package.json`. Its README is the reference for deck structure, per-deck `<meta>` settings, freezing a talk, speaker notes and keyboard shortcuts; this file covers only what is specific to these decks.
 
 ## Layout
 
@@ -58,7 +58,7 @@ The same engine builds the decks of the sibling repositories:
 
 ## The decks
 
-### `maintainers/` — `ai-policy.yml` for maintainers
+### `maintainers/` — `ai-policy.yaml` for maintainers
 
 The audience is open source maintainers who want to publish a policy, and the deck is a short, hands-on overview of the format. The arc runs from what the file is and why the prose it points at stays authoritative, through where it lives and what its absence means, to the main fields and the stance field-set. The middle shows how to adopt one: start from a preset in `examples/`, or work a policy out in the order the guide recommends, with `undecided` for what is still open. It then covers how a consumer resolves the file per scope, how whole-file fields compose with the stance, validating against the schema and how `summary` is derived, what tools can do with the file today, and closes on what a maintainer can do now and the open questions that concern them.
 
@@ -66,4 +66,4 @@ The horizontal spine runs about 16 minutes at the configured 90 seconds per slid
 
 ### `ecosystem/` — the why and the design
 
-Why `ai-policy.yml` exists, for people deciding whether to support or adopt it: maintainers, foundations, forges and AI-tool builders. It covers the gap (AI-contribution policies exist only as prose in unpredictable places), why the file is both an agent-tooling problem and a tool for structuring a project's own debate, the aims, the design principles behind "a signal, not a rule engine", how a file tells "no policy", "no AI rule needed" and "not yet decided" apart, what the corpus research found, what the format deliberately does not govern, and the adoption-first ask. It needs no YAML knowledge; the field-by-field format is the `maintainers/` deck.
+Why `ai-policy.yaml` exists, for people deciding whether to support or adopt it: maintainers, foundations, forges and AI-tool builders. It covers the gap (AI-contribution policies exist only as prose in unpredictable places), why the file is both an agent-tooling problem and a tool for structuring a project's own debate, the aims, the design principles behind "a signal, not a rule engine", how a file tells "no policy", "no AI rule needed" and "not yet decided" apart, what the corpus research found, what the format deliberately does not govern, and the adoption-first ask. It needs no YAML knowledge; the field-by-field format is the `maintainers/` deck.

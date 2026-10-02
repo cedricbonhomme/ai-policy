@@ -1,6 +1,6 @@
 # Mapping a labelled corpus to `ai-policy`
 
-[`map.py`](./map.py) takes the labelled corpus behind ["We Permit the Use of AI, but […]"](https://arxiv.org/abs/2609.07542) (Hora, Robbes and Zacchiroli, 2026), 281 AI-contribution policies from popular open source projects, and turns each into the partial `ai-policy.yml` its labels support. It then validates every record against [`ai-policy.schema.yaml`](../../ai-policy.schema.yaml) and reports which labels the format carries and which it does not.
+[`map.py`](./map.py) takes the labelled corpus behind ["We Permit the Use of AI, but […]"](https://arxiv.org/abs/2609.07542) (Hora, Robbes and Zacchiroli, 2026), 281 AI-contribution policies from popular open source projects, and turns each into the partial `ai-policy.yaml` its labels support. It then validates every record against [`ai-policy.schema.yaml`](../../ai-policy.schema.yaml) and reports which labels the format carries and which it does not.
 
 It is a coverage check at a scale no manual survey reaches, and a first demonstration of the [research aim](../../README.md#aims): once policies are declared in one vocabulary, questions like these become a script. Results and what they mean for the format are in [`coverage.md`](../../coverage.md#a-larger-corpus-popular-projects).
 

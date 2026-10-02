@@ -1,4 +1,4 @@
-# Why `ai-policy.yml`
+# Why `ai-policy.yaml`
 
 ## Machine-readable rules of engagement for AI contributions: the gap, the aims and the design
 

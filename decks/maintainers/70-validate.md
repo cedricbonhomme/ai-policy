@@ -35,7 +35,7 @@ Note:
 import yaml, jsonschema
 
 schema = yaml.safe_load(open("ai-policy.schema.yaml"))
-policy = yaml.safe_load(open("ai-policy.yml"))
+policy = yaml.safe_load(open("ai-policy.yaml"))
 jsonschema.Draft202012Validator(schema).validate(policy)
 ```
 

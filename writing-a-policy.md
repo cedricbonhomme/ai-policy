@@ -1,4 +1,4 @@
-# Writing an `ai-policy.yml`
+# Writing an `ai-policy.yaml`
 
 Most projects do not need to design a policy from scratch. If you already know where you stand, **take a preset and skip the rest of this guide**. The decision tree below is for projects that are still working it out.
 
@@ -8,14 +8,14 @@ Copy the matching file from [`examples/`](./examples/) as `ai-policy.yaml` (`ai-
 
 | Where you stand | Preset |
 |---|---|
-| No AI at all, not even for translation or finding bugs | [AI Disallowed](./examples/ai-disallowed.yml) |
-| Nothing AI-produced is contributed, but AI may help people understand and debug | [Research Only](./examples/research-only.yml) (structured file only; no prose preset yet) |
-| Tools are private, the submission must be entirely the contributor's, no AI notes | [Human Responsible](./examples/human-responsible.yml) |
-| Any tools, but every contribution needs a human who can license it | [Human Copyright](./examples/human-copyright.yml) |
-| AI may write code, but every comment, issue and description is the contributor's own | [Human Voice](./examples/human-voice.yml) |
-| AI welcome, as long as its use is disclosed | [AI Disclosed](./examples/ai-disclosed.yml) |
-| Any tools, including agents, nothing to declare | [AI Allowed](./examples/ai-allowed.yml) |
-| AI needs no rule of its own; the ordinary contribution rules cover it | [Neutral](./examples/neutral.yml) (point `statement` at your contribution guide) |
+| No AI at all, not even for translation or finding bugs | [AI Disallowed](./examples/ai-disallowed.yaml) |
+| Nothing AI-produced is contributed, but AI may help people understand and debug | [Research Only](./examples/research-only.yaml) (structured file only; no prose preset yet) |
+| Tools are private, the submission must be entirely the contributor's, no AI notes | [Human Responsible](./examples/human-responsible.yaml) |
+| Any tools, but every contribution needs a human who can license it | [Human Copyright](./examples/human-copyright.yaml) |
+| AI may write code, but every comment, issue and description is the contributor's own | [Human Voice](./examples/human-voice.yaml) |
+| AI welcome, as long as its use is disclosed | [AI Disclosed](./examples/ai-disclosed.yaml) |
+| Any tools, including agents, nothing to declare | [AI Allowed](./examples/ai-allowed.yaml) |
+| AI needs no rule of its own; the ordinary contribution rules cover it | [Neutral](./examples/neutral.yaml) (point `statement` at your contribution guide) |
 
 Each file ends with a **Not addressed by this preset** section: the questions the preset leaves open, as commented-out lines with their possible values. It is the quickest way to see what else your project might want to settle. Uncomment a line to decide it, list its name in `undecided` if you discussed it and could not agree (keeping a value there sets the rule meanwhile), or delete the whole section; the preset is complete without it. For a hard no, the section is short, and you can usually delete it and be done.
 

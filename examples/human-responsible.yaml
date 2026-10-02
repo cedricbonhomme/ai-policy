@@ -1,5 +1,5 @@
 # The "Human Responsible" preset from ai-policy.dev, expressed in this format.
-# Ship it as ai-policy.yml beside the preset's AI_POLICY.md.
+# Ship it as ai-policy.yaml beside the preset's AI_POLICY.md.
 version: 1
 
 summary: restrictive

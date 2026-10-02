@@ -37,7 +37,7 @@ statement: CONTRIBUTING.md   # the ordinary contribution rules that apply
 status: adopted
 ```
 
-- [`examples/neutral.yml`](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/neutral.yml), header comment left out
+- [`examples/neutral.yaml`](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/neutral.yaml), header comment left out
 - `summary: neutral` stands alone: no other AI-specific field
 
 **Considered AI, and decided it needs no rule of its own.**

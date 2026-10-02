@@ -1,4 +1,4 @@
-# `ai-policy.yml`
+# `ai-policy.yaml`
 
 ## Machine-readable rules of engagement for AI contributions
 

@@ -42,7 +42,7 @@ Note:
 Note:
 
 - The table is this deck's reading of the open questions by audience; the README addresses none of them to a particular audience, and no one has committed to any of it
-- Maintainers: copy the matching `examples/` file as `ai-policy.yml`; the survey is open to pull requests
+- Maintainers: copy the matching `examples/` file as `ai-policy.yaml`; the survey is open to pull requests
 - Tool builders: agentscan, which flags agent-like accounts, is named in the coverage as a candidate consumer of `autonomousAgents.allowed`; its repository copies a prose preset and publishes nothing machine-readable
 - Forges: platform commitments such as Codeberg's have no carrier today
 - Foundations: binding the vocabulary to shared identifiers (the interpretability `@context`), and whether a declaration should name the template its prose was adopted from, are questions about shared vocabulary rather than one project's choice. The README itself looks to the CHAOSS working group's vocabulary for the term LLM-gen-AI

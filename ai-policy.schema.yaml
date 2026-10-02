@@ -1,7 +1,7 @@
-# JSON Schema (draft 2020-12) for ai-policy.yml, authored in YAML for
+# JSON Schema (draft 2020-12) for ai-policy.yaml, authored in YAML for
 # readability. Validates the machine-readable AI-contribution policy format;
 # convert to JSON for tooling that requires it. Field semantics: see README.md
-# and the commented ai-policy.example.yml.
+# and the commented ai-policy.example.yaml.
 #
 # The stance field-set (`stance`/`disclosure`/`humanReview`/`requirements`) is
 # defined once, in $defs.stanceOverride, and shared by `defaults` and each

@@ -1,6 +1,6 @@
 ## Start from a preset
 
-- Copy a [preset from `examples/`](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples) as `ai-policy.yml`
+- Copy a [preset from `examples/`](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples) as `ai-policy.yaml`
 - Put the matching [ai-policy.dev](https://ai-policy.dev/) `AI_POLICY.md` beside it
 - Presets list the questions they leave open
 - Decide them, mark them `undecided`, or delete them
@@ -13,7 +13,7 @@ Note:
 
 ↓ Presets that hold AI back
 
-- A *preset* is a ready-made `ai-policy.yml` in `examples/`. Most express one of the ai-policy.dev prose policies, so the structured file and the prose it summarises ship together
+- A *preset* is a ready-made `ai-policy.yaml` in `examples/`. Most express one of the ai-policy.dev prose policies, so the structured file and the prose it summarises ship together
 - ai-policy.dev is a small library of `AI_POLICY.md` texts a project copies, in the manner of choosealicense.com. Its metadata is stripped when a policy is copied, so on its own an adopting repository publishes nothing a consumer can read
 - Every preset but Neutral ends with a "Not addressed by this preset" section (a neutral file can carry no other AI-specific field): commented-out lines with their possible values. Uncomment one to decide it, list its name in `undecided` if you discussed it and could not agree, or delete the section; the preset is complete without it
 - Research Only has no ai-policy.dev prose preset yet; Neutral points `statement` at your contribution guide
@@ -31,9 +31,9 @@ Note:
 
 | Preset | Where you stand | `summary` |
 | --- | --- | --- |
-| [AI Disallowed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/ai-disallowed.yml) | no AI at all, not even translation | `disallowed` |
-| [Research Only](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/research-only.yml) | AI to understand and debug; nothing contributed | `disallowed` |
-| [Human Responsible](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/human-responsible.yml) | private tools; submission entirely yours, no AI notes | `restrictive` |
+| [AI Disallowed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/ai-disallowed.yaml) | no AI at all, not even translation | `disallowed` |
+| [Research Only](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/research-only.yaml) | AI to understand and debug; nothing contributed | `disallowed` |
+| [Human Responsible](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/human-responsible.yaml) | private tools; submission entirely yours, no AI notes | `restrictive` |
 
 **Say what stays permitted,<br />or the policy reads as blanket hostility.**
 
@@ -56,11 +56,11 @@ Note:
 
 | Preset | Where you stand | `summary` |
 | --- | --- | --- |
-| [Human Copyright](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/human-copyright.yml) | any tools; a human who can license it | `mixed` |
-| [Human Voice](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/human-voice.yml) | AI may write code; words are your own | `mixed` |
-| [AI Disclosed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/ai-disclosed.yml) | AI welcome, as long as it is disclosed | `mixed` |
-| [AI Allowed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/ai-allowed.yml) | any tools, agents included | `permissive` |
-| [Neutral](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/neutral.yml) | no AI-specific rule needed | `neutral` |
+| [Human Copyright](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/human-copyright.yaml) | any tools; a human who can license it | `mixed` |
+| [Human Voice](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/human-voice.yaml) | AI may write code; words are your own | `mixed` |
+| [AI Disclosed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/ai-disclosed.yaml) | AI welcome, as long as it is disclosed | `mixed` |
+| [AI Allowed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/ai-allowed.yaml) | any tools, agents included | `permissive` |
+| [Neutral](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/neutral.yaml) | no AI-specific rule needed | `neutral` |
 
 **`mixed`: AI may produce the substance,<br />with at least one AI-specific condition.**
 
@@ -96,7 +96,7 @@ autonomousAgents:
   allowed: false
 ```
 
-Excerpt of [`examples/ai-disclosed.yml`](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/ai-disclosed.yml); valid on its own
+Excerpt of [`examples/ai-disclosed.yaml`](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples/ai-disclosed.yaml); valid on its own
 
 Note:
 

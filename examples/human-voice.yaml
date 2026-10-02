@@ -1,36 +1,32 @@
-# The "AI Disclosed" preset from ai-policy.dev, expressed in this format.
-# Ship it as ai-policy.yml beside the preset's AI_POLICY.md.
+# The "Human Voice" preset from ai-policy.dev, expressed in this format.
+# Ship it as ai-policy.yaml beside the preset's AI_POLICY.md.
 version: 1
 
 summary: mixed
 statement: AI_POLICY.md
 status: adopted
+exceptions: true          # "never let an LLM think for you" lives in the prose
 
 concerns:
+  values: [code-quality]
   notes: >-
-    Not an anti-AI policy: maintainers review every contribution by hand, and
-    knowing how it was made helps them decide how closely to look.
+    Quality, and the joy of collaborating and communicating with real people:
+    maintainers want to know they are hearing the contributor's own words.
 
 defaults:
-  stance: generated       # AI may help with code and text
-  disclosure: required    # every AI-assisted issue, pull request and discussion
-  humanReview: required   # understand, run and test everything yourself
+  stance: generated       # AI may generate code and help explore ideas
+  humanReview: required   # submit only what you fully understand and can explain
+  accountability: contributor  # always take personal responsibility
 
+# Communication must be in the contributor's own voice.
 assertions:
-  - scope: media
-    stance: disallowed    # no AI-generated images, audio or video
-
-autonomousAgents:
-  allowed: false          # a person reviews and posts every submission
-
-disclosureFormat:
-  method: [free-text]     # or the project's pull request template
-  content: [tool, extent] # the tools used, and how much of the work they did
-  notes: Plain autocompletion and spell-checking need no disclosure.
-
-enforcement:
-  mechanism: [maintainer-review]
-  consequence: Contributions suspected of undisclosed AI use may be closed.
+  - scope: comments
+    stance: disallowed
+  - scope: issue-descriptions
+    stance: disallowed
+  - scope: pull-request-descriptions
+    stance: disallowed
+    notes: Do not quote a model in issues or pull requests.
 
 # ---------------------------------------------------------------------------
 # Not addressed by this preset
@@ -43,19 +39,16 @@ enforcement:
 # nothing to a consumer; the preset stands without them. writing-a-policy.md
 # explains each question.
 #
+#   disclosure: prohibited | none | encouraged | required   (add under defaults:)
 #   requirements: [tests-pass, new-tests-required, ci-green, type-check, no-generated-in-security-paths, provenance-attested, prompt-logs-retained, no-sensitive-data-to-3p, reproduced]   (add under defaults:)
-# Communication in the contributor's own words   (add under assertions:)
-#   - { scope: comments, stance: disallowed }
-#   - { scope: issue-descriptions, stance: disallowed }
-#   - { scope: pull-request-descriptions, stance: disallowed }
+# autonomousAgents: { allowed: true | false }
 # review: { aiAssist: disallowed | permitted, humanDecision: none | required }
 # priorArrangement: { appliesTo: [agent-submissions, bulk-changes, ai-generated-prs], basis: accepted-issue | reviewer-agreement | governance-body | discussion }
 # newContributors: { stance: disallowed | assisted, issuesHumanOnly: true }
+# enforcement: { mechanism: [maintainer-review, ci-check, denylist, none] }
 # signoff: none | dco | cla
 # models: { policy: { openness: { weights: available | any, trainingCode: available | any, trainingData: permissive | disclosed | any } } }
-#   values: [code-quality, security, ip-provenance, licensing-ethics, data-consent, labor-ethics, skill-preservation, environmental, oss-sustainability]   (add under concerns:)
 # guardrailsRef: CONTRIBUTING.md#ai-checklist
 #   - { scope: security-reports, requirements: [reproduced] }   (add to assertions:, creating it if absent)
 # actorExceptions:                            # actors governed differently
 #   - { actor: maintainers, autonomousAgentsAllowed: true }
-#   accountability: contributor            (add under defaults:)

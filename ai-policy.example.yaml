@@ -1,5 +1,5 @@
-# ai-policy.yml: a project's machine-readable stance on generative-AI
-# contributions. Place at the repository root (or .well-known/ai-policy.yml);
+# ai-policy.yaml: a project's machine-readable stance on generative-AI
+# contributions. Place at the repository root (or .well-known/ai-policy.yaml);
 # point AGENTS.md / CONTRIBUTING.md at it, and (if you publish publiccode.yml)
 # reference it there via externalMetadata: [{type: ai-policy, url: ...}].
 #

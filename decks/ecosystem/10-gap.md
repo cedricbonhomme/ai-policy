@@ -21,7 +21,7 @@ Note:
 **Q&A details:**
 
 - `AGENTS.md` and `CLAUDE.md` are prose instruction files addressed to coding agents, kept in the repository
-- Discovery order: `ai-policy.yml` at the root; a peer record that points at it (for example a `publiccode.yml` `externalMetadata` entry); `.well-known/ai-policy.yml`
+- Discovery order: `ai-policy.yaml` at the root; a peer record that points at it (for example a `publiccode.yml` `externalMetadata` entry); `.well-known/ai-policy.yaml`
 
 --
 

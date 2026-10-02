@@ -25,7 +25,7 @@ Note:
 | --- | --- |
 | [Writing a policy](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/writing-a-policy.md#if-you-already-know-where-you-stand) | you are writing your project's file |
 | [Presets](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/examples) | you already know where you stand |
-| [Commented example](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/ai-policy.example.yml) | you want every field explained |
+| [Commented example](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/ai-policy.example.yaml) | you want every field explained |
 | [Schema](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/ai-policy.schema.yaml) | you are validating or building a tool |
 | [README](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#resolution) | you need the resolution rules |
 | [Machine-readability](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/machine-readability.md) | you want the honest limits |
@@ -36,6 +36,6 @@ Note:
 
 Note:
 
-- The commented example, `ai-policy.example.yml`, explains every field inline
+- The commented example, `ai-policy.example.yaml`, explains every field inline
 - The schema carries definitions for the core enum values: stance, disclosure, scope, requirements, concerns and allowed uses
 - For the why and the design principles, see the sibling ecosystem deck

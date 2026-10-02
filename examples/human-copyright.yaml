@@ -1,18 +1,32 @@
-# The "AI Allowed" preset from ai-policy.dev, expressed in this format.
-# Ship it as ai-policy.yml beside the preset's AI_POLICY.md.
+# The "Human Copyright" preset from ai-policy.dev, expressed in this format.
+# Ship it as ai-policy.yaml beside the preset's AI_POLICY.md.
 version: 1
 
-summary: permissive
+summary: mixed
 statement: AI_POLICY.md
 status: adopted
 
+concerns:
+  values: [ip-provenance]
+  notes: >-
+    The copyright status of AI-generated work is uncertain and models can
+    reproduce their training data, so a contribution without a clear human
+    owner could put the project's licence at risk.
+
 defaults:
-  stance: generated
-  disclosure: none        # "AI usage does not need to be declared"
-  accountability: contributor  # whoever submits, or runs the agent that does, is responsible
+  stance: generated       # tooling is not policed
+  humanReview: required   # "An AI wrote it" is not an answer to review
+  accountability: contributor  # take full responsibility for every part
+  requirements: [provenance-attested]  # you can license every line
+  notes: >-
+    AI tools must not be credited as authors, in a Co-authored-by trailer or
+    anywhere else.
 
 autonomousAgents:
-  allowed: true           # agents may open issues and pull requests
+  allowed: false
+
+enforcement:
+  mechanism: [maintainer-review, denylist]  # bot-like accounts may be banned
 
 # ---------------------------------------------------------------------------
 # Not addressed by this preset
@@ -25,20 +39,16 @@ autonomousAgents:
 # nothing to a consumer; the preset stands without them. writing-a-policy.md
 # explains each question.
 #
-#   humanReview: none | required            (add under defaults:)
-#   requirements: [tests-pass, new-tests-required, ci-green, type-check, no-generated-in-security-paths, provenance-attested, prompt-logs-retained, no-sensitive-data-to-3p, reproduced]   (add under defaults:)
+#   disclosure: prohibited | none | encouraged | required   (add under defaults:)
 # assertions:                                 # communication in the contributor's own words
 #   - { scope: comments, stance: disallowed }
 #   - { scope: issue-descriptions, stance: disallowed }
 #   - { scope: pull-request-descriptions, stance: disallowed }
 # review: { aiAssist: disallowed | permitted, humanDecision: none | required }
-#   attestation: { identity: [bot-account, signed-commits, integration-manifest] }   (add under autonomousAgents:)
 # priorArrangement: { appliesTo: [agent-submissions, bulk-changes, ai-generated-prs], basis: accepted-issue | reviewer-agreement | governance-body | discussion }
 # newContributors: { stance: disallowed | assisted, issuesHumanOnly: true }
-# enforcement: { mechanism: [maintainer-review, ci-check, denylist, none] }
 # signoff: none | dco | cla
 # models: { policy: { openness: { weights: available | any, trainingCode: available | any, trainingData: permissive | disclosed | any } } }
-# concerns: { values: [code-quality, security, ip-provenance, licensing-ethics, data-consent, labor-ethics, skill-preservation, environmental, oss-sustainability], notes: "why, in your own words" }
 # guardrailsRef: CONTRIBUTING.md#ai-checklist
 #   - { scope: security-reports, requirements: [reproduced] }   (add to assertions:, creating it if absent)
 # actorExceptions:                            # actors governed differently

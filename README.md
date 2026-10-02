@@ -1,6 +1,6 @@
 # `ai-policy`: machine-readable rules of engagement for AI contributions
 
-**One line:** a small, conventional repo file (`ai-policy.yml`) that an autonomous coding agent (or a CI check, or an aggregator) can read *before opening a pull request*, to learn what a project actually permits. The structured layer between `AGENTS.md` prose and the agent acting.
+**One line:** a small, conventional repo file (`ai-policy.yaml`) that an autonomous coding agent (or a CI check, or an aggregator) can read *before opening a pull request*, to learn what a project actually permits. The structured layer between `AGENTS.md` prose and the agent acting.
 
 **Two audiences, one file:** an *agent* consumes it to act correctly; the *humans* use it to structure the policy debate and to set expectations with contributors.
 
@@ -8,7 +8,7 @@ Underneath both is **agency**: a project owns its contribution norms, and this m
 
 It's a **signal** that boundaries exist and their broad shape, not an exhaustive rule engine. The detail stays in a human-readable policy the file points at (`statement`); an `exceptions: true` flag marks where the structure is a simplification.
 
-→ **[`ai-policy.example.yml`](./ai-policy.example.yml)** is the concrete artifact: a fully-commented example.
+→ **[`ai-policy.example.yaml`](./ai-policy.example.yaml)** is the concrete artifact: a fully-commented example.
 
 > **Status:** early proposal, design not settled; a *convention to prove out through adoption*, not a standard to ratify. The [open questions](#open-questions-named) are load-bearing.
 
@@ -18,10 +18,10 @@ Projects increasingly publish an AI-contribution policy, but only in prose, and 
 
 ## Why this is an agent-tooling problem (the consumer story)
 
-`ai-policy.yml` only matters if something *reads* it, and the natural readers are coding agents:
+`ai-policy.yaml` only matters if something *reads* it, and the natural readers are coding agents:
 
 - **A pre-flight check.** Before an agent opens a PR it reads the file the way a crawler reads `robots.txt`, except this declares *stance, disclosure, and agent-identity rules*, not crawl permissions. "May I contribute generated code here? Must I disclose it? May an autonomous agent open this PR at all?"
-- **A ready integration.** The reference consumer could be an **MCP server** that serves a repo's `ai-policy.yml` and validates a proposed change against it, so any MCP-speaking agent gets the policy without bespoke parsing. That turns "needs adoption" into "here's the integration."
+- **A ready integration.** The reference consumer could be an **MCP server** that serves a repo's `ai-policy.yaml` and validates a proposed change against it, so any MCP-speaking agent gets the policy without bespoke parsing. That turns "needs adoption" into "here's the integration."
 - **Where agents already look.** It sits beside `AGENTS.md` / `CLAUDE.md` (which point to it), the same place agent instructions already live.
 - **A sanctioned-workflow library is the other half, and one now exists.** Fedora's AI/ML SIG publishes a [skills library](https://forge.fedoraproject.org/ai-ml/skills-library) (CC BY-SA 4.0) in the [Agent Skills](https://agentskills.io/specification) open format: one directory per skill, each with a `SKILL.md` carrying YAML frontmatter and instructions. Its current skills automate compose triage, FTBFS bug search, meeting-log summarisation and Packit onboarding. A project that publishes approved agent workflows has answered in executable form part of what this file declares in prose, and "these workflows are sanctioned here" is a more useful thing to hand an agent than a restatement of the rules. Which field should point at it is [an open question](#open-questions-named).
 
@@ -40,7 +40,7 @@ Discovery, in order of preference: `ai-policy.yaml` or `ai-policy.yml` at the re
 
 ### What this format does not govern
 
-`ai-policy.yml` declares **what a project asks of a contribution**: what may be offered, and how the project handles what is offered. `scope` is a content type because the subject is a contribution; the primary consumer is something about to open a pull request, and the `review` fields tell it what becomes of the change once it does. Three neighbouring kinds of rule turn up in real policies and are deliberately out of scope, because none of them concerns a contribution's lifecycle:
+`ai-policy.yaml` declares **what a project asks of a contribution**: what may be offered, and how the project handles what is offered. `scope` is a content type because the subject is a contribution; the primary consumer is something about to open a pull request, and the `review` fields tell it what becomes of the change once it does. Three neighbouring kinds of rule turn up in real policies and are deliberately out of scope, because none of them concerns a contribution's lifecycle:
 
 - **Platform self-commitments.** Codeberg binds itself never to train on hosted code or user data. That governs the declarer's own conduct toward its users and never touches the handling of a contribution.
 - **Hosting and content restrictions.** Codeberg's rule on what may be hosted, and Flathub's original policy on AI-generated applications, govern artifacts already in existence rather than contributions being offered.
@@ -73,7 +73,7 @@ Coverage, surfacing the questions and research all pull towards more structure, 
 
 ## The format, in brief
 
-Top-level fields; every one is optional, but a file must declare something: a stance, by default or for a single scope, any other AI-specific rule, an open question in `undecided`, or `summary: neutral` for a project with no AI-specific rule. `signoff` and `concerns` can accompany any of these but do not count on their own: a sign-off requirement predates AI, and a motivation changes nothing a consumer does. To write one, follow [`writing-a-policy.md`](./writing-a-policy.md), which walks through the fields as a sequence of decisions. Each field's meaning is in the [example](./ai-policy.example.yml); the shape is validated by [`ai-policy.schema.yaml`](./ai-policy.schema.yaml).
+Top-level fields; every one is optional, but a file must declare something: a stance, by default or for a single scope, any other AI-specific rule, an open question in `undecided`, or `summary: neutral` for a project with no AI-specific rule. `signoff` and `concerns` can accompany any of these but do not count on their own: a sign-off requirement predates AI, and a motivation changes nothing a consumer does. To write one, follow [`writing-a-policy.md`](./writing-a-policy.md), which walks through the fields as a sequence of decisions. Each field's meaning is in the [example](./ai-policy.example.yaml); the shape is validated by [`ai-policy.schema.yaml`](./ai-policy.schema.yaml).
 
 | Field | Purpose |
 |---|---|
@@ -121,9 +121,9 @@ Not "please ratify a standard." **Adoption first**, the [`FUNDING.yml`](#prior-a
 
 ## Prior art & related work
 
-- **`FUNDING.yml`** is the closest model: a tiny, single-purpose YAML file that reached wide adoption not by being standardized but by having a *consumer* (GitHub renders it as a Sponsor button). Judge `ai-policy.yml` the same way.
-- **`AGENTS.md` / `CLAUDE.md`** are prose instructions *to* agents. `ai-policy.yml` is the structured, machine-actionable counterpart, co-located and cross-linked; a *section of* `AGENTS.md` is a plausible alternative home.
-- **[ai-policy.dev](https://ai-policy.dev/)** is the prose layer this format points at: a small library of ready-made `AI_POLICY.md` texts (such as *AI Allowed*, *AI Disclosed*, *Human Voice* and *AI Disallowed*) that a project copies into its repository, in the manner of choosealicense.com. Each preset is tagged on the site with rule IDs marked as permits, requires or forbids, but that metadata is [stripped when the policy is copied](https://github.com/43081j/ai-policy/blob/main/policies/_template.md), so an adopting repository publishes nothing a consumer can read. The two compose rather than compete: a preset is a natural `statement` target, and every preset is expressible in this format: [`examples/`](./examples/) holds each one as an `ai-policy.yml` to ship beside its Markdown, scored in [coverage](./coverage.md#template-policies).
+- **`FUNDING.yml`** is the closest model: a tiny, single-purpose YAML file that reached wide adoption not by being standardized but by having a *consumer* (GitHub renders it as a Sponsor button). Judge `ai-policy.yaml` the same way.
+- **`AGENTS.md` / `CLAUDE.md`** are prose instructions *to* agents. `ai-policy.yaml` is the structured, machine-actionable counterpart, co-located and cross-linked; a *section of* `AGENTS.md` is a plausible alternative home.
+- **[ai-policy.dev](https://ai-policy.dev/)** is the prose layer this format points at: a small library of ready-made `AI_POLICY.md` texts (such as *AI Allowed*, *AI Disclosed*, *Human Voice* and *AI Disallowed*) that a project copies into its repository, in the manner of choosealicense.com. Each preset is tagged on the site with rule IDs marked as permits, requires or forbids, but that metadata is [stripped when the policy is copied](https://github.com/43081j/ai-policy/blob/main/policies/_template.md), so an adopting repository publishes nothing a consumer can read. The two compose rather than compete: a preset is a natural `statement` target, and every preset is expressible in this format: [`examples/`](./examples/) holds each one as an `ai-policy.yaml` to ship beside its Markdown, scored in [coverage](./coverage.md#template-policies).
 - **[AI Attribution format](https://aiattribution.github.io)** and **[CUSTODY](https://custody-framework.org)** are adjacent but distinct: attribution records *who or what produced* a work; CUSTODY *contains* autonomous agents at runtime. Neither expresses a *contribution policy* (the rules a project sets), but this format's disclosure and `attestation` facets can align with or reference them.
 - **["We Permit the Use of AI, but […]"](https://arxiv.org/abs/2609.07542)** (Hora, Robbes and Zacchiroli, 2026) is the largest study of these policies so far: 281 policies from GitHub's most-starred projects, coded along six dimensions, with the [labelled corpus](https://doi.org/10.5281/zenodo.22212208) published under CC BY 4.0. It proposes no format, but its dimensions map onto this one's fields, and its counts settled two of its design questions, what a disclosure must state and the split between involvement and accountability. [`coverage.md`](./coverage.md#a-larger-corpus-popular-projects) maps it field by field.
 - **[IETF machine-readability draft](https://datatracker.ietf.org/doc/draft-vaughan-machine-readability/)** is a rubric (parseable / interpretable / discoverable / actionable / verifiable) this format is evaluated against in **[`machine-readability.md`](./machine-readability.md)** (parseable, discoverable, actionable today; interpretability the open gap).
@@ -164,4 +164,4 @@ Decided for now, kept here because new evidence would reopen them:
 Dual-licensed to fit how each part is used:
 
 - **Prose** (`README.md`, `coverage.md`, `machine-readability.md`, `writing-a-policy.md`, `AI_POLICY.md`): [CC BY 4.0](./LICENSE-CC-BY-4.0).
-- **Machine-readable artifacts** (`ai-policy.schema.yaml`, `ai-policy.example.yml`, `ai-policy.yml`, `examples/`) and any tooling: [MIT](./LICENSE-MIT), so a validator or agent can embed the schema and example without an attribution clause riding along.
+- **Machine-readable artifacts** (`ai-policy.schema.yaml`, `ai-policy.example.yaml`, `ai-policy.yaml`, `examples/`) and any tooling: [MIT](./LICENSE-MIT), so a validator or agent can embed the schema and example without an attribution clause riding along.

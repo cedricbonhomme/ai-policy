@@ -16,7 +16,7 @@ Note:
 **Acronyms:** MCP = Model Context Protocol
 
 - The model is `FUNDING.yml`: it spread because something read it (a Sponsor button), not because it was ratified
-- On restating: this repository's own [`AGENTS.md`](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/AGENTS.md) points at its `ai-policy.yml` and deliberately does not repeat the values. A structured policy plus a prose paraphrase gives copies that drift apart with no way to notice
+- On restating: this repository's own [`AGENTS.md`](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/AGENTS.md) points at its `ai-policy.yaml` and deliberately does not repeat the values. A structured policy plus a prose paraphrase gives copies that drift apart with no way to notice
 - `notes` collected across adopters are how the next field gets chosen: a nuance that recurs in similar words across many projects earns structure
 - The ask of the proposal: is this the right shape for an agent to consume; would agent tooling read a conventional repository file like this, natively or through an MCP server; what is the smallest consumer that would prove it
 

@@ -23,7 +23,7 @@ Note:
 
 **Q&A details:**
 
-- `AGENTS.md` and `CLAUDE.md` are prose instructions to agents; `ai-policy.yml` is the structured counterpart, co-located and cross-linked. A section of `AGENTS.md` is named as a plausible alternative home
+- `AGENTS.md` and `CLAUDE.md` are prose instructions to agents; `ai-policy.yaml` is the structured counterpart, co-located and cross-linked. A section of `AGENTS.md` is named as a plausible alternative home
 - The reference consumer *could be* an MCP server that serves the file and validates a proposed change against it; none exists yet
 - Closest model: `FUNDING.yml`, a tiny single-purpose file that spread because something consumed it
 
