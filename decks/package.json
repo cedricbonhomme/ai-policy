@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "deck-engine": "git+https://codeberg.org/open-source-ecosystem/deck-engine.git#v0.1.7",
+    "deck-engine": "git+https://codeberg.org/open-source-ecosystem/deck-engine.git#v0.1.8",
     "vite": "^7.1.0"
   }
 }

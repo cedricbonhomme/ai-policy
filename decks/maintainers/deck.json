@@ -1,6 +1,7 @@
 {
   "slides": [
     "00-title.md",
+    "deck-engine/reading-guide.md",
     "10-what.md",
     "20-where.md",
     "30-fields.md",

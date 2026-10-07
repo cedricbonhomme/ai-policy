@@ -1,6 +1,7 @@
 {
   "slides": [
     "00-title.md",
+    "deck-engine/reading-guide.md",
     "10-gap.md",
     "20-agents.md",
     "30-humans.md",
