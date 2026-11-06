@@ -410,6 +410,17 @@ It also shows where the format is thin:
 
 What remains outside the format: *medium* human involvement, meaning prompting only (6), labels the paper itself coded as unclear (6), a disclosure consisting of a code block (1), and the countermeasures above. The script reports the agent-instruction label as uncarried because it maps labels one by one; three of its four policies lose nothing, since their rule is already stated by `autonomousAgents.allowed: false`.
 
+### How policies change
+
+The paper also tracked the 92 dedicated policy files (`AI_POLICY.md` and similar) among the 10,000 most-starred repositories. Eight were created in 2025 and the rest in 2026. Half have been revised at least once, and the ones revised grow longer. Of their 196 commits, 31 state a reason, which the paper groups as tightening quality controls, clarifying disclosure, enforcing human accountability, making the policy more visible, restricting AI use, and widening its scope. Several reasons bear on this format:
+
+- **Visibility is a reason to change a policy.** Commits move a policy into `AI_POLICY.md`, add it at the repository root, or link an organisation-wide `LLM_POLICY`. Projects are converging on a predictable location without being told to, which supports [placement at the root](./README.md#placement). The organisation-wide link is the open *Organisation-level policy* question in the [README](./README.md#open-questions-named).
+- **Scope grows into review.** Two commits add a policy for AI-generated reviews, which is independent evidence for keeping `review` as its own field rather than a `scope` value.
+- **Rules attach to issue labels.** Rust and rust-analyzer [disallow AI for issues labelled `E-easy` and `E-has-instructions`](https://github.com/rust-lang/rust/commit/501d2b6d3a65a6c686f097c079284633edf3a8df), which keeps the issues written up for learners for human contributors. This is close to the newcomer-ticket rule `newContributors` carries, but keyed to the issue's labels rather than to the contributor, and a label set is project-specific, so it stays in `notes`.
+- **Policies loosen as well as tighten.** NetBox [removed its prohibition on AI-generated pull requests](https://github.com/netbox-community/netbox/commit/088de70b1087fd4c0a181d5792ed090bea41955a) and moved its guidance into `AGENTS.md`. The paper's earlier study of 118 policies found 78% permissive and this one 83.3%, so the general direction is not towards restriction either.
+
+Because policies change this often, a consumer has to read the current file each time rather than cache a verdict, and an aggregator gets the history from version control. Neither needs a revision-date field.
+
 ## Under discussion / proposed (not settled)
 
 These appear in the CHAOSS list as open discussions or proposals rather than adopted policies, scored tentatively against whatever direction the thread indicates, and kept separate from the settled policies above.
