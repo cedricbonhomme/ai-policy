@@ -1,6 +1,22 @@
 # `ai-policy`: coverage against real policies
 
-How well does the [`ai-policy` format](./README.md) capture real open-source AI-contribution policies? This tests it against the policies curated by the [CHAOSS AI-alignment working group](https://github.com/chaoss/wg-ai-alignment/tree/main/moderation) (the primary source list), plus a few beyond it. It is the **evidence base for the proposal**: if the format can express the real spread of policies, its shape is validated. A second question — whether those policies cover the ground they should — is scored separately in [Specificity](#specificity-against-the-chaoss-domain-taxonomy) against the working group's own domain taxonomy.
+This survey tests the [`ai-policy` format](./README.md) against real open-source AI-contribution policies: those curated by the [CHAOSS AI-alignment working group](https://github.com/chaoss/wg-ai-alignment/tree/main/moderation), a few beyond that list, the ready-made templates of ai-policy.dev, and the labelled corpus of a larger published study. It is the evidence that the format's shape is right, and a separate part, [Specificity](#specificity-against-the-chaoss-domain-taxonomy), asks whether the policies themselves cover the ground they should, scored against the working group's own domain taxonomy. It is written for people judging the format and for anyone adding a policy; entries describe their sources as of the last audit, and the survey grows by pull request.
+
+## At a glance
+
+| Section | What it shows |
+|---|---|
+| [Summary](#summary) | One row per settled policy: how strict it is and how well the format expresses it. Nearly all rate Good: the stance and main limits fit the file, and the remaining detail stays in the project's prose policy |
+| [Cross-cutting findings](#cross-cutting-findings) | The format expresses the stance and main limits of every settled policy; Rust's cap on the share of AI-written merges and Fedora's ban on AI in governance decisions fall outside it, the second on purpose. Disclosure trailers converge on `Assisted-by:` and `Generated-by:`, and the most common rule is that people write their own comments, issues and pull-request text, with translation exempt |
+| [Specificity](#specificity-against-the-chaoss-domain-taxonomy) | Policies often give environmental or infrastructure reasons without making a rule of them; the `concerns` field records the reasons beside the rules. Meeting bots, server load and training on hosted code are for forges and hosts to govern, and a project policy is the wrong place for them |
+| [The larger corpus](#a-larger-corpus-popular-projects) | Of the study's 281 policies, 280 give a valid file and 247 are expressed completely. Half the dedicated policy files it tracked have been revised at least once, so a consumer reads the current file each time |
+| [Policies not yet settled](#policies-under-discussion-or-proposed) | Proposals and open discussions are scored separately; QGIS is the reason the format has `undecided`, and Kubernetes the reason for `summary: neutral` |
+| [Template policies](#template-policies) | Every ai-policy.dev preset can be written as a file and is in [`examples/`](./examples/); refusing AI contributions while allowing AI for research and debugging is a common pattern with no preset, covered by `research-only.yaml` |
+| [Add a policy](#add-a-policy-prs-welcome) | Anyone can add a policy by pull request; one the format cannot express is the most useful addition |
+
+> *Reference below: complete rather than readable end to end. Follow links into it, or give this file to an AI assistant and ask your question; the linked section remains the authority.*
+
+## Status
 
 > **Last audited against live sources: 16 September 2026.** Policies move, and a survey of them goes stale in specific ways rather than uniformly: in this pass Godot had replaced a permissive licence-gated policy with a near-ban, Flathub had grown contributor-facing rules where it previously had none, Astropy and SunPy had both added disclosure requirements they did not have, the Linux Kernel had split its policy in two and dropped model identity from its trailer, and Fedora's adopted contribution policy turned out to have been in force for eleven months, while this survey was scoring a different, broader draft. Entries carry their own dates where a change is load-bearing; anything undated should be read as of this audit.
 
@@ -414,14 +430,14 @@ What remains outside the format: *medium* human involvement, meaning prompting o
 
 The paper also tracked the 92 dedicated policy files (`AI_POLICY.md` and similar) among the 10,000 most-starred repositories. Eight were created in 2025 and the rest in 2026. Half have been revised at least once, and the ones revised grow longer. Of their 196 commits, 31 state a reason, which the paper groups as tightening quality controls, clarifying disclosure, enforcing human accountability, making the policy more visible, restricting AI use, and widening its scope. Several reasons bear on this format:
 
-- **Visibility is a reason to change a policy.** Commits move a policy into `AI_POLICY.md`, add it at the repository root, or link an organisation-wide `LLM_POLICY`. Projects are converging on a predictable location without being told to, which supports [placement at the root](./README.md#placement). The organisation-wide link is the open *Organisation-level policy* question in the [README](./README.md#open-questions-named).
+- **Visibility is a reason to change a policy.** Commits move a policy into `AI_POLICY.md`, add it at the repository root, or link an organisation-wide `LLM_POLICY`. Projects are converging on a predictable location without being told to, which supports [placement at the root](./README.md#placement). The organisation-wide link is the open *Organisation-level policy* question in the [README](./README.md#open-questions).
 - **Scope grows into review.** Two commits add a policy for AI-generated reviews, which is independent evidence for keeping `review` as its own field rather than a `scope` value.
 - **Rules attach to issue labels.** Rust and rust-analyzer [disallow AI for issues labelled `E-easy` and `E-has-instructions`](https://github.com/rust-lang/rust/commit/501d2b6d3a65a6c686f097c079284633edf3a8df), which keeps the issues written up for learners for human contributors. This is close to the newcomer-ticket rule `newContributors` carries, but keyed to the issue's labels rather than to the contributor, and a label set is project-specific, so it stays in `notes`.
 - **Policies loosen as well as tighten.** NetBox [removed its prohibition on AI-generated pull requests](https://github.com/netbox-community/netbox/commit/088de70b1087fd4c0a181d5792ed090bea41955a) and moved its guidance into `AGENTS.md`. The paper's earlier study of 118 policies found 78% permissive and this one 83.3%, so the general direction is not towards restriction either.
 
 Because policies change this often, a consumer has to read the current file each time rather than cache a verdict, and an aggregator gets the history from version control. Neither needs a revision-date field.
 
-## Under discussion / proposed (not settled)
+## Policies under discussion or proposed
 
 These appear in the CHAOSS list as open discussions or proposals rather than adopted policies, scored tentatively against whatever direction the thread indicates, and kept separate from the settled policies above.
 
@@ -452,7 +468,7 @@ Nothing is now carried as partially captured: Godot, GDAL and Polars have all be
 
 *AI Disallowed*'s revision exercises a distinction the format already draws but no example used: an explicitly empty `allowedUses` says no use is exempt, where an absent one leaves the question to the stance. It is the deliberate opposite of the research-only pattern below.
 
-The site's own rule vocabulary is a list of neutral rule names that each preset sorts into permits, requires and forbids, without scopes, and it stays on the website: the frontmatter carrying it is stripped when a policy is copied. That makes it a useful cross-check on this format's field set rather than a competing format. Every one of its rules maps onto a field here except `guidelines`, which is not AI-specific; `private-use`, which is the non-inquiry promise above; and `ai-coauthor`, the ban on crediting an AI as an author. That last one now appears in both *Human Copyright* and attrs, each naming `Co-authored-by:`, which is how a `notes` sentence becomes a candidate for a field. Whether a declaration should name the template its prose came from is the open *Template provenance* question in the [README](./README.md#open-questions-named).
+The site's own rule vocabulary is a list of neutral rule names that each preset sorts into permits, requires and forbids, without scopes, and it stays on the website: the frontmatter carrying it is stripped when a policy is copied. That makes it a useful cross-check on this format's field set rather than a competing format. Every one of its rules maps onto a field here except `guidelines`, which is not AI-specific; `private-use`, which is the non-inquiry promise above; and `ai-coauthor`, the ban on crediting an AI as an author. That last one now appears in both *Human Copyright* and attrs, each naming `Co-authored-by:`, which is how a `notes` sentence becomes a candidate for a field. Whether a declaration should name the template its prose came from is the open *Template provenance* question in the [README](./README.md#open-questions).
 
 ### How much of the corpus the presets cover
 
