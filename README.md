@@ -1,33 +1,47 @@
 # `ai-policy`: machine-readable rules of engagement for AI contributions
 
-**One line:** a small, conventional repo file (`ai-policy.yaml`) that an autonomous coding agent (or a CI check, or an aggregator) can read *before opening a pull request*, to learn what a project actually permits. The structured layer between `AGENTS.md` prose and the agent acting.
+`ai-policy.yaml` is a small file a project keeps in its repository to declare what it permits in AI-assisted contributions: whether AI-generated work is accepted, whether its use must be disclosed, whether an autonomous agent may open a pull request, and what AI may do in review. Coding agents, CI checks and aggregators read it before they act, so they follow the project's own rules instead of their tools' defaults; maintainers use it to work through their policy one question at a time and to show contributors where the project stands. The file states the broad shape of a policy and points at the project's prose policy for the detail. This README is the format's specification, written for maintainers, builders of agent tooling and researchers of AI policies; the format is an early proposal whose design is not settled.
 
-**Two audiences, one file:** an *agent* consumes it to act correctly; the *humans* use it to structure the policy debate and to set expectations with contributors.
+## At a glance
 
-Underneath both is **agency**: a project owns its contribution norms, and this makes that ownership machine-legible, so tools and agents respect a project's boundaries on its own terms instead of overriding them with their own defaults.
+| Item | What it means for you |
+|---|---|
+| [Why the file is needed](#projects-publish-ai-policies-only-as-prose-in-no-fixed-place) | Projects publish AI policies only as prose, in many different places, so an agent or a CI check has nothing it can read |
+| [What the file declares](#the-format-in-brief) | Whether AI-generated work is accepted for each kind of content, whether use must be disclosed, whether agents may submit, what AI may do in review and what applies to new contributors; every field is optional |
+| [Who reads it: agents](#coding-agents-read-the-file-before-opening-a-pull-request) | A coding agent checks the file before opening a pull request, the way a crawler checks `robots.txt` |
+| [Who reads it: people](#how-the-file-helps-maintainers-and-contributors) | Maintainers settle their policy one question at a time; contributors see what is allowed before they put in the work |
+| [Where it goes](#placement) | `ai-policy.yaml` at the repository root; a repository without the file has declared no policy |
+| [How to write one](./writing-a-policy.md) | Copy a preset if you know where you stand, or work through the decisions in order; open questions can stay open |
+| [Example and schema](./ai-policy.example.yaml) | Every field with a comment explaining it; [`ai-policy.schema.yaml`](./ai-policy.schema.yaml) checks a file's shape |
+| [How a consumer applies it](#resolution) | Rules are worked out per kind of content; agent autonomy, prior agreement and review apply alongside the stance and must all be met |
+| [Design principles](#design-principles) | The file gives the broad shape and the prose holds the detail; a new field is added only when a rule recurs across projects or an agent must act on it before submitting |
+| [Evidence](./coverage.md) | Every settled policy surveyed fits the format at the level of its stance and main limits |
+| [Feedback wanted](#questions-for-agent-tooling-builders) | Whether this shape suits agents, whether agent tooling would read the file, and what the smallest working reader would be |
+| [Open questions](#open-questions) | What is still undecided in the format and its fields, and the decisions that new evidence would reopen |
+| Slide decks: [for the ecosystem](https://open-source-ecosystem.codeberg.page/ai-policy/ecosystem/) and [for maintainers](https://open-source-ecosystem.codeberg.page/ai-policy/maintainers/) | The same argument as a talk, and how to write a policy file, each linking into this README |
 
-It's a **signal** that boundaries exist and their broad shape, not an exhaustive rule engine. The detail stays in a human-readable policy the file points at (`statement`); an `exceptions: true` flag marks where the structure is a simplification.
+> *Reference below: complete rather than readable end to end. Follow links into it, or give this file to an AI assistant and ask your question; the linked section remains the authority.*
 
-→ **[`ai-policy.example.yaml`](./ai-policy.example.yaml)** is the concrete artifact: a fully-commented example.
+## Status
 
-> **Status:** early proposal, design not settled; a *convention to prove out through adoption*, not a standard to ratify. The [open questions](#open-questions-named) are load-bearing.
+**Status:** early proposal, design not settled. The format is meant to prove itself through adoption by projects rather than through a standards body, and the answers to the [open questions](#open-questions) will change its fields.
 
-## The gap
+## Projects publish AI policies only as prose, in no fixed place
 
 Projects increasingly publish an AI-contribution policy, but only in prose, and in no consistent place: a `CONTRIBUTING.md` section, an `AI_POLICY.md`, a `CODE_OF_CONDUCT.md`, a devguide or docs page, a wiki, an `AGENTS.md`, a `README`, even a legal page or an RFD (the [coverage survey](./coverage.md) found all of these). So an agent about to contribute, a CI check, or an aggregator has nothing machine-readable to consult; it guesses, or scrapes prose. A survey of real policies (the [CHAOSS AI-alignment moderation list](https://github.com/chaoss/wg-ai-alignment/tree/main/moderation)), analysed field-by-field in **[`coverage.md`](./coverage.md)**, shows a consistent set of dimensions beneath the surface variety, and *every one maps onto this format*. That coverage is the evidence its shape is right.
 
 The pressure behind those policies is now recognised in policy as well as in projects. The European Commission's Open Source Observatory reports maintainers' concern that the volume of AI-generated contributions affects code quality and their capacity to review and validate changes at scale, and counts the resulting demand on maintainer capacity among the reasons open source funding remains unresolved ([OSOR, *Progress and Trends in the National Open Source Policies and Legal Frameworks*, 2026](https://interoperable-europe.ec.europa.eu/sites/default/files/custom-page/attachment/2026-10/osor-paper-on-progress-and-trends-2026.pdf)). A published policy is the cheapest lever a project has on that volume, and only a machine-readable one reaches the agents producing it. The lever has a measured effect: across 385 projects that adopted an AI policy, adoption was associated with more AI disclosure, more maintainer engagement and richer review interactions ([Chen, Zimmermann and Trinkenreich, 2026](https://arxiv.org/abs/2608.03329)).
 
-## Why this is an agent-tooling problem (the consumer story)
+## Coding agents read the file before opening a pull request
 
 `ai-policy.yaml` only matters if something *reads* it, and the natural readers are coding agents:
 
 - **A pre-flight check.** Before an agent opens a PR it reads the file the way a crawler reads `robots.txt`, except this declares *stance, disclosure, and agent-identity rules*, not crawl permissions. "May I contribute generated code here? Must I disclose it? May an autonomous agent open this PR at all?"
 - **A ready integration.** The reference consumer could be an **MCP server** that serves a repo's `ai-policy.yaml` and validates a proposed change against it, so any MCP-speaking agent gets the policy without bespoke parsing. That turns "needs adoption" into "here's the integration."
 - **Where agents already look.** It sits beside `AGENTS.md` / `CLAUDE.md` (which point to it), the same place agent instructions already live.
-- **A sanctioned-workflow library is the other half, and one now exists.** Fedora's AI/ML SIG publishes a [skills library](https://forge.fedoraproject.org/ai-ml/skills-library) (CC BY-SA 4.0) in the [Agent Skills](https://agentskills.io/specification) open format: one directory per skill, each with a `SKILL.md` carrying YAML frontmatter and instructions. Its current skills automate compose triage, FTBFS bug search, meeting-log summarisation and Packit onboarding. A project that publishes approved agent workflows has answered in executable form part of what this file declares in prose, and "these workflows are sanctioned here" is a more useful thing to hand an agent than a restatement of the rules. Which field should point at it is [an open question](#open-questions-named).
+- **A sanctioned-workflow library is the other half, and one now exists.** Fedora's AI/ML SIG publishes a [skills library](https://forge.fedoraproject.org/ai-ml/skills-library) (CC BY-SA 4.0) in the [Agent Skills](https://agentskills.io/specification) open format: one directory per skill, each with a `SKILL.md` carrying YAML frontmatter and instructions. Its current skills automate compose triage, FTBFS bug search, meeting-log summarisation and Packit onboarding. A project that publishes approved agent workflows has answered in executable form part of what this file declares in prose, and "these workflows are sanctioned here" is a more useful thing to hand an agent than a restatement of the rules. Which field should point at it is [an open question](#open-questions).
 
-## Also a tool for the humans
+## How the file helps maintainers and contributors
 
 The same structure earns its keep before any agent reads it:
 
@@ -40,7 +54,7 @@ The same structure earns its keep before any agent reads it:
 
 Discovery, in order of preference: `ai-policy.yaml` or `ai-policy.yml` at the repository root; a peer record that points at it (for example a `publiccode.yml` `externalMetadata` entry); `.well-known/ai-policy.yaml` or `.well-known/ai-policy.yml`. Absence of the file is itself a signal: *no declared policy*, distinct from a declared permissive one and from `summary: neutral`, which declares that the project considered AI and decided it needs no rule of its own.
 
-### What this format does not govern
+## What this format does not govern
 
 `ai-policy.yaml` declares **what a project asks of a contribution**: what may be offered, and how the project handles what is offered. `scope` is a content type because the subject is a contribution; the primary consumer is something about to open a pull request, and the `review` fields tell it what becomes of the change once it does. Three neighbouring kinds of rule turn up in real policies and are deliberately out of scope, because none of them concerns a contribution's lifecycle:
 
@@ -61,9 +75,9 @@ The design rules below serve these aims, and are judged by them:
 
 Coverage, surfacing the questions and research all pull towards more structure, and so against easy adoption, since every field added is one more question for an adopter. Presets, `undecided` and the `notes`-first route are how the format keeps both.
 
-## How it's designed: a signal, not a rule engine
+## Design principles
 
-- **Structure only what recurs, or what a consumer must act on before submitting; point at prose for the rest.** `statement` holds the authoritative policy; `exceptions: true` says "this is a summary." Recurrence is the usual route into structure, through `notes` (below). The second route is narrower and exists because the primary consumer acts before anyone can correct it: a value earns an enum on first sight when a consumer holding only the file and the contribution must branch on it before submitting, the same test that settles [numeric thresholds](#open-questions-named). `disclosure: prohibited` entered this way, since an agent that adds a disclosure trailer by habit breaks the policy with every commit, and so did the `reproduced` requirement, which a submitter can check and no reviewer can repair afterwards.
+- **Structure only what recurs, or what a consumer must act on before submitting; point at prose for the rest.** `statement` holds the authoritative policy; `exceptions: true` says "this is a summary." Recurrence is the usual route into structure, through `notes` (below). The second route is narrower and exists because the primary consumer acts before anyone can correct it: a value earns an enum on first sight when a consumer holding only the file and the contribution must branch on it before submitting, the same test that settles [numeric thresholds](#open-questions). `disclosure: prohibited` entered this way, since an agent that adds a disclosure trailer by habit breaks the policy with every commit, and so did the `reproduced` requirement, which a submitter can check and no reviewer can repair afterwards.
 - **Declare, don't adjudicate.** Fields state intent; verification (tests, review, the human `signoff`) and the fact of LLM authorship (undetectable in general) stay outside the file. Declared identity (`attestation`) is the tractable lever, not detection.
 - **Resolution is per-`scope`** (a contribution's content type); `actorExceptions` is a *signal*, not a resolution layer. Full rules below in [Resolution](#resolution).
 - **Development-time, not runtime.** `models` is the AI used to *build* the project, not AI the product ships.
@@ -113,9 +127,9 @@ A consumer resolves the effective policy for a contribution by its **`scope`** (
 
 `defaults` and each `assertions[]` entry share one field-set (`stance`, `disclosure`, `humanReview`, `requirements`), defined once in the [schema](./ai-policy.schema.yaml) as a reusable `$ref`, so "same fields" is a structural guarantee, not a prose claim. The layering above is defined by this spec and applied by the consumer (as a browser applies the CSS cascade); it is never encoded in an individual file.
 
-## The ask
+## Questions for agent-tooling builders
 
-Not "please ratify a standard." **Adoption first**, the [`FUNDING.yml`](#prior-art--related-work) model: a tiny file wins by having a *consumer*, not by being standardized. The questions that matter:
+Not "please ratify a standard." **Adoption first**, the [`FUNDING.yml`](#prior-art-related-work) model: a tiny file wins by having a *consumer*, not by being standardized. The questions that matter:
 
 1. Is this the right *shape* for an agent to consume?
 2. Would agent tooling actually read a conventional repo file like this, natively or via an MCP server?
@@ -128,11 +142,11 @@ Not "please ratify a standard." **Adoption first**, the [`FUNDING.yml`](#prior-a
 - **[ai-policy.dev](https://ai-policy.dev/)** is the prose layer this format points at: a small library of ready-made `AI_POLICY.md` texts (such as *AI Allowed*, *AI Disclosed*, *Human Voice* and *AI Disallowed*) that a project copies into its repository, in the manner of choosealicense.com. Each preset is tagged on the site with rule IDs marked as permits, requires or forbids, but that metadata is [stripped when the policy is copied](https://github.com/43081j/ai-policy/blob/main/policies/_template.md), so an adopting repository publishes nothing a consumer can read. The two compose rather than compete: a preset is a natural `statement` target, and every preset is expressible in this format: [`examples/`](./examples/) holds each one as an `ai-policy.yaml` to ship beside its Markdown, scored in [coverage](./coverage.md#template-policies).
 - **[AI Attribution format](https://aiattribution.github.io)** and **[CUSTODY](https://custody-framework.org)** are adjacent but distinct: attribution records *who or what produced* a work; CUSTODY *contains* autonomous agents at runtime. Neither expresses a *contribution policy* (the rules a project sets), but this format's disclosure and `attestation` facets can align with or reference them.
 - **["We Permit the Use of AI, but […]"](https://arxiv.org/abs/2609.07542)** (Hora, Robbes and Zacchiroli, 2026) is the largest study of these policies so far: 281 policies from GitHub's most-starred projects, coded along six dimensions, with the [labelled corpus](https://doi.org/10.5281/zenodo.22212208) published under CC BY 4.0. It proposes no format, but its dimensions map onto this one's fields, and its counts settled two of its design questions, what a disclosure must state and the split between involvement and accountability. Its authors name the gap this format addresses: tool and platform builders have "no disclosure convention to target". [`coverage.md`](./coverage.md#a-larger-corpus-popular-projects) maps it field by field, including how the dedicated policy files it tracked have changed.
-- **["To Ban or not to Ban?"](https://arxiv.org/abs/2603.26487)** (Yang, He and Zhou, 2026) studies how 67 highly visible projects govern generative-AI contributions, and argues that governance must cover accountability, verification, review capacity, code provenance and platform infrastructure. The first four have fields here: `accountability`; `humanReview` and `requirements` for verification; `priorArrangement`, `newContributors` and `enforcement` for review capacity; and the `provenance-attested` requirement and `ip-provenance` concern for code provenance. Platform infrastructure is the [forge-level record](#open-questions-named) this format leaves open.
+- **["To Ban or not to Ban?"](https://arxiv.org/abs/2603.26487)** (Yang, He and Zhou, 2026) studies how 67 highly visible projects govern generative-AI contributions, and argues that governance must cover accountability, verification, review capacity, code provenance and platform infrastructure. The first four have fields here: `accountability`; `humanReview` and `requirements` for verification; `priorArrangement`, `newContributors` and `enforcement` for review capacity; and the `provenance-attested` requirement and `ip-provenance` concern for code provenance. Platform infrastructure is the [forge-level record](#open-questions) this format leaves open.
 - **["Making AI Visible, Not Vanished"](https://arxiv.org/abs/2608.03329)** (Chen, Zimmermann and Trinkenreich, 2026) finds 385 projects with AI policies among 29,624 repositories, describes them along five dimensions (transparency, responsibility, attribution, constraints, enforcement), and is the first study to measure what adopting a policy does. It finds that AI governance "primarily regulates rather than prohibits AI-assisted development", and that policies stressing transparency and responsibility do better than restriction alone. That is evidence for the format's premise: disclosure and responsibility rules, which most policies centre on, are worth making machine-readable.
 - **[IETF machine-readability draft](https://datatracker.ietf.org/doc/draft-vaughan-machine-readability/)** is a rubric (parseable / interpretable / discoverable / actionable / verifiable) this format is evaluated against in **[`machine-readability.md`](./machine-readability.md)** (parseable, discoverable, actionable today; interpretability the open gap).
 
-## Open questions (named)
+## Open questions
 
 Format & tooling:
 
