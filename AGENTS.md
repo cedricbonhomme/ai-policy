@@ -16,5 +16,6 @@ This file deliberately does not restate those values. A project that publishes a
 ## Conventions
 
 - **Prose is not hard-wrapped.** One paragraph is one line.
-- **Structure only what recurs.** Nuance belongs in a `notes` string rather than a new enum; collecting `notes` across adopters is how the next field gets chosen. See the [design principles](./README.md#how-its-designed-a-signal-not-a-rule-engine).
+- **Structure only what recurs.** Nuance belongs in a `notes` string rather than a new enum; collecting `notes` across adopters is how the next field gets chosen. See the [design principles](./README.md#design-principles).
 - **Named, not numbered.** Referenceable list items carry titles, so references survive reordering.
+- **Read layer above, reference layer below.** A document's plain opening paragraph and `## At a glance` table state its conclusions for readers who stop there and add no detail of their own. The line *"Reference below: complete rather than readable end to end. …"* marks where the reference part begins; status notes follow it in a `## Status` section, and new detail goes below it. [`writing-a-policy.md`](./writing-a-policy.md) is a guide read end to end and has no such split.
