@@ -1,13 +1,13 @@
 ## A signal, not a rule engine
 
-- **[Structure only what recurs](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#how-it-s-designed-a-signal-not-a-rule-engine)**; point at prose
+- **[Structure only what recurs](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#design-principles)**; point at prose
 - **Declare, don't adjudicate**: intent, not detection
 - **Stance is permission**, not preference
 - **Agent autonomy** is a separate axis
 
 **The file says that boundaries exist and their shape.<br />The detail stays in the human policy it points at.**
 
-[↳ README: how it's designed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#how-it-s-designed-a-signal-not-a-rule-engine)
+[↳ README: how it's designed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#design-principles)
 
 Note:
 
@@ -36,7 +36,7 @@ Note:
 
 **Structure the corpus asked for,<br />not structure guessed from one policy.**
 
-[↳ README: how it's designed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#how-it-s-designed-a-signal-not-a-rule-engine)
+[↳ README: how it's designed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#design-principles)
 
 Note:
 
@@ -60,7 +60,7 @@ Note:
 
 **A threshold earns a field only if a consumer<br />can evaluate it before submitting.**
 
-[↳ README: open questions (numeric thresholds)](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions-named)
+[↳ README: open questions (numeric thresholds)](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions)
 
 Note:
 

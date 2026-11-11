@@ -35,7 +35,7 @@ Note:
 
 **Whether this project should specify it,<br />or only name the gap, is open.**
 
-[↳ README: open questions (a forge-level record)](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions-named)
+[↳ README: open questions (a forge-level record)](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions)
 
 Note:
 

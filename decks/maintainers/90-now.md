@@ -7,7 +7,7 @@
 
 **Adoption first: a tiny file wins<br />by having a consumer, not by being standardized.**
 
-[↳ README: the ask](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#the-ask)
+[↳ README: the ask](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#questions-for-agent-tooling-builders)
 
 Note:
 
@@ -36,7 +36,7 @@ Note:
 
 **The open questions are load-bearing.**
 
-[↳ README: open questions (named)](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions-named)
+[↳ README: open questions (named)](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions)
 
 Note:
 

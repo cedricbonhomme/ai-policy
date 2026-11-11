@@ -1,13 +1,13 @@
 ## The gap
 
-- Projects publish [AI-contribution policies](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#the-gap)
+- Projects publish [AI-contribution policies](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#projects-publish-ai-policies-only-as-prose-in-no-fixed-place)
 - Only in prose, and in no consistent place
 - A coding agent about to contribute cannot read them
 - It guesses, or scrapes prose
 
 **The rules exist. Nothing a machine<br />can consult says what they are.**
 
-[↳ README: the gap](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#the-gap)
+[↳ README: the gap](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#projects-publish-ai-policies-only-as-prose-in-no-fixed-place)
 
 Note:
 
@@ -36,7 +36,7 @@ Note:
 
 **Each is a sensible home for prose.<br />None is where a tool would know to look.**
 
-[↳ README: the gap](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#the-gap)
+[↳ README: the gap](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#projects-publish-ai-policies-only-as-prose-in-no-fixed-place)
 
 Note:
 

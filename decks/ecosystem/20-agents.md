@@ -1,13 +1,13 @@
 ## An agent-tooling problem
 
-- A [pre-flight check](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#why-this-is-an-agent-tooling-problem-the-consumer-story) before opening a PR
+- A [pre-flight check](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#coding-agents-read-the-file-before-opening-a-pull-request) before opening a PR
 - Read the way a crawler reads `robots.txt`
 - Beside `AGENTS.md`, where agents already look
 - An MCP server could serve and check it
 
 **May I contribute generated code here?<br />Must I disclose it? May an agent open this PR?**
 
-[↳ README: why this is an agent-tooling problem](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#why-this-is-an-agent-tooling-problem-the-consumer-story)
+[↳ README: why this is an agent-tooling problem](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#coding-agents-read-the-file-before-opening-a-pull-request)
 
 Note:
 
@@ -33,7 +33,7 @@ Note:
 - Fedora's AI/ML SIG publishes a [skills library](https://forge.fedoraproject.org/ai-ml/skills-library)
 - Approved agent workflows, in the Agent Skills format
 - Answers part of the policy in executable form
-- Which field points at it is [open](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions-named)
+- Which field points at it is [open](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions)
 
 **"These workflows are sanctioned here"<br />is more useful than a restatement of the rules.**
 

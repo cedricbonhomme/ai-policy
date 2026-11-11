@@ -1,13 +1,13 @@
 ## One file, read before the pull request
 
 - A small YAML file in your repository
-- Says what your project [permits for AI contributions](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#the-gap)
-- Read by [coding agents](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#why-this-is-an-agent-tooling-problem-the-consumer-story), CI checks, aggregators
-- And by people, [before they invest effort](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#also-a-tool-for-the-humans)
+- Says what your project [permits for AI contributions](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#projects-publish-ai-policies-only-as-prose-in-no-fixed-place)
+- Read by [coding agents](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#coding-agents-read-the-file-before-opening-a-pull-request), CI checks, aggregators
+- And by people, [before they invest effort](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#how-the-file-helps-maintainers-and-contributors)
 
 **A signal that boundaries exist and their shape,<br />not an exhaustive rule engine.**
 
-[↳ README: the gap](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#the-gap)
+[↳ README: the gap](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#projects-publish-ai-policies-only-as-prose-in-no-fixed-place)
 
 Note:
 
@@ -40,7 +40,7 @@ Note:
 
 **The file summarises the policy;<br />the prose it points at decides.**
 
-[↳ README: how it's designed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#how-it-s-designed-a-signal-not-a-rule-engine)
+[↳ README: how it's designed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#design-principles)
 
 Note:
 

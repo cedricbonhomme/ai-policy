@@ -37,7 +37,7 @@ Note:
 
 **Partial adoption is honest,<br />and the open questions stay on the agenda.**
 
-[↳ Coverage: under discussion / proposed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/coverage.md#under-discussion-proposed-not-settled)
+[↳ Coverage: under discussion / proposed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/coverage.md#policies-under-discussion-or-proposed)
 
 Note:
 

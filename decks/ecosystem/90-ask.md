@@ -1,13 +1,13 @@
 ## The ask: adoption first
 
-- **[Shape](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#the-ask)**: right for an agent to consume?
+- **[Shape](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#questions-for-agent-tooling-builders)**: right for an agent to consume?
 - **Reading**: would agent tooling read a repo file?
 - **Smallest consumer**: what would prove it?
 - The `FUNDING.yml` model: won by a consumer
 
 **Not "please ratify a standard":<br />a tiny file wins by having something that reads it.**
 
-[↳ README: the ask](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#the-ask)
+[↳ README: the ask](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#questions-for-agent-tooling-builders)
 
 Note:
 
@@ -33,9 +33,9 @@ Note:
 | --- | --- |
 | **Maintainers** | a [preset](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/writing-a-policy.md#if-you-already-know-where-you-stand) beside your prose policy |
 | **Everyone** | [add a policy](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/coverage.md#add-a-policy-prs-welcome) the format can't capture |
-| **Tool builders** | the [smallest consumer](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions-named) |
-| **Forges** | the open [forge-level record](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions-named) |
-| **Foundations** | [shared vocabulary, template provenance](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions-named) |
+| **Tool builders** | the [smallest consumer](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions) |
+| **Forges** | the open [forge-level record](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions) |
+| **Foundations** | [shared vocabulary, template provenance](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions) |
 
 **A policy the format cannot capture<br />is the most valuable contribution.**
 

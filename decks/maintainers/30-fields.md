@@ -48,7 +48,7 @@ Note:
 
 **Stance is permission, not preference.**
 
-[↳ README: how it's designed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#how-it-s-designed-a-signal-not-a-rule-engine)
+[↳ README: how it's designed](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#design-principles)
 
 Note:
 

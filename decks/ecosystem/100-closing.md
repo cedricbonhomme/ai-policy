@@ -28,16 +28,16 @@ Note:
 
 | Document | Read it if |
 | --- | --- |
-| [README](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#how-it-s-designed-a-signal-not-a-rule-engine) | you want the argument; start here |
+| [README](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#design-principles) | you want the argument; start here |
 | [Coverage](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/coverage.md#cross-cutting-findings) | you want the evidence from real policies |
 | [Writing a policy](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/writing-a-policy.md#if-you-already-know-where-you-stand) | your project is about to adopt one |
 | [Machine-readability](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/machine-readability.md) | you would build a consumer |
 | [Corpus mapping](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/research/hora-2026/README.md) | you study policies as data |
-| [Open questions](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions-named) | you want to shape what comes next |
+| [Open questions](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#open-questions) | you want to shape what comes next |
 
 **A signal, not a rule engine.**
 
-[↳ README: the ask](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#the-ask)
+[↳ README: the ask](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#questions-for-agent-tooling-builders)
 
 Note:
 

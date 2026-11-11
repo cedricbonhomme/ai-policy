@@ -7,7 +7,7 @@
 
 **"Should we allow AI?" goes in circles.<br />An agenda of smaller questions does not.**
 
-[↳ README: also a tool for the humans](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#also-a-tool-for-the-humans)
+[↳ README: also a tool for the humans](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#how-the-file-helps-maintainers-and-contributors)
 
 Note:
 
@@ -35,7 +35,7 @@ Note:
 
 **A declaration format only makes sense under alignment:<br />where the answer is fixed, there is nothing to declare.**
 
-[↳ README: also a tool for the humans](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#also-a-tool-for-the-humans)
+[↳ README: also a tool for the humans](https://codeberg.org/open-source-ecosystem/ai-policy/src/branch/main/README.md#how-the-file-helps-maintainers-and-contributors)
 
 Note:
 
