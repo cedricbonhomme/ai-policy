@@ -53,6 +53,8 @@ The same structure earns its keep before any agent reads it:
 
 `ai-policy.yaml` or `ai-policy.yml`, in the project's version control, normally at the repository root. Both extensions are accepted; the YAML project [recommends `.yaml`](https://web.archive.org/web/20241221084524/https://yaml.org/faq.html) where possible. If both files exist, `ai-policy.yaml` wins, and a consumer warns unless the two are byte-identical or one is a symbolic link to the other: two policy files that could disagree are exactly the ambiguity this format exists to remove. Its primary subject is **code**, but the `scope` vocabulary spans docs, translations, media, and discussion, so it applies to any contribution type.
 
+A policy file uses only plain YAML, so that a small reader can parse it without a full YAML library: mappings and lists, in block form or in brackets, strings, numbers, `true`, `false`, `null`, comments, and blocks of text introduced by `|` or `>`; no anchors, aliases, tags, merge keys, several documents in one file, or other values spread over several lines.
+
 Discovery, in order of preference: `ai-policy.yaml` or `ai-policy.yml` at the repository root; a peer record that points at it (for example a `publiccode.yml` `externalMetadata` entry); `.well-known/ai-policy.yaml` or `.well-known/ai-policy.yml`. Absence of the file is itself a signal: *no declared policy*, distinct from a declared permissive one and from `summary: neutral`, which declares that the project considered AI and decided it needs no rule of its own.
 
 ## What this format does not govern
