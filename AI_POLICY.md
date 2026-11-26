@@ -16,7 +16,9 @@ Responsibility is two-sided. The contributor who submits a change vouches for it
 
 Note AI involvement where it is material — in the pull request description, the commit message, or wherever authorship is normally indicated. It is encouraged, not required, and nothing is gated on it: a change is not rejected for lacking a note, and a disclosed change gets no lesser review. The point is to help a reviewer calibrate, not to track provenance, and certainly not to sort contributors into categories, which the clause above rules out.
 
-This is `disclosure: encouraged` in [`ai-policy.yaml`](./ai-policy.yaml).
+When you note it in a commit, end the commit message with a `Co-Authored-By` trailer naming the model and its version, for example `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. A tool can then read it, as [Say which AI](https://www.saywhichai.org) does. This format applies since 26 November 2026, when this repository was taken over; it is still encouraged, not required.
+
+This is `disclosure: encouraged` and `disclosureFormat` in [`ai-policy.yaml`](./ai-policy.yaml).
 
 ## No sign-off ceremony
 

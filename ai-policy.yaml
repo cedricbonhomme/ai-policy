@@ -14,6 +14,11 @@ exceptions: true
 
 status: adopted
 
+# The day this repository was taken over from open-source-ecosystem/ai-policy,
+# and the disclosure format below was added. Commits before it were made under
+# the same rules without a stated format.
+since: "2026-11-26"
+
 # Questions this repository has not settled yet. `models` carries an interim
 # rule below (any model, for now). `allowedUses` is not listed: with a
 # `generated` stance there is nothing for it to exempt.
@@ -40,6 +45,15 @@ defaults:
 
 # AI_POLICY.md: "AI can help write a change; it cannot own the decision to
 # propose one or the decision to accept it." Those are two separate fields.
+# How to note AI involvement, when you do: a Co-Authored-By trailer at the end
+# of the commit message, naming the model and its version.
+disclosureFormat:
+  method: [commit-trailer]
+  trailer: "Co-Authored-By:"
+  content: [model]
+  notes: >-
+    For example: Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
 autonomousAgents:
   allowed: false          # an agent may not propose a change on its own
 
