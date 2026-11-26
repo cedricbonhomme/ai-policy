@@ -10,7 +10,7 @@ This file deliberately does not restate those values. A project that publishes a
 
 - **Every URL you add or change has been fetched.** Policies move and get rewritten. A dead link is the obvious failure; a live link whose text no longer says what the sentence claims is the common one.
 - **Quotations are verbatim.** Anything inside quotation marks matches the source character for character. Paraphrase freely — but not inside quotation marks, and not while naming the source.
-- **Schema changes validate across all three files.** `ai-policy.schema.yaml`, `ai-policy.example.yaml`, `ai-policy.yaml` and the files in `examples/` move together; the top level uses `unevaluatedProperties: false`, so a field added to one and not the others fails. Enum values used in `coverage.md` mappings must exist in the schema.
+- **Schema changes validate across all three files.** `ai-policy.schema.yaml`, `ai-policy.example.yaml`, `ai-policy.yaml` and the files in `examples/` move together; the top level uses `unevaluatedProperties: false`, so a field added to one and not the others fails. `python tools/validate.py` checks every file against the schema and the YAML the README allows; it runs on every push. Enum values used in `coverage.md` mappings must exist in the schema.
 - **Claims about the corpus survive your change.** [`coverage.md`](./coverage.md) is full of counts, "the corpus's only", and "no policy in either survey does X". Adding or rescoring one policy can falsify a sentence three sections away, most often in the cross-cutting findings and the Specificity tables. Re-read those two sections after touching any entry.
 
 ## Conventions
