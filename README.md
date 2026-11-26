@@ -140,6 +140,8 @@ Not "please ratify a standard." **Adoption first**, the [`FUNDING.yml`](#prior-a
 2. Would agent tooling actually read a conventional repo file like this, natively or via an MCP server?
 3. What is the smallest consumer that would prove it?
 
+A first consumer exists, and it answers the third question only in part. [Say which AI](https://www.saywhichai.org) ([source](https://github.com/cedricbonhomme/SayWhichAI)), maintained by the maintainer of this repository, reads the `ai-policy.yaml` file of each project it follows and shows what the file states beside what the project's commits declare, with a badge a project can show in its README. It reads `version`, `summary`, `status`, `statement`, `exceptions`, `undecided`, `since`, the `stance`, `disclosure` and `humanReview` that apply to `code`, `autonomousAgents.allowed` and `disclosureFormat`, with a small reader of its own for the YAML this format allows, and reports a file it does not fully understand as unreadable. In November 2026 five of the repositories it follows carried the file. It reads a repository's history rather than a change about to be submitted, so it is an aggregator, not the pre-flight check an agent would run; that consumer is still missing.
+
 ## Prior art & related work
 
 - **`FUNDING.yml`** is the closest model: a tiny, single-purpose YAML file that reached wide adoption not by being standardized but by having a *consumer* (GitHub renders it as a Sponsor button). Judge `ai-policy.yaml` the same way.
@@ -155,7 +157,7 @@ Not "please ratify a standard." **Adoption first**, the [`FUNDING.yml`](#prior-a
 
 Format & tooling:
 
-- **Smallest consumer:** the reference reader/validator (a CLI, a CI action, or an MCP server) that would prove the format is worth adopting.
+- **Smallest consumer:** the reader an agent or a CI check would run before a change is submitted (a CLI, a CI action, or an MCP server), which would prove the format is worth adopting. An [aggregator that reads the file](#questions-for-agent-tooling-builders) exists; this reader does not yet.
 - **Interpretability `@context`:** the JSON Schema ([`ai-policy.schema.yaml`](./ai-policy.schema.yaml)) makes the format parseable and the stance field-set a shared `$ref`; the open gap ([machine-readability.md](./machine-readability.md)) is binding each enum to a shared, dereferenceable vocabulary (a JSON-LD `@context`) for full *interpretability*.
 - **Template provenance:** should a declaration say which published template its prose was adopted from, and at which version (for example an [ai-policy.dev](https://ai-policy.dev/) preset)? Copied policy text drifts from its source silently, as copied licence texts did before SPDX identifiers; a `basedOn` reference would let a consumer compare like with like and an aggregator count adoption per template. It needs a template publisher that versions its presets, which none yet does.
 - **Organisation-level policy:** can a repository inherit a policy its organisation publishes once? Projects already link an organisation-wide `LLM_POLICY` from each repository ([coverage](./coverage.md#a-larger-corpus-popular-projects)), and a forge-wide default repository (GitHub's `.github`) is the obvious home. Inheritance needs a precedence rule, repository over organisation per field or per file, and a consumer has to know it is reading an inherited policy rather than a missing one.
