@@ -18,7 +18,6 @@
 | [Evidence](./coverage.md) | Every settled policy surveyed fits the format at the level of its stance and main limits |
 | [Feedback wanted](#questions-for-agent-tooling-builders) | Whether this shape suits agents, whether agent tooling would read the file, and what the smallest working reader would be |
 | [Open questions](#open-questions) | What is still undecided in the format and its fields, and the decisions that new evidence would reopen |
-| Slide decks: [for the ecosystem](https://open-source-ecosystem.codeberg.page/ai-policy/ecosystem/) and [for maintainers](https://open-source-ecosystem.codeberg.page/ai-policy/maintainers/) | The same argument as a talk, and how to write a policy file, each linking into this README |
 
 > *Reference below: complete rather than readable end to end. Follow links into it, or give this file to an AI assistant and ask your question; the linked section remains the authority.*
 
