@@ -26,6 +26,14 @@ guardrailsRef: CONTRIBUTING.md#ai-checklist
 # Maturity of the policy itself. adopted | draft | under-discussion
 status: adopted
 
+# The date from which these rules apply, for a consumer that reads the history
+# of the repository: earlier contributions are not read against this file.
+# Useful when the rule is older than the file, for instance a CONTRIBUTING.md
+# section that asked for a trailer months before ai-policy.yaml was added.
+# Without it, a consumer may take the day the file was added. Quote it: some
+# YAML readers turn an unquoted date into a date object.
+since: "2026-01-19"
+
 # Questions not yet settled, as distinct from fields the file does not address.
 # A listed field that also carries a value states the rule in force meanwhile;
 # one without a value has no interim rule, and a consumer never reads it as

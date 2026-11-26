@@ -91,6 +91,17 @@ properties:
     type: string
   status:
     enum: [adopted, draft, under-discussion]
+  since:
+    description: >-
+      The date from which the rules of this file apply, as `YYYY-MM-DD`, for a
+      consumer that reads the history of a repository: a contribution made
+      before it is not read against the file. Without it, a consumer may take
+      the day the file was added; later changes to a rule are dated by the
+      history of the file. Written in quotes, because some YAML readers turn an
+      unquoted date into a date object. It accompanies the rules of the file
+      and does not count as a rule on its own.
+    type: string
+    pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
   undecided:
     description: >-
       Questions the project has considered and not yet settled, as distinct

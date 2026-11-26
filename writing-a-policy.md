@@ -120,6 +120,7 @@ These follow from decisions already made, and each can be skipped when the decis
 - **`guardrailsRef`:** where a contributor's practical checklist lives, if you have one separate from the policy.
 - **`exceptions: true`:** set it whenever the prose says something the fields do not. Any nuance you found no field for belongs here and in `notes`, not in a squeezed enum.
 - **`status`:** `adopted`, `draft` or `under-discussion`.
+- **`since`:** the date from which your rules apply, in quotes, such as `"2026-01-19"`. Set it when your rule is older than the file, for instance a `CONTRIBUTING.md` section that already asked for disclosure; leave it out if the rule starts with the file.
 - **`undecided`:** every question you could not settle yet; keep a value on any that has a rule in force meanwhile.
 - **`summary`:** optional, and derived from the stance rather than chosen: `disallowed` for a `disallowed` stance, `restrictive` for `assisted`, and for `generated` either `permissive` or, once you add an AI-specific condition (a scope held below `generated`, disclosure `required` or `prohibited`, a `requirements` gate, or a prior-arrangement gate), `mixed`. A project with no AI-specific rule at all uses `neutral` instead of a stance. If you set it, the schema checks that it matches.
 
