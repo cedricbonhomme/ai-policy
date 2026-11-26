@@ -2,6 +2,8 @@
 
 `ai-policy.yaml` is a small file a project keeps in its repository to declare what it permits in AI-assisted contributions: whether AI-generated work is accepted, whether its use must be disclosed, whether an autonomous agent may open a pull request, and what AI may do in review. Coding agents, CI checks and aggregators read it before they act, so they follow the project's own rules instead of their tools' defaults; maintainers use it to work through their policy one question at a time and to show contributors where the project stands. The file states the broad shape of a policy and points at the project's prose policy for the detail. This README is the format's specification, written for maintainers, builders of agent tooling and researchers of AI policies; the format is an early proposal whose design is not settled.
 
+[![AI use](https://www.saywhichai.org/badge/ai-policy.svg)](https://www.saywhichai.org/?project=ai-policy)
+
 ## At a glance
 
 | Item | What it means for you |
