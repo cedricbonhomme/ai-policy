@@ -25,6 +25,8 @@
 
 **Status:** early proposal, design not settled. The format is meant to prove itself through adoption by projects rather than through a standards body, and the answers to the [open questions](#open-questions) will change its fields.
 
+**Origin:** Lukas Kahwe Smith created the format, its survey of policies and its presets in [open-source-ecosystem/ai-policy](https://codeberg.org/open-source-ecosystem/ai-policy) on Codeberg. This repository continues that work since November 2026, with the full history of the original; its author remains a contributor and reviewer. The [discussion that led to the move](https://codeberg.org/open-source-ecosystem/ai-policy/issues/3) is on the original repository.
+
 ## Projects publish AI policies only as prose, in no fixed place
 
 Projects increasingly publish an AI-contribution policy, but only in prose, and in no consistent place: a `CONTRIBUTING.md` section, an `AI_POLICY.md`, a `CODE_OF_CONDUCT.md`, a devguide or docs page, a wiki, an `AGENTS.md`, a `README`, even a legal page or an RFD (the [coverage survey](./coverage.md) found all of these). So an agent about to contribute, a CI check, or an aggregator has nothing machine-readable to consult; it guesses, or scrapes prose. A survey of real policies (the [CHAOSS AI-alignment moderation list](https://github.com/chaoss/wg-ai-alignment/tree/main/moderation)), analysed field-by-field in **[`coverage.md`](./coverage.md)**, shows a consistent set of dimensions beneath the surface variety, and *every one maps onto this format*. That coverage is the evidence its shape is right.
